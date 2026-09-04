@@ -18,3 +18,6 @@ tts-director-demo-spec.md
 # OS 垃圾文件
 .DS_Store
 Thumbs.db
+
+# Claude Code 本地会话状态，不是项目内容
+.claude/
