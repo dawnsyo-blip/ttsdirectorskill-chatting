@@ -18,14 +18,14 @@ npm start
 
 ## 使用
 
-1. 点开顶部"⚙️ 设置"：
+1. 点开顶部"设置（点击展开）"：
    - **标注引擎**：选 Claude，或者选"OpenAI 兼容接口"——后者可以填任何兼容 OpenAI `/chat/completions` 格式的服务（OpenAI 官方、DeepSeek、Moonshot、自建网关、本地跑的模型……），填 Base URL、API Key、模型名即可，不锁定某一家。
-   - **Fish Audio**：API Key + Voice ID（reference_id，在 fish.audio 网站上找喜欢的音色复制 ID）。
-   - **ElevenLabs**：API Key + Voice ID（在 ElevenLabs 网站 Voices 页面复制）。
+   - **Fish Audio**：API Key + Voice ID（reference_id，在 fish.audio 网站上找喜欢的音色复制 ID）+ 模型（`s2.1-pro-free` / `s2.1-pro` / `s2-pro` / `s1`，不填默认免费的 `s2.1-pro-free`）。
+   - **ElevenLabs**：API Key + Voice ID（在 ElevenLabs 网站 Voices 页面复制）+ 模型（`eleven_v3` / `eleven_multilingual_v2` / `eleven_flash_v2_5` / `eleven_turbo_v2_5`，不填默认 `eleven_v3`）。
    - 这些设置只存在你本机浏览器的 `localStorage` 里，不会传到别处；下次打开会自动带出来。
-2. 在输入框粘贴中文文本（或者点下面的示例按钮），点"🎯 用 TTS Director 标注"。
-3. 标注结果会同时填进左右两栏的文本框——标注前可以直接在框里手动改标签再朗读。
-4. 分别点左右两栏的"▶ 朗读"试听、对比两个引擎的效果。
+2. 在输入框粘贴中文文本（或者点下面的示例按钮），点"用 TTS Director 标注"。
+3. 标注结果会流式填进 Fish Audio 栏的文本框，同时 ElevenLabs 栏填入原文（不加标签，作为对照组）——标注前可以直接在框里手动改标签再朗读。想让 ElevenLabs 也读同一份标注文本，打开它标题旁的"同步标注"开关即可，已经生成过一次的话切换开关会立刻生效，不用重新点标注按钮。
+4. 分别点左右两栏的"▶ 朗读"试听、对比两个引擎的效果；生成的语音可以点"⬇ 下载"存下来，页面最下面的"生成历史"区还留着每个引擎最近 5 条的记录，同样可以单独下载。
 
 ## 给别人用
 
