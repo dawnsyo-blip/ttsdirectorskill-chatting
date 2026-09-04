@@ -4,6 +4,9 @@
   "description": "TTS Director Skill 对比 Demo — Fish Audio S2 Pro vs ElevenLabs v3，标注引擎可选 Claude 或任意 OpenAI 兼容接口",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "node server/index.js",
     "dev": "node --watch server/index.js"

@@ -1,18 +1,85 @@
 import express from "express";
+import dns from "dns";
 import Anthropic from "@anthropic-ai/sdk";
-import { SKILL_SYSTEM_PROMPT, USER_INSTRUCTION_PREFIX } from "../skillPrompt.js";
+import { buildSystemBlocks, buildSystemPromptString, USER_INSTRUCTION_PREFIX } from "../skillPrompt.js";
 
 const router = express.Router();
+
+// "OpenAI 兼容接口"的 baseURL 是调用者随便填的，服务器会原样对它发请求——本机跑
+// 的时候这只能打到自己，但部署到公网后，任何人都能把 baseURL 填成服务器所在机器
+// 的内网地址（比如云厂商的元数据接口 169.254.169.254），让服务器帮忙探测/攻击内网，
+// 这是经典的 SSRF。默认拒绝解析到内网/本机地址的 baseURL；如果你是本地跑这个 demo、
+// 想指向自己电脑或局域网里的模型服务（Ollama、LM Studio、自建网关……），启动时设置
+// 环境变量 ALLOW_PRIVATE_ANNOTATE_TARGETS=true 可以关掉这个限制。
+const ALLOW_PRIVATE_TARGETS = process.env.ALLOW_PRIVATE_ANNOTATE_TARGETS === "true";
+
+function isPrivateIPv4(ip) {
+  return (
+    /^0\./.test(ip) ||
+    /^10\./.test(ip) ||
+    /^127\./.test(ip) ||
+    /^169\.254\./.test(ip) ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(ip) ||
+    /^192\.168\./.test(ip)
+  );
+}
+
+function isPrivateIPv6(ip) {
+  const lower = ip.toLowerCase();
+  return (
+    lower === "::1" ||
+    lower === "::" ||
+    lower.startsWith("fe80:") || // link-local
+    lower.startsWith("fc") || // unique-local fc00::/7
+    lower.startsWith("fd") ||
+    lower.startsWith("::ffff:127.") || // IPv4-mapped 形式，绕过上面 IPv4 的检查
+    lower.startsWith("::ffff:10.") ||
+    lower.startsWith("::ffff:169.254.") ||
+    lower.startsWith("::ffff:192.168.")
+  );
+}
+
+async function assertPublicHttpUrl(rawUrl) {
+  if (ALLOW_PRIVATE_TARGETS) return;
+
+  let parsed;
+  try {
+    parsed = new URL(rawUrl);
+  } catch {
+    throw new Error("Base URL 不是合法的网址");
+  }
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error("Base URL 必须是 http:// 或 https://");
+  }
+  const hostname = parsed.hostname;
+  if (hostname === "localhost" || hostname.endsWith(".local")) {
+    throw new Error("出于安全考虑，Base URL 不能指向本机/内网地址（如需本地模型服务，启动服务器时设置 ALLOW_PRIVATE_ANNOTATE_TARGETS=true）");
+  }
+
+  let addresses;
+  try {
+    addresses = await dns.promises.lookup(hostname, { all: true });
+  } catch {
+    throw new Error("无法解析 Base URL 对应的域名");
+  }
+  for (const { address, family } of addresses) {
+    const isPrivate = family === 4 ? isPrivateIPv4(address) : isPrivateIPv6(address);
+    if (isPrivate) {
+      throw new Error("出于安全考虑，Base URL 不能指向本机/内网地址（如需本地模型服务，启动服务器时设置 ALLOW_PRIVATE_ANNOTATE_TARGETS=true）");
+    }
+  }
+}
 
 async function streamClaude({ text, apiKey, model, onChunk }) {
   const client = new Anthropic({ apiKey });
   const stream = client.messages.stream({
     model,
     max_tokens: 8192,
-    // system prompt 是固定的大段 skill 规则、每次请求字节都一样，
-    // 打上 cache_control 之后同一个 key 在缓存有效期内（默认 5 分钟）重复调用
-    // 不用重新处理这几万 token，首字延迟和成本都会明显下降。
-    system: [{ type: "text", text: SKILL_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+    // system prompt 拆成了多个 content block，最大的一块（skill 规则+标签表+示例）
+    // 每次请求字节都一样，打上 cache_control 之后同一个 key 在缓存有效期内（默认
+    // 5 分钟）重复调用不用重新处理这几万 token，首字延迟和成本都会明显下降；
+    // polyphone 速查表只在文本命中多音字时才附加，不影响前面那块的缓存。
+    system: buildSystemBlocks(text),
     messages: [{ role: "user", content: USER_INSTRUCTION_PREFIX + text }],
   });
   for await (const event of stream) {
@@ -28,6 +95,7 @@ async function streamClaude({ text, apiKey, model, onChunk }) {
 }
 
 async function streamOpenAICompatible({ text, apiKey, model, baseURL, onChunk }) {
+  await assertPublicHttpUrl(baseURL);
   const base = baseURL.replace(/\/+$/, "");
   const resp = await fetch(`${base}/chat/completions`, {
     method: "POST",
@@ -40,7 +108,7 @@ async function streamOpenAICompatible({ text, apiKey, model, baseURL, onChunk })
       max_tokens: 8192,
       stream: true,
       messages: [
-        { role: "system", content: SKILL_SYSTEM_PROMPT },
+        { role: "system", content: buildSystemPromptString(text) },
         { role: "user", content: USER_INSTRUCTION_PREFIX + text },
       ],
     }),

@@ -17,10 +17,6 @@ function readSkillFile(name) {
   }
 }
 
-// 核心规则 + 标签速查表 + 示例，始终拼进 system prompt。
-// polyphone-checklist.md 按 skill 自己的说明是"按需读取"，
-// 但在这个 demo 里我们一次性把它也拼进去——demo 场景下每次都是新对话，
-// 没有"多轮里按需检索"的机制，为了让多音字修正稳定生效，直接常驻。
 const SKILL_MD = readSkillFile("SKILL.md");
 const TAGS_MD = readSkillFile("s2-pro-tags.md");
 const EXAMPLES_MD = readSkillFile("examples.md");
@@ -39,15 +35,64 @@ const OUTPUT_FORMAT_INSTRUCTION = `
 
 只标注文本本身。如果输入是多人对话，只标注看起来要合成语音的那一方（通常是称为"B"或标了"AI/角色"的一方），忽略视觉排版符号（如棋盘、表情包描述）。`;
 
-export const SKILL_SYSTEM_PROMPT = [
+// SKILL.md + s2-pro-tags.md + examples.md：每次请求都一样，是 system prompt 里最大的一块，
+// 也是最值得被 Claude prompt caching / 各家 OpenAI 兼容接口的自动前缀缓存命中的部分。
+const CORE_PROMPT = [
   SKILL_MD,
   "\n\n---\n\n# references/s2-pro-tags.md\n\n",
   TAGS_MD,
   "\n\n---\n\n# references/examples.md\n\n",
   EXAMPLES_MD,
-  "\n\n---\n\n# references/polyphone-checklist.md\n\n",
-  POLYPHONE_MD,
-  OUTPUT_FORMAT_INSTRUCTION,
 ].join("");
+
+const POLYPHONE_BLOCK = "\n\n---\n\n# references/polyphone-checklist.md\n\n" + POLYPHONE_MD;
+
+// polyphone-checklist.md 按 skill 自己的说明是"按需读取"，这里真的做成按需：
+// 从表格第一列解析出词条（比如"重要"、"银行"、"睡觉"），只有本次要标注的文本里
+// 出现了至少一个词条，才把这几千字节的速查表拼进 system prompt，省掉不需要的场景。
+// 解析逻辑会剥掉括号里的说明文字、按 / 、拆开多个候选词——有几行本身就是单字
+// （比如"行""晕"），拆出来的触发词会比较宽泛、经常命中，这是有意的：宁可多算
+// 几次误判也不想漏掉真正需要多音字校正的文本，省 token 的优先级低于标对读音。
+function extractPolyphoneTriggers(md) {
+  const triggers = new Set();
+  for (const line of md.split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed.startsWith("|")) continue;
+    const firstCell = trimmed.split("|")[1]?.trim() ?? "";
+    if (!firstCell || firstCell === "词" || /^-+$/.test(firstCell)) continue; // 跳过表头/分隔行
+    const withoutNotes = firstCell.replace(/[（(][^）)]*[）)]/g, "");
+    for (const part of withoutNotes.split(/[/、]/)) {
+      const word = part.replace(/^[…。\s]+|[…。\s]+$/g, "");
+      if (word) triggers.add(word);
+    }
+  }
+  return [...triggers];
+}
+
+const POLYPHONE_TRIGGERS = extractPolyphoneTriggers(POLYPHONE_MD);
+
+function needsPolyphoneChecklist(text) {
+  return POLYPHONE_TRIGGERS.some((trigger) => text.includes(trigger));
+}
+
+// 给 OpenAI 兼容接口用：一整段字符串。CORE_PROMPT 永远是开头那一段不变的前缀，
+// 后面要不要接 polyphone 块不影响这段前缀本身，支持自动前缀缓存的接口（比如
+// DeepSeek）依然能对这部分命中缓存。
+export function buildSystemPromptString(text) {
+  const parts = [CORE_PROMPT];
+  if (needsPolyphoneChecklist(text)) parts.push(POLYPHONE_BLOCK);
+  parts.push(OUTPUT_FORMAT_INSTRUCTION);
+  return parts.join("");
+}
+
+// 给 Claude 用：拆成多个 content block，只在 CORE_PROMPT 这一块上打 cache_control
+// 断点——这样不管这次要不要带 polyphone 块，CORE_PROMPT 都是逐字节相同的内容，
+// 缓存命中率不会因为多了/少了 polyphone 块而受影响。
+export function buildSystemBlocks(text) {
+  const blocks = [{ type: "text", text: CORE_PROMPT, cache_control: { type: "ephemeral" } }];
+  if (needsPolyphoneChecklist(text)) blocks.push({ type: "text", text: POLYPHONE_BLOCK });
+  blocks.push({ type: "text", text: OUTPUT_FORMAT_INSTRUCTION });
+  return blocks;
+}
 
 export const USER_INSTRUCTION_PREFIX = "请按照 TTS Director 规则，为以下中文文本添加 Fish Audio S2 Pro 标签：\n\n";
