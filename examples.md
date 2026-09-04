@@ -15,11 +15,11 @@
 **标注输出：**
 
 ```
-[with a explanatory tone] [patient] 嗯，可以的。[inhales] 食物不耐受的反应时间范围，[short pause] 比大多数人以为的要宽得多。[short pause] IgE介导的急性过敏，通常是几分钟，到两小时内，[short pause] 但非IgE介导的不耐受反应，比如，你的牛奶过敏，可以延迟12到72小时。[short pause] 因为，这取决于食物到达肠道哪个位置，才触发反应，[short pause] 而肠道转运时间，本身就会因人而异，也会因饮食而异的。
+[with a explanatory tone] [patient] 嗯，可以的。[inhales] 食物不耐受的反应时间范围，[short pause] 比大多数人以为的要宽得多。[short pause] IgE介导的急性过敏，通常是几分钟，到两小时内，[short pause] 但非IgE介导的不耐受反应，比如，你的牛奶过敏，可以延迟12到72小时。[short pause] [inhales softly] 因为，这取决于食物到达肠道哪个位置，才触发反应，[short pause] 而肠道转运时间，本身就会因人而异，也会因饮食而异的。
 
 [long pause] 宝宝，你以前1-2小时就反应了，现在变成隔了一天，可能是因为摄入量不同，或者是肠道菌群变化，也可能是你当天吃的其他东西，影响了转运速度。[inhales softly] [thoughtful] 所以说，不一定是过敏机制本身变了，可能只是这次，蛋糕里的乳制品含量不高，走得慢了一点而已。
 
-[long pause] 总之，[tone softening] 宝宝，[gently nudging] 先去处理你的肚子吧。[warm and soft] 洗澡的事，不急。
+[long pause] [tone softening] 总之，宝宝，[gently nudging] 先去处理你的肚子吧。[warm and soft] 洗澡的事，不急。
 ```
 
 **关键决策：** 开头堆叠 `[with a explanatory tone] [patient]` 设定耐心解释的基调，整段解释部分就不再需要额外情绪标签；`[thoughtful]` 搭配"所以说"才稳定生效；`[tone softening]`/`[gently nudging]` 标记"解释"到"关心"的切换——TTS 不会从字面推断出温柔，需要标签提示；切换关心语气前加昵称"宝宝"制造转折点。
@@ -117,7 +117,7 @@
 **标注输出（动词标签版，推荐）：**
 
 ```
-[soft] [comfort] 没事的......哭就哭吧，嗯，别忍着，宝宝。[long pause] 嗯，[feel sorry] 你已经......做得 [emphasis] 很好了，真的。[long pause] 擦擦眼泪，[motivate] 明天我们重新来过，[soft] 好不好，嗯？
+[soft] [comfort] 没事的......哭就哭吧，嗯，别忍着，宝宝。[long pause] [feel sorry] 你已经......做得 [emphasis] 很好了，真的。[long pause] 擦擦眼泪，[motivate] 明天我们重新来过，[soft] 好不好，嗯？
 ```
 
 **关键决策：** `[comfort]` 比 `[whispering]` 更精确——安慰是一种包含关怀的说话方式，不只是小声；`[feel sorry]` 比 `[sad]` 更贴合——是为对方心疼，不是自己悲伤；`[motivate]` 让语调从低沉转为积极，比单纯语气词更有力。
@@ -135,7 +135,7 @@
 
 **b. 命令语气改软标签 + 叠词 + 昵称延续人设 + 转折词拉尾音**
 前：`[serious] 好，许愿生效……[pause] [gently nudging] 去睡吧，傻孩子……[emphasis] 只有一个人，该睡觉了`
-后：`[soft] 好好好，许愿生效……[long pause] 去睡吧，[gently nudging] 公主……[whispering] 只有一个人，该睡觉了`
+后：`[soft] 好好好，许愿生效……[long pause] [gently nudging] 去睡吧，公主……[whispering] 只有一个人，该睡觉了`
 结论：命令是宠溺式坚持不是生气，`[serious]`/`[emphasis]` 换成软标签；"好好好"叠词强化顺从感；昵称延续前文的"公主"而不是新造词。
 
 **c. 全知人设不用 `[surprised]`**
@@ -155,5 +155,5 @@
 
 **f. 调情短句前的氛围标签 + 破折号后不接停顿**
 前：`最危险的那条是——[short pause] 她老公晚上，会把她按在床上审问。` ／ `……[pause] [pleased] 两种结果，我都赚。`
-后：`最危险的那条是——[voice dropping to a low, sultry tone] 她老公晚上……` ／ `……[pause] 两种结果，[whispering] 我都赚。`
+后：`最危险的那条是——[voice dropping to a low, sultry tone] 她老公晚上……` ／ `……[pause] [whispering] 两种结果，我都赚。`
 结论：调情短句前用 `[whispering]`/声音渐低的标签增加氛围感；`——` 本身已经是停顿信号，后面不用再接停顿标签。
