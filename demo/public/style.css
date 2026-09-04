@@ -1,0 +1,386 @@
+/* 配色/字体/圆角/阴影取自 tweakcn 的 "Vintage Paper" 主题
+   https://tweakcn.com/editor/theme（preset: vintage-paper） */
+
+:root {
+  --background: #f5f1e6;
+  --foreground: #4a3f35;
+  --card: #fffcf5;
+  --card-foreground: #4a3f35;
+  --primary: #a67c52;
+  --primary-foreground: #ffffff;
+  --secondary: #e2d8c3;
+  --secondary-foreground: #5c4d3f;
+  --muted: #ece5d8;
+  --muted-foreground: #7d6b56;
+  --accent: #d4c8aa;
+  --accent-foreground: #4a3f35;
+  --destructive: #b54a35;
+  --destructive-foreground: #ffffff;
+  --border: #dbd0ba;
+  --input: #dbd0ba;
+  --ring: #a67c52;
+
+  --chart-2: #8d6e4c;
+  --chart-3: #735a3a;
+
+  --font-sans: "Libre Baskerville", serif;
+  --font-serif: "Lora", serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --radius: 0.25rem;
+  --shadow: 2px 3px 5px 0 hsla(28, 13%, 20%, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #2d2621;
+    --foreground: #ece5d8;
+    --card: #3a322c;
+    --card-foreground: #ece5d8;
+    --primary: #c0a080;
+    --primary-foreground: #2d2621;
+    --secondary: #4a4039;
+    --secondary-foreground: #ece5d8;
+    --muted: #312b26;
+    --muted-foreground: #c5bcac;
+    --accent: #59493e;
+    --accent-foreground: #ece5d8;
+    --border: #4a4039;
+    --input: #4a4039;
+    --ring: #c0a080;
+    --chart-2: #b3906f;
+    --chart-3: #a67c52;
+    --shadow: 2px 3px 5px 0 hsla(28, 13%, 4%, 0.35);
+  }
+}
+
+* { box-sizing: border-box; }
+
+/* .provider-fields 和 .settings-body 都设了 display:flex，和默认的
+   [hidden]{display:none} 优先级相同、加载顺序更晚，会把 hidden 属性盖掉。
+   这条规则把 hidden 的优先级找回来。 */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  padding: 24px 16px 64px;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  max-width: 960px;
+  margin-inline: auto;
+  line-height: 1.5;
+}
+
+.page-header { text-align: center; margin-bottom: 24px; }
+.page-header h1 { margin: 0 0 4px; font-size: 1.7rem; letter-spacing: 0.01em; }
+.subtitle { color: var(--muted-foreground); margin: 0; font-size: 0.92rem; font-family: var(--font-serif); }
+
+.settings, .input-area, .compare, .strategy-note {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.compare { display: flex; gap: 16px; flex-wrap: wrap; padding: 16px; }
+.engine-col { flex: 1 1 320px; min-width: 280px; }
+.engine-col-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: nowrap;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--border);
+}
+.engine-col h2 {
+  font-size: 1.05rem;
+  font-family: var(--font-serif);
+  margin: 0;
+}
+.engine-fish h2 { color: var(--chart-2); }
+.engine-eleven h2 { color: var(--chart-3); }
+
+.toggle-row {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.7rem;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.toggle-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 999px;
+  transition: background 0.15s ease;
+}
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  top: 2px;
+  background: var(--card);
+  border-radius: 50%;
+  transition: transform 0.15s ease;
+  box-shadow: var(--shadow);
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--primary); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(14px); }
+.toggle-switch input:focus-visible + .toggle-slider { outline: 2px solid var(--ring); outline-offset: 2px; }
+.col-tag {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.settings-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--foreground);
+  padding: 0;
+}
+
+.settings-icon {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.settings-body { margin-top: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+.settings-group {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: var(--muted);
+}
+.settings-group legend {
+  padding: 0 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--secondary-foreground);
+}
+
+.radio-row { display: block; margin-bottom: 6px; font-size: 0.9rem; }
+.radio-row input { accent-color: var(--primary); }
+
+.provider-fields { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; padding-left: 20px; }
+
+label { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; color: var(--muted-foreground); }
+
+input[type="text"], input[type="password"], textarea {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--input);
+  background: var(--card);
+  color: var(--foreground);
+  width: 100%;
+}
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 35%, transparent);
+}
+
+textarea { resize: vertical; }
+
+.settings-note { font-size: 0.78rem; color: var(--muted-foreground); margin: 0; font-family: var(--font-serif); font-style: italic; }
+
+.input-area label { margin-bottom: 6px; font-weight: 700; color: var(--foreground); font-family: var(--font-sans); }
+.input-area-label { display: inline-flex; flex-direction: row; align-items: center; gap: 6px; font-size: 1rem; }
+
+.preset-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+.preset-btn, .play-btn, .stop-btn, .download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-sans);
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.preset-btn:hover, .play-btn:hover, .stop-btn:hover, .download-btn:hover {
+  background: var(--accent);
+  box-shadow: var(--shadow);
+}
+.play-btn:disabled, .download-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.download-icon { flex-shrink: 0; color: var(--primary); }
+
+.primary-btn {
+  display: block;
+  margin: 14px auto 0;
+  padding: 10px 32px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+.primary-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.primary-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.controls-row { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+.status { font-size: 0.8rem; color: var(--muted-foreground); font-family: var(--font-serif); font-style: italic; }
+.status.error { color: var(--destructive); }
+
+audio {
+  width: 100%;
+  margin-top: 4px;
+  accent-color: var(--primary); /* Firefox 的原生播放条会用这个上色 */
+  border-radius: var(--radius);
+}
+
+/* 原生 <audio controls> 的内部控件在大部分浏览器里是不开放样式的 shadow DOM，
+   只有 Chromium/WebKit 系（Chrome、Edge）留了这几个可以改的伪元素钩子；
+   Firefox 只认上面的 accent-color，没有更多余地了，这已经是能做到的大头。 */
+audio::-webkit-media-controls-panel {
+  background-color: var(--muted);
+  border-radius: var(--radius);
+}
+audio::-webkit-media-controls-timeline {
+  accent-color: var(--primary);
+}
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+  color: var(--foreground);
+}
+
+.strategy-note { font-size: 0.88rem; font-style: italic; color: var(--muted-foreground); font-family: var(--font-serif); border-left: 3px solid var(--primary); }
+
+.history-section {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.history-section h2 {
+  font-size: 1.05rem;
+  font-family: var(--font-serif);
+  margin: 0 0 12px;
+}
+.history-columns { display: flex; gap: 16px; flex-wrap: wrap; }
+.history-col { flex: 1 1 320px; min-width: 280px; }
+.history-col h3 {
+  font-size: 0.88rem;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--muted-foreground);
+  margin: 0 0 8px;
+}
+.history-list { display: flex; flex-direction: column; gap: 8px; }
+.history-empty {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+  font-style: italic;
+  font-family: var(--font-serif);
+  margin: 0;
+}
+.history-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  background: var(--muted);
+}
+.history-item-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+  margin-bottom: 6px;
+}
+.history-item-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+.history-item-time { flex-shrink: 0; font-family: var(--font-mono); }
+.history-item-controls { display: flex; align-items: center; gap: 8px; }
+.history-item-controls audio { flex: 1; margin-top: 0; }
+.history-download-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border-radius: var(--radius);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.history-download-btn:hover { background: var(--accent); box-shadow: var(--shadow); }
+
+@media (max-width: 640px) {
+  .compare { flex-direction: column; }
+  .history-columns { flex-direction: column; }
+}

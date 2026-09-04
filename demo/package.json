@@ -1,0 +1,16 @@
+{
+  "name": "tts-director-demo",
+  "version": "1.0.0",
+  "description": "TTS Director Skill 对比 Demo — Fish Audio S2 Pro vs ElevenLabs v3，标注引擎可选 Claude 或任意 OpenAI 兼容接口",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
+    "express": "^4.21.2",
+    "undici": "^7.29.0"
+  }
+}

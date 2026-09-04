@@ -1,0 +1,11 @@
+node_modules/
+
+# 真实聊天截图来源，不公开分享
+测试文本3图片/
+
+# 第三方参考资料，非本项目原创内容
+中文音素控制 - Fish Audio.pdf
+
+# OS 垃圾文件
+.DS_Store
+Thumbs.db
