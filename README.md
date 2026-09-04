@@ -19,9 +19,7 @@
 ├── s2-pro-tags.md               # 标签速查表
 ├── examples.md                  # 输入输出对照样本
 ├── polyphone-checklist.md       # 多音字音素控制速查表
-├── claude-code-instructions.md  # 早期规划文档（部分内容已过时，见 CLAUDE.md）
-├── tts-director-demo-spec.md    # 早期规划文档，同上
-├── tts-director-roadmap-updated.md
+├── tts-director-roadmap-updated.md  # 早期规划文档，部分内容已过时（见 CLAUDE.md）
 ├── CLAUDE.md                    # 给 Claude Code 看的项目说明 / 踩坑记录
 └── demo/                        # 本地对比测试网页，见 demo/README.md
 ```
