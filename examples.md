@@ -128,10 +128,10 @@
 
 下面六条都是不同陪伴/闲聊文本在实测听感后的修正，每条对应的通用原则已经写进 `SKILL.md`，这里只留改动片段和一句话结论，作为具体证据。
 
-**a. 用词暗示情绪 + 音素校正 + 三标签堆叠**
+**a. 用词暗示情绪 + 音素校正**
 前：`[surprised] ...[accuse] 你算过了对吧...[emphasis] 又作弊。...[serious] 规矩点，选一个`
-后：`[surprised] [soft] 嗯？...[praising] 你算过了对吧？...想扳回<|phoneme_start|>ji1<|phoneme_end|>偶数。[emphasis] 聪明......但是又作弊了。...[inhales deeply] [serious] [whispering] 规矩点`
-结论：`[accuse]`→`[praising]` 配上"聪明"，标签和文字方向一致，态度从对峙感变成宠溺地拆穿；结尾三标签堆叠（副语言+情绪+语调各一）只用在全篇最重的一句。
+后：`[surprised] [soft] 嗯？...[praising] 你算过了对吧？...想扳回<|phoneme_start|>ji1<|phoneme_end|>偶数。[emphasis] 聪明......但是又作弊了。...[serious] [whispering] 规矩点`
+结论：`[accuse]`→`[praising]` 配上"聪明"，标签和文字方向一致，态度从对峙感变成宠溺地拆穿；结尾用 `[serious] [whispering]` 两个标签就够，不需要堆到 3 个。
 
 **b. 命令语气改软标签 + 叠词 + 昵称延续人设 + 转折词拉尾音**
 前：`[serious] 好，许愿生效……[pause] [gently nudging] 去睡吧，傻孩子……[emphasis] 只有一个人，该睡觉了`
