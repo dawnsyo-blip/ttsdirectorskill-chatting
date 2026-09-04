@@ -70,11 +70,21 @@ async function assertPublicHttpUrl(rawUrl) {
   }
 }
 
-async function streamClaude({ text, apiKey, model, onChunk }) {
+const DEFAULT_MAX_TOKENS = 8192;
+const MIN_MAX_TOKENS = 256;
+const MAX_MAX_TOKENS = 65536;
+
+function resolveMaxTokens(raw) {
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n <= 0) return DEFAULT_MAX_TOKENS;
+  return Math.min(Math.max(Math.round(n), MIN_MAX_TOKENS), MAX_MAX_TOKENS);
+}
+
+async function streamClaude({ text, apiKey, model, maxTokens, onChunk }) {
   const client = new Anthropic({ apiKey });
   const stream = client.messages.stream({
     model,
-    max_tokens: 8192,
+    max_tokens: maxTokens,
     // system prompt 拆成了多个 content block，最大的一块（skill 规则+标签表+示例）
     // 每次请求字节都一样，打上 cache_control 之后同一个 key 在缓存有效期内（默认
     // 5 分钟）重复调用不用重新处理这几万 token，首字延迟和成本都会明显下降；
@@ -94,7 +104,7 @@ async function streamClaude({ text, apiKey, model, onChunk }) {
   );
 }
 
-async function streamOpenAICompatible({ text, apiKey, model, baseURL, onChunk }) {
+async function streamOpenAICompatible({ text, apiKey, model, baseURL, maxTokens, onChunk }) {
   await assertPublicHttpUrl(baseURL);
   const base = baseURL.replace(/\/+$/, "");
   const resp = await fetch(`${base}/chat/completions`, {
@@ -105,7 +115,7 @@ async function streamOpenAICompatible({ text, apiKey, model, baseURL, onChunk })
     },
     body: JSON.stringify({
       model,
-      max_tokens: 8192,
+      max_tokens: maxTokens,
       stream: true,
       messages: [
         { role: "system", content: buildSystemPromptString(text) },
@@ -152,7 +162,8 @@ async function streamOpenAICompatible({ text, apiKey, model, baseURL, onChunk })
 }
 
 router.post("/", async (req, res) => {
-  const { text, provider, apiKey, model, baseURL } = req.body ?? {};
+  const { text, provider, apiKey, model, baseURL, maxTokens } = req.body ?? {};
+  const resolvedMaxTokens = resolveMaxTokens(maxTokens);
 
   if (!text || !text.trim()) return res.status(400).json({ error: "文本不能为空" });
   if (!apiKey) return res.status(400).json({ error: "请先在设置里填写标注引擎的 API Key" });
@@ -179,9 +190,9 @@ router.post("/", async (req, res) => {
   try {
     let diag = null;
     if (provider === "claude") {
-      await streamClaude({ text, apiKey, model, onChunk });
+      await streamClaude({ text, apiKey, model, maxTokens: resolvedMaxTokens, onChunk });
     } else {
-      diag = await streamOpenAICompatible({ text, apiKey, model, baseURL, onChunk });
+      diag = await streamOpenAICompatible({ text, apiKey, model, baseURL, maxTokens: resolvedMaxTokens, onChunk });
     }
 
     // 请求本身没报错，但一个字都没吐出来——不要静默返回空结果，明确报错。

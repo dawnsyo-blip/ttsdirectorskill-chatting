@@ -43,6 +43,16 @@
         <label>API Key <input type="password" id="openaiApiKey" placeholder="sk-..." /></label>
         <label>模型 <input type="text" id="openaiModel" placeholder="例如 gpt-4.1-mini、deepseek-chat" /></label>
       </div>
+
+      <label>最大输出 tokens（推理/思考模型容易把这部分用在思考过程上，标注结果为空时可以调大）
+        <input type="text" inputmode="numeric" id="maxTokens" list="maxTokensOptions" placeholder="8192" value="8192" />
+        <datalist id="maxTokensOptions">
+          <option value="8192">8192（默认）</option>
+          <option value="16384">16384</option>
+          <option value="32768">32768</option>
+          <option value="65536">65536</option>
+        </datalist>
+      </label>
     </fieldset>
 
     <fieldset class="settings-group">

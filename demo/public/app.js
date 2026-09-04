@@ -15,6 +15,7 @@ const fields = {
   elevenApiKey: el("elevenApiKey"),
   elevenVoiceId: el("elevenVoiceId"),
   elevenModel: el("elevenModel"),
+  maxTokens: el("maxTokens"),
 };
 
 const PERSISTED_FIELD_KEYS = [
@@ -22,6 +23,7 @@ const PERSISTED_FIELD_KEYS = [
   "openaiBaseURL", "openaiApiKey", "openaiModel",
   "fishApiKey", "fishVoiceId", "fishModel",
   "elevenApiKey", "elevenVoiceId", "elevenModel",
+  "maxTokens",
 ];
 
 const PRESETS = {
@@ -144,6 +146,8 @@ el("annotateBtn").addEventListener("click", async () => {
 
   const provider = fields.provider();
   const payload = { text, provider };
+  const maxTokens = parseInt(fields.maxTokens.value, 10);
+  if (Number.isFinite(maxTokens) && maxTokens > 0) payload.maxTokens = maxTokens;
   if (provider === "claude") {
     payload.apiKey = fields.claudeApiKey.value.trim();
     payload.model = fields.claudeModel.value.trim();
