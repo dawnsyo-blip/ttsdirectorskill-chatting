@@ -124,7 +124,7 @@
 - **多字词按顺序给每个字包一层标签**：银行 → `<|phoneme_start|>yin2<|phoneme_end|><|phoneme_start|>hang2<|phoneme_end|>`
 - **复音字按词义选择读音**：重要 → `zhong4 yao4`；重庆 → `chong2 qing4`；行走 → `xing2 zou3`。
 - 中文标点、括号、空格放在标签**之外**；每个汉字用独立标签包裹，不要把多个字塞进一个标签。
-- **不要为了保险给所有多音字都加标签**——只在拿不准读音时用，滥用会让文本臃肿难维护。常见易错字表见 `references/polyphone-checklist.md`（按需读取）。
+- **不要为了保险给所有多音字都加标签**——只在拿不准读音时用，滥用会让文本臃肿难维护。常见易错字表见 `polyphone-checklist.md`（按需读取）。
 
 ## 不支持的标签类型
 

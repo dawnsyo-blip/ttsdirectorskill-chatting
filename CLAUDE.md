@@ -18,7 +18,7 @@
 └── demo/                       # 对比测试网页（见下方"demo/ 说明"）
 ```
 
-**重要：** skill 的四个文件（`SKILL.md`、`s2-pro-tags.md`、`examples.md`、`polyphone-checklist.md`）都在仓库根目录，**不在** `skill/references/` 子目录下——`claude-code-instructions.md` 和 `SKILL.md` 正文里引用的 `references/xxx.md` 路径是历史遗留写法，实际文件是平铺的。
+**重要：** skill 的四个文件（`SKILL.md`、`s2-pro-tags.md`、`examples.md`、`polyphone-checklist.md`）都在仓库根目录，**不在** `skill/references/` 子目录下。早期版本里 `SKILL.md`/`s2-pro-tags.md` 正文自己还留着 `references/xxx.md` 这种历史遗留写法（指向一个不存在的子目录），已经清理成直接写文件名；`demo/server/skillPrompt.js` 拼接 system prompt 时插入的分隔符标题也同步改了。只有 `claude-code-instructions.md`（早期规划文档，本地保留、未纳入公开仓库）里还留着这种旧写法，纯粹是历史记录，不代表现在的真实路径。
 
 ## SKILL.md 的核心设计原则
 

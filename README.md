@@ -2,9 +2,9 @@
 
 一个给中文文本自动插入 [Fish Audio S2 Pro](https://fish.audio/) 的情感/韵律标签的skill，能够让机在对话的时候更像真人说话。标签语法是 Fish Audio S2 Pro 专用的，因为这个模型目前可以免费用，哈哈。
 
-为了直观看效果，还做了一个 demo，默认对比"加了标注的 Fish Audio"和"原文直读的 ElevenLabs"，两栏也都可以单独切换成对方的模式（标注/原文）。
+为了直观看效果，还做了一个 demo，默认对比"加了标注的 Fish Audio"和"原文直读的 ElevenLabs"，不过两栏也都可以单独切换模式（标注/原文）。
 
-Demo在线地址：**https://ttsdirectorskill-chatting.onrender.com**。
+Demo在线地址：https://ttsdirectorskill-chatting.onrender.com
 
 ![demo 页面截图](docs/demo-screenshot.png)
 
@@ -30,7 +30,7 @@ Demo在线地址：**https://ttsdirectorskill-chatting.onrender.com**。
 └── demo/                        # 本地对比测试网页，见 demo/README.md
 ```
 
-skill 的四个文件都平铺在仓库根目录，**不在** `skill/references/` 子目录下——如果你在别处看到引用 `references/xxx.md` 的写法，那是历史遗留路径，实际文件就在根目录。
+skill 的四个文件都平铺在仓库根目录，**不在** `skill/references/` 子目录下。
 
 ## 怎么用这个 skill
 
@@ -44,16 +44,16 @@ Kelivo 目前还没法直接把这个 skill 装进去。更适合的是自建前
 2. 回复文本 → **额外一次** API 调用（system prompt = 拼接后的 skill 文件内容）→ 标注后的文本。
 3. 标注后的文本 → Fish Audio S2 Pro API → 音频。
 
-第 2 步的标注调用和生成聊天回复的模型是两次完全独立的 API 请求，模型可以选得不一样：聊天用你觉得效果好的主力模型，标注这一步换成更便宜/更快的模型也没问题，这样能省下一部分 token 成本。demo 里实测过用 `deepseek-v4-flash` 做标注模型，效果不错。
+第 2 步的标注调用和生成聊天回复的模型是两次完全独立的 API 请求，模型可以选不一样的：聊天用你觉得效果好的主力模型，标注这一步换成更便宜/更快的模型也没问题，这样能省下一部分 token 成本。demo 里实测过用 `deepseek-v4-flash` 做标注模型，效果不错。
 
 ## Demo：对比 Fish Audio 和 ElevenLabs
 
-在线直接试：**https://ttsdirectorskill-chatting.onrender.com**。
+在线直接试：https://ttsdirectorskill-chatting.onrender.com
 
 配好 Fish Audio / ElevenLabs / 标注引擎的 API Key（只存在你自己浏览器的 `localStorage` 里，不会传到别处、服务端不落盘）后：
 
 - 一键用 skill 规则给输入文本打标签，流式返回，边生成边显示。
-- 标注引擎不锁定 Claude，也可以填任意 OpenAI 兼容接口（DeepSeek、Moonshot、自建网关……）。
+- 标注引擎不锁定 Claude，也可以填任意 OpenAI 兼容接口。
 - Fish Audio、ElevenLabs 两栏标题旁都有"+ TTS Director 标注 / 原文直读"的开关，能分别切换每一栏听标注后还是原文的效果，方便对比。
 - 生成的语音可以下载，页面最下面留着每个引擎最近 5 条的生成历史，也能单独下载。
 

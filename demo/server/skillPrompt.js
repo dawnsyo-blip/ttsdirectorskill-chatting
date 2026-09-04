@@ -39,13 +39,13 @@ const OUTPUT_FORMAT_INSTRUCTION = `
 // 也是最值得被 Claude prompt caching / 各家 OpenAI 兼容接口的自动前缀缓存命中的部分。
 const CORE_PROMPT = [
   SKILL_MD,
-  "\n\n---\n\n# references/s2-pro-tags.md\n\n",
+  "\n\n---\n\n# s2-pro-tags.md\n\n",
   TAGS_MD,
-  "\n\n---\n\n# references/examples.md\n\n",
+  "\n\n---\n\n# examples.md\n\n",
   EXAMPLES_MD,
 ].join("");
 
-const POLYPHONE_BLOCK = "\n\n---\n\n# references/polyphone-checklist.md\n\n" + POLYPHONE_MD;
+const POLYPHONE_BLOCK = "\n\n---\n\n# polyphone-checklist.md\n\n" + POLYPHONE_MD;
 
 // polyphone-checklist.md 按 skill 自己的说明是"按需读取"，这里真的做成按需：
 // 从表格第一列解析出词条（比如"重要"、"银行"、"睡觉"），只有本次要标注的文本里

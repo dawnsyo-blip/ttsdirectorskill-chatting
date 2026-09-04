@@ -61,7 +61,7 @@ description: >
 
 ### 第四步：插入标签
 
-先读 `references/s2-pro-tags.md`（标签速查表）和 `references/examples.md`（输入输出对照样本）。如果第一步发现疑似多音字，再按需读 `references/polyphone-checklist.md`（不必每次都读）。
+先读 `s2-pro-tags.md`（标签速查表）和 `examples.md`（输入输出对照样本）。如果第一步发现疑似多音字，再按需读 `polyphone-checklist.md`（不必每次都读）。
 
 ## 工具箱（按优先级排列）
 
@@ -71,9 +71,9 @@ description: >
 
 **优先级 3：结构性标签**（`[pause]`/`[short pause]`/`[long pause]`、`[inhales]`/`[inhales deeply]`/`[inhales softly]`、`[sigh]`）——控制节奏和呼吸。句子之间的转折优先用 `[pause]`/`[long pause]`，`[short pause]` 太短撑不起句子级转折；句内短暂停顿才用 `[short pause]`。
 
-**优先级 4：情绪和语调标签**——最"重"的工具，只在前三类无法解决问题时用。完整列表见 `references/s2-pro-tags.md`。
+**优先级 4：情绪和语调标签**——最"重"的工具，只在前三类无法解决问题时用。完整列表见 `s2-pro-tags.md`。
 
-**特殊工具：音素控制**（发音校正，不是韵律标签）——修正多音字/专业术语默认读音有歧义的情况，语法 `<|phoneme_start|>拼音声调数字<|phoneme_end|>`，不参与堆叠计数，只在拿不准读音时用（详见 `references/s2-pro-tags.md`，字表见 `references/polyphone-checklist.md`，按需读取）。
+**特殊工具：音素控制**（发音校正，不是韵律标签）——修正多音字/专业术语默认读音有歧义的情况，语法 `<|phoneme_start|>拼音声调数字<|phoneme_end|>`，不参与堆叠计数，只在拿不准读音时用（详见 `s2-pro-tags.md`，字表见 `polyphone-checklist.md`，按需读取）。
 
 **停顿类信号不要重复叠加**：`[pause]` 系列本身已经带有呼吸/停顿的声学效果，`——`（破折号）也是天然的停顿信号。把两个停顿/呼吸类标签紧挨着放（`[pause] [inhales softly]`、`——[short pause]`）会打架、容易失真——选一个就够，不需要叠加。
 
