@@ -97,9 +97,16 @@
 <section class="compare">
   <div class="engine-col engine-fish">
     <div class="engine-col-header">
-      <h2>Fish Audio <span class="col-tag">+ TTS Director 标注</span></h2>
+      <h2>Fish Audio</h2>
+      <label class="toggle-row" title="开启后 Fish Audio 朗读带 TTS Director 标注的文本；关闭则朗读原始输入文本">
+        <span id="fishToggleLabel">+ TTS Director 标注</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="fishAnnotateToggle" checked />
+          <span class="toggle-slider"></span>
+        </span>
+      </label>
     </div>
-    <textarea id="fishText" rows="8" placeholder="标注结果会出现在这里，也可以直接手动编辑"></textarea>
+    <textarea id="fishText" rows="8" placeholder="点标注按钮后自动填入（标注文本还是原文，取决于上方&quot;+ TTS Director 标注&quot;开关），也可以直接手动编辑"></textarea>
     <div class="controls-row">
       <button type="button" class="play-btn" data-engine="fish">▶ 朗读</button>
       <button type="button" class="stop-btn" data-engine="fish">⏹ 停止</button>

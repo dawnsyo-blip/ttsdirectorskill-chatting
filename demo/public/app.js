@@ -47,13 +47,20 @@ function loadSettings() {
     if (saved.elevenAnnotateEnabled !== undefined) {
       el("elevenAnnotateToggle").checked = saved.elevenAnnotateEnabled;
     }
+    if (saved.fishAnnotateEnabled !== undefined) {
+      el("fishAnnotateToggle").checked = saved.fishAnnotateEnabled;
+    }
   } catch (err) {
     console.warn("读取本地设置失败", err);
   }
 }
 
 function saveSettings() {
-  const data = { provider: fields.provider(), elevenAnnotateEnabled: el("elevenAnnotateToggle").checked };
+  const data = {
+    provider: fields.provider(),
+    elevenAnnotateEnabled: el("elevenAnnotateToggle").checked,
+    fishAnnotateEnabled: el("fishAnnotateToggle").checked,
+  };
   for (const key of PERSISTED_FIELD_KEYS) {
     data[key] = fields[key].value;
   }
@@ -99,6 +106,22 @@ el("elevenAnnotateToggle").addEventListener("change", () => {
   saveSettings();
   if (lastOriginalText || lastAnnotatedText) {
     el("elevenText").value = el("elevenAnnotateToggle").checked ? lastAnnotatedText : lastOriginalText;
+  }
+});
+
+// ---- Fish Audio 标注开关 ----
+// 开（默认）：Fish Audio 栏显示 TTS Director 标注后的文本（demo 原本的设计）。
+// 关：Fish Audio 栏也显示原文，方便对比同一个引擎标注前后的效果。
+
+function updateFishToggleLabel() {
+  el("fishToggleLabel").textContent = el("fishAnnotateToggle").checked ? "+ TTS Director 标注" : "原文直读";
+}
+
+el("fishAnnotateToggle").addEventListener("change", () => {
+  updateFishToggleLabel();
+  saveSettings();
+  if (lastOriginalText || lastAnnotatedText) {
+    el("fishText").value = el("fishAnnotateToggle").checked ? lastAnnotatedText : lastOriginalText;
   }
 });
 
@@ -206,8 +229,9 @@ el("annotateBtn").addEventListener("click", async () => {
     }
 
     lastOriginalText = text;
-    lastAnnotatedText = el("fishText").value;
-    // "同步标注"开关决定 ElevenLabs 这栏是原文直读，还是也用同一份标注文本
+    lastAnnotatedText = el("fishText").value; // 流式收到的完整标注结果，先存下来，两边的开关都要用
+    // 各自的开关决定这一栏显示标注文本还是原文
+    el("fishText").value = el("fishAnnotateToggle").checked ? lastAnnotatedText : lastOriginalText;
     el("elevenText").value = el("elevenAnnotateToggle").checked ? lastAnnotatedText : lastOriginalText;
     if (strategyText) {
       el("strategyNoteText").textContent = strategyText;
@@ -413,5 +437,6 @@ document.querySelectorAll(".download-btn").forEach((btn) => {
 loadSettings();
 updateProviderFieldsVisibility();
 updateElevenToggleLabel();
+updateFishToggleLabel();
 renderHistory("fish");
 renderHistory("eleven");
