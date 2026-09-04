@@ -226,6 +226,7 @@ input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
 textarea { resize: vertical; }
 
 .settings-note { font-size: 0.78rem; color: var(--muted-foreground); margin: 0; font-family: var(--font-serif); font-style: italic; }
+.settings-note a { color: var(--primary); }
 
 .input-area label { margin-bottom: 6px; font-weight: 700; color: var(--foreground); font-family: var(--font-sans); }
 .input-area-label { display: inline-flex; flex-direction: row; align-items: center; gap: 6px; font-size: 1rem; }
