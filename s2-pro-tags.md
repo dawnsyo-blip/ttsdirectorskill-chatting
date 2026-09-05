@@ -66,7 +66,7 @@
 | [deadpan] | 无情绪起伏的平板语调 | 冷幽默、讽刺。**尽量避免**：模型表现不出"表面冷、内里暖"的反差，容易被读真冷淡，改用 `[chuckling] [warm]` |
 | [whispers] / [whispering] | 耳语 | 秘密、亲密、暧昧短句前增加氛围感 |
 | [draw out the final syllable] | 拉长最后一个音节 | 撒娇、思考、意犹未尽 |
-| [stammering] | 结巴 | 情绪冲垮了语言组织能力（≠ `[hesitate]` 的犹豫）：被戳穿后的慌乱掩饰、突如其来的亲密冲击、说出难以启齿的话、气到/怕到说不出话。看处境不看文字（流利的句子照样要标），回应从容则不加。**只标一句，下句即恢复**；常用组合 `[surprised] [stammering]` |
+| [stammering] | 结巴 | 情绪冲垮语言组织能力（≠ `[hesitate]` 的犹豫，那是控得住的）。**主入口是接在 `[surprised]` 后面**——判定为真惊讶就鼓励写成 `[surprised] [stammering]`，`[slightly surprised]` 那一档不接。也可用于说出难以启齿的话、气到说不出话。**只标一句，下句即恢复** |
 | [low voice] | 压低声音 | 严肃、不想被听到 |
 | [under breath] | 小声嘀咕 | 内心独白、旁白式评论 |
 | [sobbing] | 啜泣 | 哭泣但仍在说话 |

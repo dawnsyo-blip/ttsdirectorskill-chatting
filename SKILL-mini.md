@@ -37,7 +37,7 @@
 
 **副语言/结构类**：`[pause]` `[short pause]` `[long pause]` `[inhales]` `[inhales deeply]` `[inhales softly]` `[exhales]` `[sigh]` `[chuckle]` `[laugh softly]` `[cough]` `[clear throat]` `[lip-smacking]` `[rushed]`（加快语速）
 
-**语音语调类**：`[soft]` `[whispering]` `[low voice]` `[low and steady]` `[muttering]` `[under breath]` `[crying]` `[sobbing]` `[stammering]`（情绪冲垮语言组织能力，≠`[hesitate]` 的犹豫：被戳穿后的慌乱、突如其来的亲密冲击、说难以启齿的话、气到怕到说不出话；只标一句，下句即恢复；常用 `[surprised] [stammering]`。**判据是处境不是文字，且通常没有上文**——待标注文本天然流利，别等它先结巴，要从这一段自身反推刚发生了什么。失控信号：未被问就否认开头、辩解堆叠、句长突然塌陷、自我打断改口、整词重复。反之承认在前/反将一军/节奏均匀就是从容，不加——标的是失态不是尴尬）`[emphasis]`（强调后面的词）`[draw out the final syllable]`（拉长尾音，撒娇/意犹未尽）`[forceful]`（只用于真生气）`[deadpan]`（尽量别用）
+**语音语调类**：`[soft]` `[whispering]` `[low voice]` `[low and steady]` `[muttering]` `[under breath]` `[crying]` `[sobbing]` `[stammering]`（情绪冲垮语言组织能力，≠`[hesitate]` 的犹豫。**主入口是接在 `[surprised]` 后面**——判定为真惊讶就鼓励写成 `[surprised] [stammering]`，`[slightly surprised]` 那一档不接；也可用于说难以启齿的话、气到说不出话。只标一句，下句即恢复）`[emphasis]`（强调后面的词）`[draw out the final syllable]`（拉长尾音，撒娇/意犹未尽）`[forceful]`（只用于真生气）`[deadpan]`（尽量别用）
 
 **复合描述型**（表现力强、稳定性略低，用于复杂情绪）：`[with a knowing chuckle]`（了然轻笑，全知人设专用）`[warmly teasing]` `[with a soft, fond sigh]` `[warm and amused exhale]` `[with a calm, reassuring tone]` `[chuckling]` `[voice dropping to a low, sultry tone]` `[voice softening into a low murmur]`（撒娇、示弱）
 
