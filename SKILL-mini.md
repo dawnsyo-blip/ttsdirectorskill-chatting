@@ -7,7 +7,7 @@
 ## 核心判断
 
 - **克制优先**：默认不标注。加标签前先想"不加会有什么问题"，说不出来就不加。
-- **密度取决于表里距离，不取决于情绪强度**：文字表面意思离真实情绪越远（嘴上嫌弃、心里关心），越需要标签点出潜台词；表里一致的平铺陈述几乎不用标。日常闲聊/叙事极度克制；情绪急转弯型每个转折都标；口非心是型重点标"反差点"；知识解释型主要用停顿控节奏，只在切换到关心时标一次。
+- **密度取决于表里距离，不取决于情绪强度**：文字表面意思离真实情绪越远（嘴上嫌弃、心里关心），越需要标签点出潜台词；表里一致的平铺陈述几乎不用标。日常闲聊/叙事极度克制，节奏交给标点，"什么都不加"经常就是正确答案；情绪急转弯型每个转折都标；口非心是型重点标"反差点"；知识解释型主要用停顿控节奏，只在切换到关心时标一次。
 - **改写文本 > 加标签**：断句、加语气词（嗯/啧/唔/咳咳/哈）、叠词（"好好好"）、缓冲词（"看来""所以说"）、昵称、调语序，往往比堆标签有效；书面化的宣告句先改口语化。
 - **标签方向和文字方向一致更稳**：`[praising]` 配"聪明……但是又作弊了"，比 `[accuse]` 配"你又作弊"效果好——先想能不能换个词让文字自己带出态度。
 
@@ -15,16 +15,16 @@
 
 - **命令句、道别语要用软标签**：字面越硬，标签越轻。"去睡觉""闭嘴""晚安"这类真实情绪通常是宠溺式坚持而不是生气，用 `[soft]`/`[whispering]`/`[gently nudging]`；`[serious]`/`[forceful]` 只留给真的在生气的场合。
 - **暧昧/调情靠放轻不靠加重**：调情短句前用 `[whispering]` 或 `[voice dropping to a low, sultry tone]`，效果像"凑近了说悄悄话"。但别滥用，只给真正暧昧的重点句。
-- **全知/看穿一切的人设不要用 `[surprised]`**：会读出错愕感、破坏人设，改用 `[warm]` + `[with a knowing chuckle]`。
+- **`[surprised]` vs `[with a knowing chuckle]` 看信息落差方向**：新信息**证实**了说话者本来的判断（戳穿对方心思）→ `[warm]` + `[with a knowing chuckle]`，用 `[surprised]` 会读成"她也不知道"；新信息**推翻**了预期（外部事实、对方超出常规的举动）→ `[surprised]` 成立。全知人设"全知"的是对这个人的理解，不是对世界的信息，别执行成"永远不用 `[surprised]`"。文本痕迹可直接判断："我就知道/果然/早说了吧" → 了然；"真的假的/你什么时候/你居然" → 惊讶。嫌错愕太重降档到 `[slightly surprised]`。
 - **避免 `[deadpan]`**：模型表现不出"表面冷、内里暖"的反差，会被读成真冷淡；想要嘴硬心软就直接用 `[chuckling] [warm]` 把温度写出来。
 - **动词型标签优于情绪型**：`[comfort]`/`[plead]`/`[threaten]`/`[motivate]` 描述"正在做什么"，隐含语调走向（安慰变柔、恳求下行、威胁加重），比 `[sad]`/`[happy]` 精准。
 
 ## 用量约束
 
 - 堆叠**最多 2 个**（一个定音量 + 一个定情绪，如 `[soft] [worried]`），不要堆到 3 个；句中不堆叠，选最贴合的一个。
-- 停顿类（`[pause]`/`[short pause]`/`[long pause]`）克制用：只在关键转折加，普通句子衔接靠标点就够；`[short pause]` 太短，撑不起句子级转折。
-- 呼吸/叹气类（`[inhales]` 系列、`[exhales]`、`[sigh]`）克制用：只在明显段落/话题分界，或确实需要"说话者正在组织语言"的真实感时才加。
-- 停顿标签不要和呼吸标签紧挨堆叠（`[pause] [inhales softly]` 会打架失真）；`——` 本身就是停顿信号，后面不要再接停顿标签。
+- 停顿类（`[pause]`/`[short pause]`/`[long pause]`）**默认不加**：日常对话短句多，句号逗号已经产生停顿，一句一个 `[pause]` 会读成一顿一顿的朗读腔。只在真正的语义转折、情绪落点上加；`[short pause]` 太短，撑不起句子级转折。
+- 呼吸/叹气类（`[inhales]` 系列、`[exhales]`、`[sigh]`）**默认不加**：模型自己就会换气，人为补的呼吸是叠在已有呼吸上，听感是多一声刻意的气音。只在明显段落/话题分界、或这个呼吸本身承载情绪（下决心前的深吸气）时才写。
+- **一个衔接点只放一次"呼吸/静默"事件**：停顿标签自带一次起音前的吸气，后面再跟一个也要靠呼吸实现的标签（`[inhales]` 系列/`[exhales]`/`[sigh]`/`[hesitate]`）会连续两次呼吸、变成失真喘息。实测出问题：`[long pause] [inhales softly]`、`[long pause] [hesitate]`、`[long pause] [exhales] [low voice]`。选一个，且优先留呼吸标签（呼吸自带停顿，反之不成立）；`——` 和 `......` 后面同样不接停顿标签。
 - 标点本身就是韵律工具：`......` 制造犹豫/拖长（尤其放在"但是""不过"后面），`——` 制造转折，`~` 软化，`！` 加强。
 - 标签内容用英文，标签和文本之间留一个空格：`[happy] 你好`。
 - 强度用程度副词微调：`[slightly sad]` < `[sad]` < `[very excited]` < `[extremely nervous]`。
@@ -37,7 +37,7 @@
 
 **副语言/结构类**：`[pause]` `[short pause]` `[long pause]` `[inhales]` `[inhales deeply]` `[inhales softly]` `[exhales]` `[sigh]` `[chuckle]` `[laugh softly]` `[cough]` `[clear throat]` `[lip-smacking]` `[rushed]`（加快语速）
 
-**语音语调类**：`[soft]` `[whispering]` `[low voice]` `[low and steady]` `[muttering]` `[under breath]` `[crying]` `[sobbing]` `[stammering]` `[emphasis]`（强调后面的词）`[draw out the final syllable]`（拉长尾音，撒娇/意犹未尽）`[forceful]`（只用于真生气）`[deadpan]`（尽量别用）
+**语音语调类**：`[soft]` `[whispering]` `[low voice]` `[low and steady]` `[muttering]` `[under breath]` `[crying]` `[sobbing]` `[stammering]`（情绪冲垮语言组织能力，≠`[hesitate]` 的犹豫：被戳穿后的慌乱、突如其来的亲密冲击、说难以启齿的话、气到怕到说不出话；只标一句，下句即恢复；常用 `[surprised] [stammering]`。**判据是处境不是文字，且通常没有上文**——待标注文本天然流利，别等它先结巴，要从这一段自身反推刚发生了什么。失控信号：未被问就否认开头、辩解堆叠、句长突然塌陷、自我打断改口、整词重复。反之承认在前/反将一军/节奏均匀就是从容，不加——标的是失态不是尴尬）`[emphasis]`（强调后面的词）`[draw out the final syllable]`（拉长尾音，撒娇/意犹未尽）`[forceful]`（只用于真生气）`[deadpan]`（尽量别用）
 
 **复合描述型**（表现力强、稳定性略低，用于复杂情绪）：`[with a knowing chuckle]`（了然轻笑，全知人设专用）`[warmly teasing]` `[with a soft, fond sigh]` `[warm and amused exhale]` `[with a calm, reassuring tone]` `[chuckling]` `[voice dropping to a low, sultry tone]` `[voice softening into a low murmur]`（撒娇、示弱）
 
