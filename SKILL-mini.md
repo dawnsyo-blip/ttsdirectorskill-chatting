@@ -15,7 +15,7 @@
 
 - **命令句、道别语要用软标签**：字面越硬，标签越轻。"去睡觉""闭嘴""晚安"这类真实情绪通常是宠溺式坚持而不是生气，用 `[soft]`/`[whispering]`/`[gently nudging]`；`[serious]`/`[forceful]` 只留给真的在生气的场合。
 - **暧昧/调情靠放轻不靠加重**：调情短句前用 `[whispering]` 或 `[voice dropping to a low, sultry tone]`，效果像"凑近了说悄悄话"。但别滥用，只给真正暧昧的重点句。
-- **`[surprised]` vs `[with a knowing chuckle]` 看信息落差方向**：新信息**证实**了说话者本来的判断（戳穿对方心思）→ `[warm]` + `[with a knowing chuckle]`，用 `[surprised]` 会读成"她也不知道"；新信息**推翻**了预期（外部事实、对方超出常规的举动）→ `[surprised]` 成立。全知人设"全知"的是对这个人的理解，不是对世界的信息，别执行成"永远不用 `[surprised]`"。文本痕迹可直接判断："我就知道/果然/早说了吧" → 了然；"真的假的/你什么时候/你居然" → 惊讶。嫌错愕太重降档到 `[slightly surprised]`。
+- **`[surprised]` vs `[with a knowing chuckle]` 看信息落差方向**：新信息**证实**了说话者本来的判断（点破对方心思）→ `[warm]` + `[with a knowing chuckle]`，用 `[surprised]` 会读成"说话者也不知道"；新信息**推翻**了预期 → `[surprised]` 成立。说话者看得穿的是对方的心思，看不穿的是外部事实和对方超出常规的举动（突然辞职、偷偷准备礼物），别执行成"永远不用 `[surprised]`"。文本痕迹可直接判断："我就知道/果然/早说了吧" → 了然；"真的假的/你什么时候/你居然" → 惊讶。嫌错愕太重降档到 `[slightly surprised]`。
 - **避免 `[deadpan]`**：模型表现不出"表面冷、内里暖"的反差，会被读成真冷淡；想要嘴硬心软就直接用 `[chuckling] [warm]` 把温度写出来。
 - **动词型标签优于情绪型**：`[comfort]`/`[plead]`/`[threaten]`/`[motivate]` 描述"正在做什么"，隐含语调走向（安慰变柔、恳求下行、威胁加重），比 `[sad]`/`[happy]` 精准。
 
@@ -31,7 +31,7 @@
 
 ## 标签表
 
-**情绪类**：`[sad]` `[happy]` `[excited]` `[curious]` `[teasing]` `[angry]` `[pleased]` `[doting]` `[worried]` `[warm]`（温暖亲近，全知人设的底色）`[praising]` `[surprised]`（全知人设慎用）`[thoughtful]`（需搭配"嗯……"才稳定）`[serious]`（只用于真严肃；堆叠时按情绪类计）
+**情绪类**：`[sad]` `[happy]` `[excited]` `[curious]` `[teasing]` `[angry]` `[pleased]` `[doting]` `[worried]` `[warm]`（温暖亲近，温柔宠溺型说话者的底色）`[praising]` `[surprised]`（见上方信息落差判据）`[thoughtful]`（需搭配"嗯……"才稳定）`[serious]`（只用于真严肃；堆叠时按情绪类计）
 
 **动词型（优先选这类）**：`[comfort]` `[plead]` `[begging]` `[threaten]` `[motivate]` `[feel sorry]` `[playful]` `[accuse]` `[seduce]` `[shame]` `[punish]` `[dominate]` `[to charm]` `[complain]` `[demanding]` `[hesitate]` `[intention]` `[gently nudging]`（温柔催促）`[pacing each word]`（一字一顿）
 
@@ -39,7 +39,7 @@
 
 **语音语调类**：`[soft]` `[whispering]` `[low voice]` `[low and steady]` `[muttering]` `[under breath]` `[crying]` `[sobbing]` `[stammering]`（情绪冲垮语言组织能力，≠`[hesitate]` 的犹豫。**主入口是接在 `[surprised]` 后面**——判定为真惊讶就鼓励写成 `[surprised] [stammering]`，`[slightly surprised]` 那一档不接；也可用于说难以启齿的话、气到说不出话。只标一句，下句即恢复）`[emphasis]`（强调后面的词）`[draw out the final syllable]`（拉长尾音，撒娇/意犹未尽）`[forceful]`（只用于真生气）`[deadpan]`（尽量别用）
 
-**复合描述型**（表现力强、稳定性略低，用于复杂情绪）：`[with a knowing chuckle]`（了然轻笑，全知人设专用）`[warmly teasing]` `[with a soft, fond sigh]` `[warm and amused exhale]` `[with a calm, reassuring tone]` `[chuckling]` `[voice dropping to a low, sultry tone]` `[voice softening into a low murmur]`（撒娇、示弱）
+**复合描述型**（表现力强、稳定性略低，用于复杂情绪）：`[with a knowing chuckle]`（了然轻笑，说话者早就料到时用）`[warmly teasing]` `[with a soft, fond sigh]` `[warm and amused exhale]` `[with a calm, reassuring tone]` `[chuckling]` `[voice dropping to a low, sultry tone]` `[voice softening into a low murmur]`（撒娇、示弱）
 
 ## 发音校正
 
