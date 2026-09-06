@@ -14,8 +14,11 @@ Demo在线地址：https://ttsdirectorskill-chatting.onrender.com
 - **表里一致性判断**：要不要标、标多密，取决于文本表面语义和说话人真实意图之间的距离。离得越远（比如嘴上嫌弃心里关心），越需要标签把潜台词标出来；表里一致的平铺陈述，几乎不用标。
 - **文本改写和标签插入同等重要**：断句、加语气词、调语序，经常比堆标签更有效。
 - 标签选择经常是**反直觉**的：命令句通常要用软标签而不是硬标签，一本正经的冷面吐槽在 Fish Audio S2 Pro 上很难读出"嘴硬心软"的反差。
+- **判断依据必须是标注模型自己看得到的东西**。比如"惊讶"该怎么标，不看说话者是什么人设（标注时根本看不到人设说明），只看新信息是**证实**还是**推翻**了说话者原本的判断——前者是"我就知道"的了然轻笑，后者才是真的错愕。
 
 完整规则见 [SKILL.md](SKILL.md)，标签速查表见 [s2-pro-tags.md](s2-pro-tags.md)，输入输出对照样本见 [examples.md](examples.md)，多音字/多音词的发音修正见 [polyphone-checklist.md](polyphone-checklist.md)（按需读取，不是每次都要加载）。
+
+另外还有一份 [SKILL-mini.md](SKILL-mini.md)，是上面四个文件的浓缩替代版：约 1800 token，是完整版（约 11000 token）的 1/6。保留了全部标签词表和最反直觉的几条规则，砍掉了推理过程和示例——标注密度的把握会不如完整版，适合对 system prompt 体积敏感的接入场景。质量优先就还是用完整版。
 
 ## 目录结构
 
@@ -25,6 +28,7 @@ Demo在线地址：https://ttsdirectorskill-chatting.onrender.com
 ├── s2-pro-tags.md               # 标签速查表
 ├── examples.md                  # 输入输出对照样本
 ├── polyphone-checklist.md       # 多音字音素控制速查表
+├── SKILL-mini.md                # 上面四个文件的浓缩替代版（约 1/6 体量）
 ├── CLAUDE.md                    # 给 Claude Code 看的项目说明 / 踩坑记录
 ├── docs/                        # README 里用到的截图等素材
 └── demo/                        # 本地对比测试网页，见 demo/README.md
@@ -45,6 +49,8 @@ Kelivo 目前还没法直接把这个 skill 装进去。更适合的是自建前
 3. 标注后的文本 → Fish Audio S2 Pro API → 音频。
 
 第 2 步的标注调用和生成聊天回复的模型是两次完全独立的 API 请求，模型可以选不一样的：聊天用你觉得效果好的主力模型，标注这一步换成更便宜/更快的模型也没问题，这样能省下一部分 token 成本。demo 里实测过用 `deepseek-v4-flash` 做标注模型，效果不错。
+
+想再压成本还有两个办法：一是把 system prompt 换成上面提到的 [SKILL-mini.md](SKILL-mini.md)（约 1800 token，是完整版的 1/6）；二是如果标注模型支持 prompt caching，skill 文件那部分内容每次都一样，缓存住就只有待标注的文本是新 token——demo 里走 Claude 官方 SDK 的那条路径已经这么做了（见 `demo/server/routes/annotate.js` 里的 `cache_control`）。
 
 ## Demo：对比 Fish Audio 和 ElevenLabs
 
