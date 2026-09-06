@@ -1,6 +1,6 @@
 # TTS Director（浓缩版）
 
-给中文文本插入 Fish Audio S2 Pro 情感/韵律标签。这是 `SKILL.md` + `s2-pro-tags.md` + `examples.md` + `polyphone-checklist.md`（合计约 11000 token）的压缩替代版，约 1/7 体量，用于 token 敏感的接入场景。
+给中文文本插入 Fish Audio s2.1-pro 情感/韵律标签。这是 `SKILL.md` + `s2-pro-tags.md` + `examples.md` + `polyphone-checklist.md`（合计约 11000 token）的压缩替代版，约 1/7 体量，用于 token 敏感的接入场景。
 
 **取舍说明**：保留了完整标签词表（模型猜不出来的外部事实）和最反直觉的判断规则；砍掉了推理过程、示例和大部分展开解释——这些靠模型自身能力能补回来一部分，但"标注密度感"和边界判断会不如完整版。质量优先的场景仍然用完整版。
 
@@ -47,9 +47,9 @@
 
 常错字：奇偶数 ji1、重要 zhong4、重庆 chong2、银行 hang2、行走 xing2、还是 hai2、归还 huan2、数落 shu3、数字 shu4、差点 cha4、觉得 jue2、睡觉 jiao4、倒在 dao3、倒是 dao4、薄雾 bo2、月晕 yun4、当作 dang4、数数 shu3+shu4。
 
-## 不支持
+## 不要使用
 
-环境音标签（`[wind]`/`[rain]`/`[water sloshing]` 等——S2 Pro 只生成人声）、XML 风格标签（`<emphasis>` 等，那是 Drama 3 的语法）。
+环境音标签（`[wind]`/`[rain]`/`[water sloshing]` 等）、XML 风格标签（`<emphasis>` 等）。
 
 ## 输出
 
