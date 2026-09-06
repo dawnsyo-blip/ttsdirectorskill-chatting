@@ -1,6 +1,6 @@
 # TTS Director
 
-一个给中文文本自动插入 [Fish Audio](https://fish.audio/) `s2.1-pro` 的情感/韵律标签的skill，能够让机在对话的时候更像真人说话。标签语法是 Fish Audio 这代模型专用的，选它是因为官方还给了一个免费的 `s2.1-pro-free`，可以直接拿来测，哈哈。
+一个给中文文本自动插入 [Fish Audio](https://fish.audio/) `s2.1-pro` 的情感/韵律标签的skill。标签语法是 Fish Audio 这代模型专用的，因为官方提供免费的 `s2.1-pro-free`。
 
 为了直观看效果，还做了一个 demo，默认对比"加了标注的 Fish Audio"和"原文直读的 ElevenLabs"，不过两栏也都可以单独切换模式（标注/原文）。
 
