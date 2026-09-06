@@ -21,3 +21,6 @@ Thumbs.db
 
 # Claude Code 本地会话状态，不是项目内容
 .claude/
+
+# 本地路线图（开放问题/待办），不公开
+tts-director-roadmap-local.md

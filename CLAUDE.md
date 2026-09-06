@@ -22,7 +22,8 @@
 ├── 测试文本3图片/                # 测试文本3的截图来源（真实聊天截图，不公开）
 ├── 中文音素控制 - Fish Audio.pdf # 第三方参考资料
 ├── claude-code-instructions.md # 早期规划文档，部分内容已过时（见下方"和早期规划文档的出入"）
-└── tts-director-demo-spec.md   # 早期规划文档，同上
+├── tts-director-demo-spec.md   # 早期规划文档，同上
+└── tts-director-roadmap-local.md # 开放问题/待办/调研遗留疑点，公开路线图里不放这些
 ```
 
 **重要：** skill 的四个文件（`SKILL.md`、`s2-pro-tags.md`、`examples.md`、`polyphone-checklist.md`）都在仓库根目录，**不在** `skill/references/` 子目录下。早期版本里 `SKILL.md`/`s2-pro-tags.md` 正文自己还留着 `references/xxx.md` 这种历史遗留写法（指向一个不存在的子目录），已经清理成直接写文件名；`demo/server/skillPrompt.js` 拼接 system prompt 时插入的分隔符标题也同步改了。只有 `claude-code-instructions.md`（早期规划文档，本地保留、未纳入公开仓库）里还留着这种旧写法，纯粹是历史记录，不代表现在的真实路径。
