@@ -6,6 +6,8 @@
 
 Demo在线地址：https://ttsdirectorskill-chatting.onrender.com
 
+演示视频（小红书）：[让机讲中文有活人感的工具](https://xhslink.cn/o/1KUJTe03RzY)
+
 ![demo 页面截图](docs/demo-screenshot.png)
 
 ## skill 的核心设计原则
