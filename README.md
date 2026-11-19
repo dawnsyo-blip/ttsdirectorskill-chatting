@@ -32,6 +32,7 @@ Demo 在线地址：https://ttsdirectorskill-chatting.onrender.com
 ├── polyphone-checklist.md       # 多音字音素控制速查表
 ├── SKILL-mini.md                # 上面四个文件的浓缩替代版（约 1/6 体量）
 ├── CLAUDE.md                    # 给 Claude Code 看的项目说明 / 踩坑记录
+├── LICENSE                      # MIT 许可
 ├── docs/                        # README 里用到的截图等素材
 └── demo/                        # 本地对比测试网页，见 demo/README.md
 ```
@@ -75,3 +76,6 @@ npm start
 
 打开 `http://localhost:3787`。详细说明见 [demo/README.md](demo/README.md)；项目里踩过的坑和实现上的取舍记录在 [CLAUDE.md](CLAUDE.md)。
 
+## 许可
+
+本仓库的 skill 文件和 demo 代码都以 [MIT 许可](LICENSE)发布。
