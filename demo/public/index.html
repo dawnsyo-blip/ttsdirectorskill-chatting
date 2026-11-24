@@ -3,66 +3,82 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TTS Director Demo</title>
+<title>TTS Director for Chatting</title>
+<meta name="description" content="给中文文本自动插入 Fish Audio S2 Pro 情感/韵律标签，对比 Fish Audio 和 ElevenLabs 的朗读效果。" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 5h20a4 4 0 0 1 4 4v11a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4z' fill='%23E8930C'/%3E%3Cpath d='M12 10.5h-2.5v8H12M20 10.5h2.5v8H20' stroke='%232A1B00' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital@0;1&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header class="page-header">
-  <h1>TTS Director Demo</h1>
-  <p class="subtitle">中文 TTS 情感标注工具<br />Fish Audio vs ElevenLabs</p>
+<div class="page">
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><path d="M6 5h20a4 4 0 0 1 4 4v11a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4z" fill="currentColor"/><path class="brand-mark-inner" d="M12 10.5h-2.5v8H12M20 10.5h2.5v8H20" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="brand-text">
+      <h1 class="brand-name">TTS Director for Chatting</h1>
+    </div>
+  </div>
+  <nav class="topbar-actions">
+    <button id="settingsToggle" class="settings-pill" type="button" aria-expanded="false" aria-controls="settingsBody">
+      <span class="status-dot" id="settingsDot" aria-hidden="true"></span>
+      <span id="settingsToggleLabel">设置</span>
+      <svg class="chevron" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
 </header>
 
-<section class="settings">
-  <button id="settingsToggle" class="settings-toggle" type="button">
-    <svg class="settings-icon" viewBox="0 0 1024 1024" width="18" height="18" aria-hidden="true"><path d="M0 0m409.6 0l204.8 0q409.6 0 409.6 409.6l0 204.8q0 409.6-409.6 409.6l-204.8 0q-409.6 0-409.6-409.6l0-204.8q0-409.6 409.6-409.6Z" fill="currentColor" opacity=".2"/><path d="M587.86816 251.58656a129.024 129.024 0 0 1 111.70816 64.512l75.8784 131.42016a129.024 129.024 0 0 1 0 129.024l-75.88864 131.40992a129.024 129.024 0 0 1-111.7184 64.512h-151.69536a129.024 129.024 0 0 1-111.70816-64.512l-75.88864-131.42016a129.024 129.024 0 0 1 0-129.024l75.88864-131.40992a129.024 129.024 0 0 1 111.7184-64.512z m0 51.59936h-151.71584a77.40416 77.40416 0 0 0-67.03104 38.69696l-75.90912 131.46112a77.40416 77.40416 0 0 0 0 77.40416l75.8784 131.40992a77.40416 77.40416 0 0 0 67.03104 38.69696h151.73632a77.40416 77.40416 0 0 0 67.03104-38.69696l75.90912-131.40992a77.40416 77.40416 0 0 0 0-77.40416l-75.88864-131.46112a77.40416 77.40416 0 0 0-67.03104-38.69696z m-71.1168 118.51776a92.03712 92.03712 0 0 1 45.52704 9.9328 72.704 72.704 0 0 1 30.08512 30.09536 91.89376 91.89376 0 0 1 9.94304 45.52704v9.49248a92.03712 92.03712 0 0 1-9.9328 45.52704 72.704 72.704 0 0 1-30.09536 30.08512 91.89376 91.89376 0 0 1-45.52704 9.94304h-9.50272a92.03712 92.03712 0 0 1-45.52704-9.9328 72.704 72.704 0 0 1-30.08512-30.09536 91.89376 91.89376 0 0 1-9.94304-45.52704v-9.49248a92.03712 92.03712 0 0 1 9.9328-45.52704 72.704 72.704 0 0 1 30.09536-30.08512 91.89376 91.89376 0 0 1 45.52704-9.94304z m0 51.59936h-9.50272a42.3936 42.3936 0 0 0-21.18656 3.84 20.992 20.992 0 0 0-8.92928 8.92928 42.35264 42.35264 0 0 0-3.84 21.18656v9.49248a42.3936 42.3936 0 0 0 3.84 21.18656 20.992 20.992 0 0 0 8.92928 8.92928 42.35264 42.35264 0 0 0 21.18656 3.84h9.49248a42.3936 42.3936 0 0 0 21.18656-3.84 20.992 20.992 0 0 0 8.92928-8.92928 42.35264 42.35264 0 0 0 3.84-21.18656v-9.49248a42.3936 42.3936 0 0 0-3.84-21.18656 21.0944 21.0944 0 0 0-8.92928-8.92928 42.35264 42.35264 0 0 0-21.17632-3.79904z" fill="currentColor"/></svg>
-    <span id="settingsToggleLabel">设置（点击展开）</span>
-  </button>
-  <div id="settingsBody" class="settings-body" hidden>
-
+<section id="settingsBody" class="settings-panel" aria-label="设置" hidden>
+  <div class="settings-grid">
     <fieldset class="settings-group">
-      <legend>标注引擎（把中文文本自动打上标签）</legend>
-      <label class="radio-row">
-        <input type="radio" name="provider" value="claude" checked />
-        Claude（Anthropic）
-      </label>
-      <label class="radio-row">
-        <input type="radio" name="provider" value="openai-compatible" />
-        OpenAI 兼容接口（OpenAI / DeepSeek / Moonshot / 自建网关 / 本地模型……）
-      </label>
+      <legend>标注引擎</legend>
+      <p class="group-hint">负责把中文文本自动打上标签</p>
+      <div class="segmented" role="radiogroup" aria-label="标注引擎">
+        <label class="segment">
+          <input type="radio" name="provider" value="claude" checked />
+          <span>Claude</span>
+        </label>
+        <label class="segment">
+          <input type="radio" name="provider" value="openai-compatible" />
+          <span>OpenAI 兼容接口</span>
+        </label>
+      </div>
 
       <div id="claudeFields" class="provider-fields">
-        <label>API Key <input type="password" id="claudeApiKey" placeholder="sk-ant-..." /></label>
-        <label>模型 <input type="text" id="claudeModel" placeholder="claude-sonnet-5" value="claude-sonnet-5" /></label>
+        <label class="field"><span class="field-label">API Key</span><input type="password" id="claudeApiKey" placeholder="sk-ant-..." autocomplete="off" /></label>
+        <label class="field"><span class="field-label">模型</span><input type="text" id="claudeModel" placeholder="claude-sonnet-5" value="claude-sonnet-5" /></label>
       </div>
 
       <div id="openaiFields" class="provider-fields" hidden>
-        <label>Base URL <input type="text" id="openaiBaseURL" placeholder="https://api.openai.com/v1" value="https://api.openai.com/v1" /></label>
-        <label>API Key <input type="password" id="openaiApiKey" placeholder="sk-..." /></label>
-        <label>模型 <input type="text" id="openaiModel" placeholder="例如 gpt-4.1-mini、deepseek-chat" /></label>
+        <p class="group-hint">OpenAI / DeepSeek / Moonshot / 自建网关 / 本地模型，兼容 <code>/chat/completions</code> 即可</p>
+        <label class="field"><span class="field-label">Base URL</span><input type="text" id="openaiBaseURL" placeholder="https://api.openai.com/v1" value="https://api.openai.com/v1" /></label>
+        <label class="field"><span class="field-label">API Key</span><input type="password" id="openaiApiKey" placeholder="sk-..." autocomplete="off" /></label>
+        <label class="field"><span class="field-label">模型</span><input type="text" id="openaiModel" placeholder="例如 gpt-4.1-mini、deepseek-chat" /></label>
       </div>
 
-      <div class="shared-field">
-        <label>最大输出 tokens（推理/思考模型容易把这部分用在思考过程上，标注结果为空时可以调大）
-          <input type="text" inputmode="numeric" id="maxTokens" list="maxTokensOptions" placeholder="8192" />
-          <datalist id="maxTokensOptions">
-            <option value="8192">8192（默认）</option>
-            <option value="16384">16384</option>
-            <option value="32768">32768</option>
-            <option value="65536">65536</option>
-          </datalist>
-        </label>
-      </div>
+      <label class="field">
+        <span class="field-label">最大输出 tokens</span>
+        <input type="text" inputmode="numeric" id="maxTokens" list="maxTokensOptions" placeholder="8192" />
+        <span class="field-help">推理/思考模型容易把额度花在思考过程上，标注结果为空时调大</span>
+        <datalist id="maxTokensOptions">
+          <option value="8192">8192（默认）</option>
+          <option value="16384">16384</option>
+          <option value="32768">32768</option>
+          <option value="65536">65536</option>
+        </datalist>
+      </label>
     </fieldset>
 
     <fieldset class="settings-group">
       <legend>Fish Audio</legend>
-      <label>API Key <input type="password" id="fishApiKey" /></label>
-      <label>Voice ID（reference_id） <input type="text" id="fishVoiceId" placeholder="在 fish.audio 网站上找到音色 ID" /></label>
-      <label>模型（通过 HTTP header 选择，不填默认 s2.1-pro-free）
+      <label class="field"><span class="field-label">API Key</span><input type="password" id="fishApiKey" autocomplete="off" /></label>
+      <label class="field"><span class="field-label">Voice ID（reference_id）</span><input type="text" id="fishVoiceId" placeholder="在 fish.audio 网站上找到音色 ID" /></label>
+      <label class="field">
+        <span class="field-label">模型</span>
         <input type="text" id="fishModel" list="fishModelOptions" placeholder="s2.1-pro-free" />
+        <span class="field-help">不填默认 s2.1-pro-free</span>
         <datalist id="fishModelOptions">
           <option value="s2.1-pro-free">s2.1-pro-free（免费测试，默认）</option>
           <option value="s2.1-pro">s2.1-pro（付费）</option>
@@ -74,10 +90,12 @@
 
     <fieldset class="settings-group">
       <legend>ElevenLabs</legend>
-      <label>API Key <input type="password" id="elevenApiKey" /></label>
-      <label>Voice ID <input type="text" id="elevenVoiceId" placeholder="在 ElevenLabs Voices 页面复制音色 ID" /></label>
-      <label>模型（model_id，不填默认 eleven_v3）
+      <label class="field"><span class="field-label">API Key</span><input type="password" id="elevenApiKey" autocomplete="off" /></label>
+      <label class="field"><span class="field-label">Voice ID</span><input type="text" id="elevenVoiceId" placeholder="在 ElevenLabs Voices 页面复制音色 ID" /></label>
+      <label class="field">
+        <span class="field-label">模型（model_id）</span>
         <input type="text" id="elevenModel" list="elevenModelOptions" placeholder="eleven_v3" />
+        <span class="field-help">不填默认 eleven_v3</span>
         <datalist id="elevenModelOptions">
           <option value="eleven_v3">eleven_v3（最新，表现力最强）</option>
           <option value="eleven_multilingual_v2">eleven_multilingual_v2（v2，稳定）</option>
@@ -86,94 +104,139 @@
         </datalist>
       </label>
     </fieldset>
+  </div>
 
-    <p class="settings-note">这些设置只保存在你自己浏览器的 localStorage 里，不会被上传或保存到任何数据库；每次朗读/标注请求会带着 key 发给这个页面所在的后端，由后端转发给对应的 API 后即刻丢弃，不落盘、不记录。如果你是本地跑这个项目，这个后端就是你自己电脑上的服务，key 只经过你自己的机器；如果用的是这个公开网址，key 会经过部署这个页面的服务器（不存储，但会经过）；不放心的话，更建议按 <a href="https://github.com/dawnsyo-blip/ttsdirectorskill-chatting" target="_blank" rel="noopener">仓库 README</a> 里的说明拉到自己电脑上本地跑。</p>
+  <div class="settings-foot">
+    <div class="settings-note">
+      <p>安全性说明：设置只保存在本地，key 每次随请求转发给对应 API，用完即弃。</p>
+      <p><a href="https://github.com/dawnsyo-blip/ttsdirectorskill-chatting" target="_blank" rel="noopener"><span>GitHub 仓库</span><svg class="ext-arrow" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M5 11L11 5M6.5 5H11v4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+    </div>
+    <button type="button" class="collapse-btn" id="settingsClose" aria-label="收起设置" title="收起设置">
+      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 10l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
 </section>
 
-<section class="input-area">
-  <label for="inputText" class="input-area-label">
-    <svg class="settings-icon" viewBox="0 0 1024 1024" width="18" height="18" aria-hidden="true"><path d="M513.483123 34.511637c-263.544584 0-477.178841 213.634257-477.178841 477.178842s213.634257 477.178841 477.178841 477.178841 477.178841-213.62136 477.178842-477.178841-213.62136-477.178841-477.178842-477.178842z m16.688363 245.953451h115.657834v115.670731h-115.657834z m0 154.219043h115.657834v115.67073h-115.657834zM375.952443 280.465088h115.657834v115.670731h-115.657834z m0 154.219043h115.657834v115.67073h-115.657834z m-38.496725 115.67073h-115.722317v-115.67073h115.722317z m0-154.219042h-115.722317v-115.670731h115.722317z m327.705793 366.267002h-308.489672v-115.67073h308.438085z m134.938439-212.04796h-115.722318v-115.67073h115.657834z m0-154.219042h-115.722318v-115.670731h115.657834z" fill="currentColor"/></svg>
-    <span>输入中文文本</span>
-  </label>
-  <textarea id="inputText" rows="6" placeholder="请输入中文文本，例如：来，你今天都做了些什么？说来听听。"></textarea>
-  <div class="preset-row">
-    <span>试试示例：</span>
-    <button type="button" class="preset-btn" data-preset="daily">日常闲聊</button>
-    <button type="button" class="preset-btn" data-preset="mismatch">口非心是</button>
-    <button type="button" class="preset-btn" data-preset="explain">知识解释</button>
-  </div>
-  <button id="annotateBtn" class="primary-btn" type="button">用 TTS Director 标注</button>
-</section>
+<main class="workspace">
+  <section class="composer" aria-labelledby="composerTitle">
+    <h2 class="section-title" id="composerTitle"><label for="inputText">待标注文本</label></h2>
+    <textarea id="inputText" rows="9" placeholder="请输入中文文本，例如：来，你今天都做了些什么？说来听听。"></textarea>
+    <div class="preset-row">
+      <span class="preset-hint">试试</span>
+      <button type="button" class="preset-btn" data-preset="daily" aria-pressed="false">日常闲聊</button>
+      <button type="button" class="preset-btn" data-preset="mismatch" aria-pressed="false">口非心是</button>
+      <button type="button" class="preset-btn" data-preset="explain" aria-pressed="false">知识解释</button>
+    </div>
+    <button id="annotateBtn" class="primary-btn" type="button">开始标注</button>
+    <p class="annotate-status" id="annotateStatus" role="status" aria-live="polite"></p>
+    <div class="engine-line">
+      <span id="engineSummary">标注引擎：Claude · claude-sonnet-5</span>
+      <button type="button" class="text-btn" id="engineChange">更换</button>
+    </div>
+  </section>
 
-<section class="compare">
-  <div class="engine-col engine-fish">
-    <div class="engine-col-header">
-      <h2>Fish Audio</h2>
-      <label class="toggle-row" title="开启后 Fish Audio 朗读带 TTS Director 标注的文本；关闭则朗读原始输入文本">
-        <span id="fishToggleLabel">+ TTS Director 标注</span>
-        <span class="toggle-switch">
-          <input type="checkbox" id="fishAnnotateToggle" checked />
-          <span class="toggle-slider"></span>
-        </span>
-      </label>
+  <section class="listen" aria-label="听听区别">
+    <div class="listen-head">
+      <ul class="legend" aria-label="标签颜色说明">
+        <li><i class="dot dot-emotion"></i>情绪</li>
+        <li><i class="dot dot-para"></i>停顿呼吸</li>
+        <li><i class="dot dot-voice"></i>音色语调</li>
+        <li><i class="dot dot-action"></i>动作</li>
+        <li><i class="rewrite-sample"></i>改写过的字句</li>
+      </ul>
     </div>
-    <textarea id="fishText" rows="8" placeholder="点标注按钮后自动填入（标注文本还是原文，取决于上方&quot;+ TTS Director 标注&quot;开关），也可以直接手动编辑"></textarea>
-    <div class="controls-row">
-      <button type="button" class="play-btn" data-engine="fish">▶ 生成</button>
-      <button type="button" class="stop-btn" data-engine="fish">⏹ 停止</button>
-      <button type="button" class="download-btn" data-engine="fish" disabled>
-        <svg class="download-icon" viewBox="0 0 1024 1024" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M511.525926 682.666667c-5.688889 0-11.093333-2.275556-15.075556-6.257778l-170.666666-170.856296c-8.343704-8.343704-8.343704-21.807407 0-30.151112s21.807407-8.343704 30.151111 0l155.591111 155.685926 155.591111-155.685926c8.343704-8.343704 21.807407-8.343704 30.151111 0s8.343704 21.807407 0 30.151112l-170.666667 170.856296c-3.982222 3.982222-9.386667 6.257778-15.075555 6.257778z"/><path fill="currentColor" d="M512 682.192593c-11.757037 0-21.333333-9.576296-21.333333-21.333334V149.333333c0-11.757037 9.576296-21.333333 21.333333-21.333333s21.333333 9.576296 21.333333 21.333333V660.859259c0 11.757037-9.576296 21.333333-21.333333 21.333334z"/><path fill="currentColor" d="M853.333333 853.617778H170.666667c-23.514074 0-42.666667-19.152593-42.666667-42.666667v-182.992592c0-11.757037 9.576296-21.333333 21.333333-21.333334s21.333333 9.576296 21.333334 21.333334v182.992592h682.666666v-182.992592c0-11.757037 9.576296-21.333333 21.333334-21.333334s21.333333 9.576296 21.333333 21.333334v182.992592c0 23.514074-19.152593 42.666667-42.666667 42.666667z"/></svg>
-        下载
-      </button>
-      <span class="status" id="fishStatus"></span>
-    </div>
-    <audio id="fishAudio" controls></audio>
-  </div>
 
-  <div class="engine-col engine-eleven">
-    <div class="engine-col-header">
-      <h2>ElevenLabs</h2>
-      <label class="toggle-row" title="开启后 ElevenLabs 朗读的文本会和 Fish Audio 一样带 TTS Director 标注；关闭则朗读原始输入文本">
-        <span id="elevenToggleLabel">原文直读</span>
-        <span class="toggle-switch">
-          <input type="checkbox" id="elevenAnnotateToggle" />
-          <span class="toggle-slider"></span>
-        </span>
-      </label>
-    </div>
-    <textarea id="elevenText" rows="8" placeholder="点标注按钮后自动填入（原文还是标注文本，取决于上方&quot;同步标注&quot;开关），也可以直接手动编辑"></textarea>
-    <div class="controls-row">
-      <button type="button" class="play-btn" data-engine="eleven">▶ 生成</button>
-      <button type="button" class="stop-btn" data-engine="eleven">⏹ 停止</button>
-      <button type="button" class="download-btn" data-engine="eleven" disabled>
-        <svg class="download-icon" viewBox="0 0 1024 1024" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M511.525926 682.666667c-5.688889 0-11.093333-2.275556-15.075556-6.257778l-170.666666-170.856296c-8.343704-8.343704-8.343704-21.807407 0-30.151112s21.807407-8.343704 30.151111 0l155.591111 155.685926 155.591111-155.685926c8.343704-8.343704 21.807407-8.343704 30.151111 0s8.343704 21.807407 0 30.151112l-170.666667 170.856296c-3.982222 3.982222-9.386667 6.257778-15.075555 6.257778z"/><path fill="currentColor" d="M512 682.192593c-11.757037 0-21.333333-9.576296-21.333333-21.333334V149.333333c0-11.757037 9.576296-21.333333 21.333333-21.333333s21.333333 9.576296 21.333333 21.333333V660.859259c0 11.757037-9.576296 21.333333-21.333333 21.333334z"/><path fill="currentColor" d="M853.333333 853.617778H170.666667c-23.514074 0-42.666667-19.152593-42.666667-42.666667v-182.992592c0-11.757037 9.576296-21.333333 21.333333-21.333334s21.333333 9.576296 21.333334 21.333334v182.992592h682.666666v-182.992592c0-11.757037 9.576296-21.333333 21.333334-21.333334s21.333333 9.576296 21.333333 21.333334v182.992592c0 23.514074-19.152593 42.666667-42.666667 42.666667z"/></svg>
-        下载
-      </button>
-      <span class="status" id="elevenStatus"></span>
-    </div>
-    <audio id="elevenAudio" controls></audio>
-  </div>
-</section>
+    <div class="compare" id="compare">
+      <article class="engine-col" data-engine="fish" aria-label="Fish Audio">
+        <header class="engine-head">
+          <span class="engine-name">Fish Audio</span>
+          <span class="engine-model" id="fishModelLabel">s2.1-pro-free</span>
+          <label class="toggle-row" title="开启后 Fish Audio 朗读带 TTS Director 标注的文本；关闭则朗读原始输入文本">
+            <span class="toggle-label" id="fishToggleLabel">标注</span>
+            <span class="toggle-switch">
+              <input type="checkbox" id="fishAnnotateToggle" checked />
+              <span class="toggle-slider"></span>
+            </span>
+          </label>
+        </header>
+        <div class="bubble" id="fishBubble">
+          <div class="bubble-view is-annotated" id="fishView" data-placeholder="点「开始标注」后，带标签的文本会出现在这里；也可以点「编辑」自己写一段。"></div>
+          <textarea id="fishText" class="bubble-edit" aria-label="Fish Audio 朗读的文本" placeholder="标注后自动填入，也可以直接手动编辑" hidden></textarea>
+          <button type="button" class="edit-btn" data-engine="fish">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <span>编辑</span>
+          </button>
+        </div>
+        <div class="voice-note" data-engine="fish" data-state="empty">
+          <button type="button" class="voice-play" data-engine="fish" aria-label="播放 Fish Audio 语音" disabled></button>
+          <div class="voice-wave" data-engine="fish" role="slider" aria-label="Fish Audio 播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="-1"></div>
+          <span class="voice-time" data-engine="fish"></span>
+          <button type="button" class="gen-btn" data-engine="fish"></button>
+          <button type="button" class="download-btn" data-engine="fish" aria-label="下载 Fish Audio 语音" title="下载" disabled></button>
+        </div>
+        <p class="status" id="fishStatus" role="status" aria-live="polite"></p>
+        <audio id="fishAudio" preload="auto"></audio>
+      </article>
 
-<section class="strategy-note" id="strategyNote" hidden>
-  <strong>标注策略：</strong> <span id="strategyNoteText"></span>
-</section>
-
-<section class="history-section">
-  <h2>生成历史 <span class="col-tag">各引擎最近 5 条，可单独下载</span></h2>
-  <div class="history-columns">
-    <div class="history-col">
-      <h3>Fish Audio</h3>
-      <div class="history-list" id="fishHistoryList"></div>
+      <article class="engine-col" data-engine="eleven" aria-label="ElevenLabs">
+        <header class="engine-head">
+          <span class="engine-name">ElevenLabs</span>
+          <span class="engine-model" id="elevenModelLabel">eleven_v3</span>
+          <label class="toggle-row" title="开启后 ElevenLabs 朗读的文本会和 Fish Audio 一样带 TTS Director 标注；关闭则朗读原始输入文本">
+            <span class="toggle-label" id="elevenToggleLabel">原文</span>
+            <span class="toggle-switch">
+              <input type="checkbox" id="elevenAnnotateToggle" />
+              <span class="toggle-slider"></span>
+            </span>
+          </label>
+        </header>
+        <div class="bubble" id="elevenBubble">
+          <div class="bubble-view is-raw" id="elevenView" data-placeholder="ElevenLabs 默认读原文、不加标签，作为对照组。打开这一栏标题右侧的开关，可以让它也读同一份标注。"></div>
+          <textarea id="elevenText" class="bubble-edit" aria-label="ElevenLabs 朗读的文本" placeholder="标注后自动填入，也可以直接手动编辑" hidden></textarea>
+          <button type="button" class="edit-btn" data-engine="eleven">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <span>编辑</span>
+          </button>
+        </div>
+        <div class="voice-note" data-engine="eleven" data-state="empty">
+          <button type="button" class="voice-play" data-engine="eleven" aria-label="播放 ElevenLabs 语音" disabled></button>
+          <div class="voice-wave" data-engine="eleven" role="slider" aria-label="ElevenLabs 播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="-1"></div>
+          <span class="voice-time" data-engine="eleven"></span>
+          <button type="button" class="gen-btn" data-engine="eleven"></button>
+          <button type="button" class="download-btn" data-engine="eleven" aria-label="下载 ElevenLabs 语音" title="下载" disabled></button>
+        </div>
+        <p class="status" id="elevenStatus" role="status" aria-live="polite"></p>
+        <audio id="elevenAudio" preload="auto"></audio>
+      </article>
     </div>
-    <div class="history-col">
-      <h3>ElevenLabs</h3>
-      <div class="history-list" id="elevenHistoryList"></div>
-    </div>
-  </div>
-</section>
 
+    <div class="director-row" id="strategyNote" hidden>
+      <span class="director-avatar" aria-hidden="true"><svg viewBox="0 0 32 32" width="22" height="22"><path d="M6 5h20a4 4 0 0 1 4 4v11a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4z" fill="currentColor"/><path class="brand-mark-inner" d="M12 10.5h-2.5v8H12M20 10.5h2.5v8H20" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <div class="director-bubble">
+        <p class="director-name">TTS Director<span>导演备注 · 为什么这样标</span></p>
+        <p class="director-text" id="strategyNoteText"></p>
+      </div>
+    </div>
+
+    <section class="history-section" aria-labelledby="historyTitle">
+      <div class="history-head">
+        <h3 id="historyTitle">最近生成</h3>
+      </div>
+      <div class="history-columns">
+        <div class="history-col">
+          <h4 class="sr-only">Fish Audio</h4>
+          <div class="history-list" id="fishHistoryList"></div>
+        </div>
+        <div class="history-col">
+          <h4 class="sr-only">ElevenLabs</h4>
+          <div class="history-list" id="elevenHistoryList"></div>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>
+
+</div>
 <script src="app.js"></script>
 </body>
 </html>

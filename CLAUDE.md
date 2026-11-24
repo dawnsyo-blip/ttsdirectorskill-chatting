@@ -14,6 +14,9 @@
 ├── README.md                   # 公开仓库首页
 ├── CLAUDE.md                   # 本文件
 ├── docs/demo-screenshot.png    # README 里用的 demo 截图
+├── PRODUCT.md                  # demo 页面的产品定位（用户、目的、约束），改版时由 impeccable 设计流程生成
+├── DESIGN.md                   # demo 页面的设计规范（配色 token、字体、组件、规则），改 UI 前先看
+├── .impeccable/                # 设计流程产物：design.json（DESIGN.md 的机器可读版）、surfaces/（页面方向约定）
 ├── tts-director-roadmap-updated.md
 ├── demo/                       # 对比测试网页（见下方"demo/ 说明"）
 │
@@ -23,6 +26,8 @@
 ├── 中文音素控制 - Fish Audio.pdf # 第三方参考资料
 ├── claude-code-instructions.md # 早期规划文档，部分内容已过时（见下方"和早期规划文档的出入"）
 ├── tts-director-demo-spec.md   # 早期规划文档，同上
+├── 测试总结.md / 测试文本.md     # 实测总结与测试文本
+├── .impeccable/mocks|questions|review/ # 设计流程的方案草图、选型页、验证截图
 └── tts-director-roadmap-local.md # 开放问题/待办/调研遗留疑点，公开路线图里不放这些
 ```
 
@@ -92,14 +97,18 @@
 - **两栏标题旁各有一个"标注/原文"开关**（`#fishAnnotateToggle` 默认开、`#elevenAnnotateToggle` 默认关）：默认状态就是原本的设计意图——Fish Audio 读标注版、ElevenLabs 读原文，作为"有 skill vs 没 skill"的对照；但两边都能单独切到对方模式（对比同一份标注在两个引擎上的差异，或者对比同一个引擎标注前后的差异）。开关状态存 localStorage；`app.js` 里用 `lastOriginalText`/`lastAnnotatedText` 两个模块级变量缓存最近一次标注的原文/标注文本对，切换开关时不用重新调标注接口就能实时切换文本框内容。
 - **`max_tokens` 是设置里可调的**（`#maxTokens`，默认 8192，预设 8192/16384/32768/65536）：推理/思考模型经常把 token 全花在思考过程上导致正文为空（见下方"踩过的坑"），与其每次改代码写死一个新数字，不如让用户自己调。服务端 `resolveMaxTokens()` 做范围校验（256–65536），非法值兜底回 8192。
 - **标注接口有 SSRF 防护**：`/api/annotate` 的 `baseURL` 是调用者随便填的，服务器会原样对它发请求——本地跑无所谓，但部署到公网后任何人都能把它填成服务器内网地址（比如云厂商元数据接口 `169.254.169.254`）。`annotate.js` 里 `assertPublicHttpUrl()` 会解析域名并拒绝内网/本机 IP（含 IPv4-mapped IPv6 形式）。本地想指向自己电脑上的模型服务（Ollama/LM Studio/自建网关）时，启动前设 `ALLOW_PRIVATE_ANNOTATE_TARGETS=true` 可以关掉这个限制。
-- **生成的语音可以下载，也有历史记录**：Fish Audio / ElevenLabs 播放区旁各有一个"下载"按钮（下载当次生成的音频），下面还有"生成历史"区，两个引擎分别保留最近 5 条（超出自动淘汰最早的，同时 `URL.revokeObjectURL` 释放内存），每条历史都能单独下载。历史只存在内存里（`historyState` 变量），刷新页面会清空，没做持久化——音频 blob 不适合塞进 localStorage。下载统一走 `downloadBlob()`：造一个临时 `<a download>` 触发点击，而不是依赖 `<audio>` 当前的 `src`（那个 object URL 可能已经被后续操作替换/回收）。
-- **UI 主题**：tweakcn 的 "Vintage Paper" 预设（从 `github.com/jnsahaj/tweakcn` 的 `utils/theme-presets.ts` 里直接抄的色值），字体 Libre Baskerville / Lora / IBM Plex Mono。图标全部是手动传入的 SVG（`fill="currentColor"` + CSS `color: var(--primary)` 上色），不用 emoji、不用图标字体库。
+- **生成的语音可以下载，也有历史记录**：每栏语音条右侧有下载按钮（下载当次生成的音频），下面还有"最近生成"区，两个引擎分别保留最近 5 条（超出自动淘汰最早的，同时 `URL.revokeObjectURL` 释放内存），每条历史都能单独播放、下载。历史只存在内存里（`historyState` 变量，每条播放时才 `new Audio(url)`），刷新页面会清空，没做持久化——音频 blob 不适合塞进 localStorage。下载统一走 `downloadBlob()`：造一个临时 `<a download>` 触发点击，而不是依赖 `<audio>` 当前的 `src`（那个 object URL 可能已经被后续操作替换/回收）。
+- **UI 主题：「语音消息」**（2026-11 从 Vintage Paper 改版而来）：每次标注像一条发来的消息——标注文本放在对话气泡里（两栏都是白底，是否标注靠标签胶囊和改写下划线区分；试过标注后变蜂蜜黄，影响可读性，已撤掉），生成的语音是挂在气泡下的"语音条"。中性浅灰底 + 白卡片，琥珀 `--amber` 只给主操作和正在播放的波形；字体 Figtree + Noto Sans SC（Google Fonts）；颜色全部是 `style.css` 顶部的 token，浅色/深色两套（`prefers-color-scheme`）。图标全部是 `app.js` 里 `ICONS` / `index.html` 里内联的自绘 SVG（`currentColor` 上色），不用 emoji、不用图标字体库。完整的设计规范（token、组件、规则）在仓库根目录 `DESIGN.md`，设计决策的来源记录在 `PRODUCT.md` 和 `.impeccable/surfaces/` 的方向约定里；改 UI 时如果改了配色/组件，记得同步 `DESIGN.md`。
+- **标签胶囊 + 改写比对**：气泡默认不是 textarea，而是只读的渲染视图（`#fishView`/`#elevenView`），点"编辑"才切到真正的 `<textarea>`（`#fishText`/`#elevenText`，朗读永远读 textarea 的值）。`tokenize()` 把 `[tag]` 和 `<|phoneme_start|>…<|phoneme_end|>` 拆出来，`classifyTag()` 按 `s2-pro-tags.md` 的分类给胶囊上色（情绪 / 停顿呼吸 / 音色语调 / 动作；没收录的标签按关键词兜底），悬停显示中文说明。`buildSegments()` 对"原文"和"去掉标签后的标注文本"做逐字 LCS 比对，标出 skill 改写过的字句（下划线）；原文/标注开关切换时只是给视图换 `is-raw`/`is-annotated` class，句子原地不动、标签胶囊收起展开。超过 `DIFF_CELL_LIMIT` 的长文本跳过比对，只显示标签。**改 `s2-pro-tags.md` 新增标签类别时，记得同步 `app.js` 里的 `TAG_INFO`。**
+- **语音条替代了原生 `<audio controls>`**：`<audio>` 元素还在但不显示控件，由语音条驱动；波形是用 `OfflineAudioContext.decodeAudioData` 解码真实音频算出的振幅（解码失败时退回占位波形），可点击/方向键定位。同一时间只播一条（`pauseAllExcept()`），正在播的那栏亮着、另一栏变淡（`#compare[data-listening]`）。原来单独的"停止"按钮并进了播放/暂停 + 可定位的波形。
+- **首次访问**：没填任何 key 时设置面板自动展开；顶栏的设置胶囊显示"还差 N 项"/"已就绪"（`updateSettingsStatus()`）。标注/生成时缺 key 会在对应位置给出行内提示并自动打开设置，不再用 `alert()`。
 
 **踩过的坑（下次遇到类似症状直接查这里，不用重新排查）：**
 
 - **`hidden` 属性被 CSS 覆盖**：如果某个元素同时有 `hidden` 属性和一条设了 `display: flex/block` 的 class 规则，且这条 class 规则和浏览器默认的 `[hidden]{display:none}` 优先级打平，author 样式会赢，导致 `hidden` 形同虚设。全局补了一条 `[hidden] { display: none !important; }` 兜底。新加类似的可切换显示/隐藏的元素时留意这个。
 - **JS 里 `el.checked = true` 不会触发 `change` 事件**：`loadSettings()` 从 localStorage 恢复 radio/checkbox 选中状态时是直接赋值，不会触发依赖 `change` 事件联动的显示/隐藏/文案逻辑。所以任何"页面加载时要根据已保存状态同步 UI"的地方，都要在赋值后手动调用一次同步函数（`updateProviderFieldsVisibility()`、`updateElevenToggleLabel()` 这些），不能指望事件监听器自动触发。**每加一个新的持久化开关/单选，都要检查有没有补这一步。**
-- **`<label>` 自定义 flex 布局，一定要显式写 `flex-direction`**：全局有条给设置表单用的通用规则 `label { display: flex; flex-direction: column; font-size: 0.85rem; ... }`。任何新的 `.xxx-label`/`.toggle-row` 之类的自定义 class，只要本身是个 `<label>` 标签，只覆盖了 `display` 而没覆盖 `flex-direction`（以及 `font-size`/`color` 等），那些没覆盖的属性会被这条通用规则渗透——这个坑在这个项目里已经复现过不止一次（`.input-area-label` 一次，`.toggle-row` 又一次），根源是 CSS 覆盖是按属性生效、不是按规则整体生效。**结论：以后凡是新写一个包裹 `<label>` 的自定义 class，直接把 `display`/`flex-direction`/`align-items`/`gap`/`font-size`/`color` 这几个属性一次性显式写全，不要只改"看起来不对"的那一个属性，也不要等出问题了再一条条补。**
+- **`<label>` 自定义 flex 布局，一定要显式写 `flex-direction`**：旧版样式里有条给设置表单用的全局规则 `label { display: flex; flex-direction: column; font-size: 0.85rem; ... }`（2026-11 改版后已删除，设置表单改用 `.field` class，现在的 `.field`/`.segment`/`.toggle-row` 都把这几个属性写全了）。任何新的 `.xxx-label`/`.toggle-row` 之类的自定义 class，只要本身是个 `<label>` 标签，只覆盖了 `display` 而没覆盖 `flex-direction`（以及 `font-size`/`color` 等），那些没覆盖的属性会被这条通用规则渗透——这个坑在这个项目里已经复现过不止一次（`.input-area-label` 一次，`.toggle-row` 又一次），根源是 CSS 覆盖是按属性生效、不是按规则整体生效。**结论：以后凡是新写一个包裹 `<label>` 的自定义 class，直接把 `display`/`flex-direction`/`align-items`/`gap`/`font-size`/`color` 这几个属性一次性显式写全，不要只改"看起来不对"的那一个属性，也不要等出问题了再一条条补。**
+- **`overflow: hidden` 的 inline-block 基线是它的底边**：标签胶囊为了做收起动画加了 `overflow:hidden`，结果整个胶囊被顶高、看起来像上标。用 `vertical-align: middle`（再微调 `top`）对齐，别用 `vertical-align: <数值>` 去凑。
 - **CSS 规则忘记覆盖某个属性会被更早/更通用的规则渗透**：上面那条是这个更通用问题的一个具体案例，凡是新加覆盖性 class 都要留意，不限于 `<label>`。
 - **标注请求"成功"但结果是空的，且不报错**：`server/routes/annotate.js` 里 `res.end()` 只要没抛异常就算成功，但如果模型一个 token 都没吐（比如 DeepSeek 的 `xxx-flash`/`xxx-reasoner` 这类推理模型，把 `max_tokens` 全部花在了流式返回的 `delta.reasoning_content`（思考过程）上，还没轮到 `delta.content`（正文）就因为 `finish_reason: "length"`被截断），前端会拿到一个 200 但空 body 的响应，`fishText` 静默留空、`elevenText` 却正常填入原文，表现得像"什么都没做但也没报错"。现在已经修了：`streamOpenAICompatible()` 会识别 `reasoning_content` 和 `finish_reason`，router 里如果 `!wroteAny`（一个字节都没往前端写过）就主动抛一个能说明原因的错误，不再静默成功；同时把两边的 `max_tokens` 从 4096 调到了 8192，给推理模型留思考空间。**排查同类"标注栏空白但没报错"的问题，先看这里。**
 - **`<input list>` + `<datalist>` 预填了 `value`，下拉就只显示匹配项**：原生 datalist 的下拉是按输入框当前文字做前缀过滤的自动补全，不是 `<select>` 那种固定列表。字段里预填了默认值（比如 `value="8192"`）之后，点开下拉只会看到 `8192` 一个选项，`16384`/`32768` 全被过滤掉了，看起来像"预设没加上"。解法是**只写 `placeholder` 不写 `value`**，让输入框空着——前后端本来就对空值有兜底（`fields.xxx.value.trim() || "默认值"`、`resolveMaxTokens()`），行为不变。`fishModel`/`elevenModel`/`maxTokens` 三个字段都按这个改过了。

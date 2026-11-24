@@ -33,6 +33,8 @@ Demo 在线地址：https://ttsdirectorskill-chatting.onrender.com
 ├── SKILL-mini.md                # 上面四个文件的浓缩替代版（约 1/6 体量）
 ├── CLAUDE.md                    # 给 Claude Code 看的项目说明 / 踩坑记录
 ├── LICENSE                      # MIT 许可
+├── DESIGN.md                    # demo 页面的设计规范（配色、字体、组件）
+├── PRODUCT.md                   # demo 页面的产品定位
 ├── docs/                        # README 里用到的截图等素材
 └── demo/                        # 本地对比测试网页，见 demo/README.md
 ```
@@ -62,8 +64,9 @@ Kelivo 目前还没法直接把这个 skill 装进去。更适合的是自建前
 配好 Fish Audio / ElevenLabs / 标注引擎的 API Key（只存在你自己浏览器的 `localStorage` 里，不会传到别处、服务端不落盘）后：
 
 - 一键用 skill 规则给输入文本打标签，流式返回，边生成边显示。
+- 标签按类别着色显示（情绪 / 停顿呼吸 / 音色语调 / 动作），skill 改写过的字句带下划线，下方附「导演备注」说明为什么这样标。
 - 标注引擎不锁定 Claude，也可以填任意 OpenAI 兼容接口。
-- Fish Audio、ElevenLabs 两栏标题旁都有"+ TTS Director 标注 / 原文直读"的开关，能分别切换每一栏听标注后还是原文的效果，方便对比。
+- Fish Audio、ElevenLabs 两栏标题旁都有"标注 / 原文"的开关，能分别切换每一栏听标注后还是原文的效果，方便对比。
 - 生成的语音可以下载，页面最下面留着每个引擎最近 5 条的生成历史，也能单独下载。
 
 也可以在自己电脑上本地跑（比如想改代码、调 skill，或者不想依赖那个公开链接）：

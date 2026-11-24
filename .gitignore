@@ -24,3 +24,12 @@ Thumbs.db
 
 # 本地路线图（开放问题/待办），不公开
 tts-director-roadmap-local.md
+
+# 实测总结与测试文本，暂不公开
+测试总结.md
+测试文本.md
+
+# impeccable 设计流程的临时产物（方案草图、选型页、验证截图）；规范文件 design.json / surfaces/ 需要提交
+.impeccable/mocks/
+.impeccable/questions/
+.impeccable/review/
