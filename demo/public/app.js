@@ -41,6 +41,8 @@ const ICONS = {
   wave: `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2.5 7v2M5 5v6M7.5 2.5v11M10 5.5v5M12.5 6.5v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
   refresh: `<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.47-3.54M13 2.6v3.1H9.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   edit: `<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+  playLg: `<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M7 4.8v14.4c0 .8.9 1.3 1.6.9l11.3-7.2c.6-.4.6-1.3 0-1.7L8.6 3.9C7.9 3.5 7 4 7 4.8z" fill="currentColor"/></svg>`,
+  pauseLg: `<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><rect x="5.5" y="4" width="4.5" height="16" rx="1.4" fill="currentColor"/><rect x="14" y="4" width="4.5" height="16" rx="1.4" fill="currentColor"/></svg>`,
   check: `<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 
@@ -356,8 +358,8 @@ function updateSettingsStatus() {
 
   const isClaude = fields.provider() === "claude";
   el("engineSummary").textContent = isClaude
-    ? `标注引擎：Claude · ${fields.claudeModel.value.trim() || "claude-sonnet-5"}`
-    : `标注引擎：OpenAI 兼容 · ${fields.openaiModel.value.trim() || "还没填模型"}`;
+    ? `Claude · ${fields.claudeModel.value.trim() || "claude-sonnet-5"}`
+    : `OpenAI 兼容 · ${fields.openaiModel.value.trim() || "还没填模型"}`;
   el("fishModelLabel").textContent = fields.fishModel.value.trim() || "s2.1-pro-free";
   el("elevenModelLabel").textContent = fields.elevenModel.value.trim() || "eleven_v3";
 }
@@ -436,7 +438,6 @@ function setEditing(engine, editing) {
   const col = columns[engine];
   const btn = document.querySelector(`.edit-btn[data-engine="${engine}"]`);
   if (editing) {
-    col.text.style.height = `${Math.max(col.view.offsetHeight, 200)}px`;
     col.view.hidden = true;
     col.text.hidden = false;
     col.text.focus();
@@ -462,16 +463,8 @@ for (const engine of Object.keys(columns)) {
 // Fish 开（默认）：读 TTS Director 标注后的文本；关：读原文，方便对比同一个引擎标注前后的效果。
 // ElevenLabs 关（默认）：读原文，作为"没有 skill"的对照组；开：读同一份标注，对比同一份标注在两个引擎上的差异。
 
-function updateFishToggleLabel() {
-  el("fishToggleLabel").textContent = el("fishAnnotateToggle").checked ? "标注" : "原文";
-}
-
-function updateElevenToggleLabel() {
-  el("elevenToggleLabel").textContent = el("elevenAnnotateToggle").checked ? "标注" : "原文";
-}
-
-function onToggle(engine, updateLabel) {
-  updateLabel();
+// 开关本身就是「标注 | 原文」两段式，选中哪段由 CSS 根据 checked 画出来，不需要另外改文字。
+function onToggle(engine) {
   saveSettings();
   if (lastOriginalText || lastAnnotatedText) {
     columns[engine].text.value = columns[engine].toggle.checked ? lastAnnotatedText : lastOriginalText;
@@ -479,8 +472,8 @@ function onToggle(engine, updateLabel) {
   renderColumn(engine);
 }
 
-el("fishAnnotateToggle").addEventListener("change", () => onToggle("fish", updateFishToggleLabel));
-el("elevenAnnotateToggle").addEventListener("change", () => onToggle("eleven", updateElevenToggleLabel));
+el("fishAnnotateToggle").addEventListener("change", () => onToggle("fish"));
+el("elevenAnnotateToggle").addEventListener("change", () => onToggle("eleven"));
 
 // ---- 预设示例 ----
 
@@ -506,7 +499,7 @@ function setAnnotateStatus(message, isError = false) {
 el("annotateBtn").addEventListener("click", async () => {
   const text = el("inputText").value.trim();
   if (!text) {
-    setAnnotateStatus("先写一段中文文本，或者点上面的示例。", true);
+    setAnnotateStatus("先写一段中文文本，或者点下面的示例。", true);
     el("inputText").focus();
     return;
   }
@@ -532,7 +525,8 @@ el("annotateBtn").addEventListener("click", async () => {
 
   const btn = el("annotateBtn");
   btn.disabled = true;
-  btn.textContent = "正在标注…";
+  btn.setAttribute("aria-label", "正在标注…");
+  select("fish");
   setAnnotateStatus(""); // 清掉上一次的报错；进行中和完成都不另外提示，结果直接出现在气泡里
   el("strategyNote").hidden = true;
   if (el("fishText").hidden === false) setEditing("fish", false);
@@ -626,7 +620,7 @@ el("annotateBtn").addEventListener("click", async () => {
     scheduleRender("fish");
   } finally {
     btn.disabled = false;
-    btn.textContent = "开始标注";
+    btn.setAttribute("aria-label", "开始标注");
   }
 });
 
@@ -662,8 +656,8 @@ const engineConfig = {
 };
 
 const voiceState = {
-  fish: { peaks: null, duration: 0, blob: null, url: null },
-  eleven: { peaks: null, duration: 0, blob: null, url: null },
+  fish: { duration: 0, blob: null, url: null },
+  eleven: { duration: 0, blob: null, url: null },
 };
 
 const q = (selector, engine) => document.querySelector(`${selector}[data-engine="${engine}"]`);
@@ -695,9 +689,8 @@ function setGenLabel(engine, state) {
   btn.title = state === "regen" || state === "regenerating" ? label : "";
 }
 
-// ---- 波形：按真实音频解码出的振幅画柱子 ----
+// ---- 时长：解码真实音频拿到准确时长（metadata 还没到时也能先显示） ----
 
-const PEAK_RESOLUTION = 160;
 let decodeCtx = null;
 
 async function analyzeAudio(blob) {
@@ -706,100 +699,45 @@ async function analyzeAudio(blob) {
     if (!Ctx) throw new Error("no audio context");
     decodeCtx = decodeCtx || new Ctx(1, 1, 44100);
     const buf = await decodeCtx.decodeAudioData(await blob.arrayBuffer());
-    const data = buf.getChannelData(0);
-    const size = Math.max(1, Math.floor(data.length / PEAK_RESOLUTION));
-    const peaks = [];
-    for (let b = 0; b < PEAK_RESOLUTION; b++) {
-      let max = 0;
-      const end = Math.min((b + 1) * size, data.length);
-      for (let i = b * size; i < end; i += 8) {
-        const v = Math.abs(data[i]);
-        if (v > max) max = v;
-      }
-      peaks.push(max);
-    }
-    const top = Math.max(...peaks) || 1;
-    return { peaks: peaks.map((p) => Math.max(0.08, p / top)), duration: buf.duration };
+    return { duration: buf.duration };
   } catch (err) {
-    console.warn("解析音频波形失败，改用占位波形", err);
-    return { peaks: null, duration: 0 };
+    console.warn("解析音频时长失败，等 audio 元素自己读", err);
+    return { duration: 0 };
   }
-}
-
-function placeholderPeaks(count, seed = 7) {
-  const out = [];
-  let x = seed;
-  for (let i = 0; i < count; i++) {
-    x = (x * 9301 + 49297) % 233280;
-    out.push(0.25 + (x / 233280) * 0.5);
-  }
-  return out;
-}
-
-function resamplePeaks(peaks, count) {
-  if (!peaks || peaks.length === 0) return new Array(count).fill(0.12);
-  const out = [];
-  const step = peaks.length / count;
-  for (let i = 0; i < count; i++) {
-    let max = 0;
-    const end = Math.min(peaks.length, Math.ceil((i + 1) * step));
-    for (let j = Math.floor(i * step); j < end; j++) max = Math.max(max, peaks[j]);
-    out.push(max);
-  }
-  return out;
-}
-
-function renderBars(wave, peaks) {
-  const width = wave.clientWidth || 240;
-  const count = Math.max(12, Math.min(64, Math.floor(width / 6)));
-  const values = resamplePeaks(peaks, count);
-  const frag = document.createDocumentFragment();
-  for (const v of values) {
-    const bar = document.createElement("span");
-    bar.style.height = `${Math.round(4 + v * 26)}px`;
-    frag.append(bar);
-  }
-  wave.replaceChildren(frag);
 }
 
 function updateProgress(engine) {
   const audio = engineConfig[engine].audioEl();
   const wave = q(".voice-wave", engine);
-  const time = q(".voice-time", engine);
   const duration = Number.isFinite(audio.duration) ? audio.duration : voiceState[engine].duration;
   if (!voiceState[engine].blob) return;
   const ratio = duration > 0 ? Math.min(1, audio.currentTime / duration) : 0;
-  const bars = wave.children;
-  const played = Math.round(ratio * bars.length);
-  for (let i = 0; i < bars.length; i++) bars[i].classList.toggle("is-played", i < played);
+  const pct = `${ratio * 100}%`;
+  wave.querySelector(".scrub-fill").style.width = pct;
+  wave.querySelector(".scrub-knob").style.left = pct;
   wave.setAttribute("aria-valuenow", String(Math.round(ratio * 100)));
   wave.setAttribute("aria-valuetext", `${formatDuration(audio.currentTime)} / ${formatDuration(duration)}`);
-  // 像语音消息一样只显示一个时间：播放中显示已播时长，否则显示总时长，宽度稳定不挤波形
-  const started = (!audio.paused || audio.currentTime > 0.05) && !audio.ended;
-  time.textContent = formatDuration(started ? audio.currentTime : duration);
+  q(".voice-time", engine).textContent = formatDuration(audio.currentTime);
+  q(".voice-left", engine).textContent = `-${formatDuration(Math.max(0, duration - audio.currentTime))}`;
 }
 
-// 语音条四种状态：empty（还没生成）→ loading（第一次生成中）→ ready ⇄ regenerating（保留旧波形，重新生成中）
-function barsFor(engine, state) {
-  if (state === "ready" || state === "regenerating") return voiceState[engine].peaks || placeholderPeaks(64);
-  if (state === "loading") return placeholderPeaks(64, engine.length * 11);
-  return null;
-}
-
+// 播放器四种状态：empty（还没生成）→ loading（第一次生成中）→ ready ⇄ regenerating（保留旧音频，重新生成中）
 function setVoiceState(engine, state) {
   const note = q(".voice-note", engine);
   const wave = q(".voice-wave", engine);
-  const play = q(".voice-play", engine);
   const hasAudio = state === "ready" || state === "regenerating";
   note.dataset.state = state;
-  renderBars(wave, barsFor(engine, state));
-  play.disabled = state !== "ready";
+  q(".voice-play", engine).disabled = state !== "ready";
   wave.tabIndex = state === "ready" ? 0 : -1;
   q(".download-btn", engine).disabled = !hasAudio;
   if (hasAudio) updateProgress(engine);
+  else {
+    wave.querySelector(".scrub-fill").style.width = "0%";
+    wave.querySelector(".scrub-knob").style.left = "0%";
+  }
 }
 
-// ---- 焦点跟着耳朵走：同一时间只播一条，正在播的那栏亮着，另一栏退后 ----
+// ---- 同一时间只播一条；开始播放的那张卡会被选中（耳机挂过去） ----
 
 const historyAudios = new Set();
 
@@ -818,12 +756,13 @@ for (const engine of Object.keys(engineConfig)) {
 
   audio.addEventListener("play", () => {
     pauseAllExcept(audio);
-    play.innerHTML = ICONS.pause;
+    select(engine);
+    play.innerHTML = ICONS.pauseLg;
     play.setAttribute("aria-label", play.getAttribute("aria-label").replace("播放", "暂停"));
     compare.dataset.listening = engine;
   });
   const onStop = () => {
-    play.innerHTML = ICONS.play;
+    play.innerHTML = ICONS.playLg;
     play.setAttribute("aria-label", play.getAttribute("aria-label").replace("暂停", "播放"));
     if (compare.dataset.listening === engine) delete compare.dataset.listening;
     updateProgress(engine);
@@ -833,7 +772,7 @@ for (const engine of Object.keys(engineConfig)) {
   audio.addEventListener("timeupdate", () => updateProgress(engine));
   audio.addEventListener("loadedmetadata", () => updateProgress(engine));
 
-  play.innerHTML = ICONS.play;
+  play.innerHTML = ICONS.playLg;
   play.addEventListener("click", () => {
     if (audio.paused) audio.play().catch((err) => setStatus(engine, `播放失败：${err.message}`, true));
     else audio.pause();
@@ -913,13 +852,12 @@ async function generate(engine) {
       throw new Error(data.error || `请求失败（${resp.status}）`);
     }
     const blob = await resp.blob();
-    const { peaks, duration } = await analyzeAudio(blob);
+    const { duration } = await analyzeAudio(blob);
 
     const state = voiceState[engine];
     if (state.url) URL.revokeObjectURL(state.url);
     state.url = URL.createObjectURL(blob);
     state.blob = blob;
-    state.peaks = peaks;
     state.duration = duration;
 
     audio.src = state.url;
@@ -1047,28 +985,160 @@ function renderHistory(engine) {
   container.replaceChildren(frag);
 }
 
-// 窗口变宽变窄时按新宽度重画波形柱子数量
-if ("ResizeObserver" in window) {
-  const ro = new ResizeObserver((entries) => {
-    for (const entry of entries) {
-      const engine = entry.target.dataset.engine;
-      renderBars(entry.target, barsFor(engine, q(".voice-note", engine).dataset.state));
-      updateProgress(engine);
-    }
-  });
-  document.querySelectorAll(".voice-wave").forEach((w) => ro.observe(w));
+// ---- 耳机：选中哪张输出卡，耳机就挂到哪张两侧；耳机线经分线器连回手机 ----
+// 动作：朝哪边走哪边那只先动 → 停在挂点外上方一点 → 定一下 → 沿斜线慢慢挂上去（不回弹）。
+
+const stage = el("stage");
+const cables = el("cables");
+const cards = { fish: document.querySelector('.engine-col[data-engine="fish"]'), eleven: document.querySelector('.engine-col[data-engine="eleven"]') };
+const stacked = window.matchMedia("(max-width: 1179px)");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const BUD_SVG = (id) => `<svg viewBox="0 0 60 150">
+  <defs><radialGradient id="bud-h-${id}" cx="45%" cy="40%" r="70%"><stop offset="0" stop-color="var(--bud)"/><stop offset=".75" stop-color="var(--bud)"/><stop offset="1" stop-color="var(--bud-edge)"/></radialGradient></defs>
+  <rect x="20" y="34" width="12" height="90" rx="6" fill="var(--bud)" stroke="var(--bud-edge)" stroke-width=".9"/>
+  <rect x="20" y="118" width="12" height="17" rx="4.5" fill="var(--bud)" stroke="var(--bud-edge)" stroke-width=".9"/>
+  <path d="M46 10.7 Q50.8 25 46 39.3 Z" fill="var(--bud-flat)" stroke="var(--bud-edge)" stroke-width=".9" stroke-linejoin="round"/>
+  <path d="M47.2 15.5 Q49.4 25 47.2 34.5" fill="none" stroke="#a99c95" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M46 10.7 A23 23 0 1 0 46 39.3 Z" fill="url(#bud-h-${id})" stroke="var(--bud-edge)" stroke-width=".9" stroke-linejoin="round"/>
+  <rect x="10" y="22" width="10" height="5.6" rx="2.8" fill="#4a3a37"/>
+</svg>`;
+
+const BUD_W = 41, EXIT_Y = 91.6, HOOK = 9;
+const buds = [
+  { el: el("budL"), dir: 1, ex: 17.8, x: 0, y: 0, vx: 0, vy: 0, tx: 0, ty: 0, fx: 0, fy: 0, wob: 0, phase: null },
+  { el: el("budR"), dir: -1, ex: 23.2, x: 0, y: 0, vx: 0, vy: 0, tx: 0, ty: 0, fx: 0, fy: 0, wob: 1.7, phase: null },
+];
+buds[0].el.innerHTML = BUD_SVG("l");
+buds[1].el.innerHTML = BUD_SVG("r");
+
+let currentEngine = null;
+
+function budTargets(card) {
+  const y = card.offsetTop + card.offsetHeight * 0.3;
+  return [
+    { x: card.offsetLeft - BUD_W - 16, y },
+    { x: card.offsetLeft + card.offsetWidth + 16, y },
+  ];
 }
+
+function select(engine, instant = false) {
+  if (currentEngine === engine) return;
+  const first = currentEngine === null;
+  currentEngine = engine;
+  for (const [name, card] of Object.entries(cards)) card.classList.toggle("is-dim", name !== engine);
+  const t = budTargets(cards[engine]);
+  const jump = instant || first || reducedMotion.matches || stacked.matches;
+  const movingRight = t[0].x > buds[0].x;
+  buds.forEach((b, i) => {
+    const go = () => {
+      if (currentEngine !== engine) return; // 140ms 内又换了卡：作废这次迟到的起步
+      b.fx = t[i].x; b.fy = t[i].y;
+      if (jump) { b.x = b.tx = b.fx; b.y = b.ty = b.fy; b.vx = b.vy = 0; b.phase = null; return; }
+      b.tx = b.fx - b.dir * HOOK; b.ty = b.fy - HOOK;
+      b.phase = "approach";
+    };
+    // 朝哪边走，哪边那只先动：往右时右耳先走，往左时左耳先走
+    const lead = (i === 1) === movingRight;
+    if (jump || lead) go(); else setTimeout(go, 140);
+  });
+}
+
+for (const [engine, card] of Object.entries(cards)) {
+  card.addEventListener("mouseenter", () => select(engine));
+  card.addEventListener("focusin", () => select(engine));
+}
+
+function drawCables() {
+  const composer = document.querySelector(".composer");
+  const phone = el("phone");
+  const px = composer.offsetLeft + phone.offsetLeft + phone.offsetWidth / 2;
+  const py = composer.offsetTop + phone.offsetTop + phone.offsetHeight;
+  const [l, r] = buds.map((b) => ({ x: b.x + b.ex, y: b.y + EXIT_Y }));
+  const jx = (l.x + r.x) / 2;
+  const card = cards.fish;
+  const slack = Math.min(40, (Math.abs(buds[0].vx) + Math.abs(buds[1].vx)) * 0.02);
+  const jy = card.offsetTop + card.offsetHeight + 92 + slack * 0.6;
+  cables.innerHTML = `
+    <g fill="none" stroke="var(--cable)" stroke-width="2.2" stroke-linecap="round">
+      <path d="M${l.x} ${l.y} C${l.x} ${l.y + 120 + slack}, ${jx - 34} ${jy - 76}, ${jx} ${jy}"/>
+      <path d="M${r.x} ${r.y} C${r.x} ${r.y + 120 + slack}, ${jx + 34} ${jy - 76}, ${jx} ${jy}"/>
+      <path d="M${jx} ${jy + 20} C${jx} ${jy + 150 + slack}, ${px} ${py + 190}, ${px} ${py + 28}"/>
+    </g>
+    <rect x="${jx - 5}" y="${jy - 3}" width="10" height="24" rx="5" fill="var(--bud)" stroke="var(--bud-edge)" stroke-width="1.2"/>
+    <rect x="${px - 8}" y="${py + 1}" width="16" height="28" rx="4" fill="var(--bud)" stroke="var(--bud-edge)" stroke-width="1.2"/>
+    <rect x="${px - 4}" y="${py - 3}" width="8" height="6" rx="1.5" fill="var(--phone-b)"/>`;
+}
+
+let lastFrame = performance.now();
+function budFrame(now) {
+  const dt = Math.min(0.033, (now - lastFrame) / 1000);
+  lastFrame = now;
+  if (!stacked.matches) {
+    const playing = currentEngine && el("compare").dataset.listening === currentEngine;
+    for (const b of buds) {
+      let rot = 0;
+      if (!reducedMotion.matches) {
+        // 临界阻尼弹簧：直接到位，不回弹
+        const k = 320, c = 2 * Math.sqrt(k);
+        b.vx += (k * (b.tx - b.x) - c * b.vx) * dt;
+        b.vy += (k * (b.ty - b.y) - c * b.vy) * dt;
+        b.x += b.vx * dt;
+        b.y += b.vy * dt;
+        rot = Math.max(-10, Math.min(10, -b.vx * 0.012)); // 被线拖着走，微微后仰
+        if (b.phase === "approach" && Math.hypot(b.tx - b.x, b.ty - b.y) < 2 && Math.hypot(b.vx, b.vy) < 40) {
+          b.phase = "hold"; b.until = now + 220;
+        } else if (b.phase === "hold" && now >= b.until) {
+          b.phase = "hook"; b.start = now; b.sx = b.x; b.sy = b.y;
+        }
+        if (b.phase === "hook") {
+          const p = Math.min(1, (now - b.start) / 560);
+          const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          b.x = b.sx + (b.fx - b.sx) * e;
+          b.y = b.sy + (b.fy - b.sy) * e;
+          b.vx = b.vy = 0;
+          if (p >= 1) { b.tx = b.fx; b.ty = b.fy; b.phase = null; }
+        }
+        if (playing) rot += Math.sin((now / 1000) * 46 + b.wob) * 0.7; // 播放时耳机轻微震动
+      } else {
+        b.x = b.tx = b.fx; b.y = b.ty = b.fy;
+      }
+      b.el.style.transform = `translate(${b.x}px, ${b.y}px) rotate(${rot}deg)`;
+    }
+    drawCables();
+  }
+  requestAnimationFrame(budFrame);
+}
+
+// 1180px 以上：1400×800 的画布按窗口宽度等比缩小（不放大）；以下改成上下排列，见 style.css
+function fitStage() {
+  if (stacked.matches) {
+    stage.style.transform = "";
+    stage.style.marginBottom = "";
+    return;
+  }
+  const scale = Math.min(1, (document.documentElement.clientWidth - 32) / 1400);
+  stage.style.transform = `scale(${scale})`;
+  stage.style.marginBottom = `${800 * (scale - 1)}px`;
+  if (currentEngine) {
+    // 布局切换回来后，耳机直接回到当前卡片两侧
+    const t = budTargets(cards[currentEngine]);
+    buds.forEach((b, i) => { if (!b.phase) { b.x = b.tx = b.fx = t[i].x; b.y = b.ty = b.fy = t[i].y; } });
+  }
+}
+window.addEventListener("resize", fitStage);
 
 // ---- 初始化 ----
 // loadSettings() 直接给 checked/value 赋值，不会触发 change 事件，所以这里要手动把依赖这些状态的 UI 同步一遍。
 
 loadSettings();
 updateProviderFieldsVisibility();
-updateElevenToggleLabel();
-updateFishToggleLabel();
 updateSettingsStatus();
 renderColumn("fish");
 renderColumn("eleven");
 renderHistory("fish");
 renderHistory("eleven");
+fitStage();
+select("fish", true);
+requestAnimationFrame(budFrame);
 if (readiness().count === 0) setSettingsOpen(true);

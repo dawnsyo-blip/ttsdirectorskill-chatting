@@ -1,27 +1,207 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-24T16:46:09+00:00",
+  "generatedAt": "2026-11-25T07:19:20+00:00",
   "title": "Design System: TTS Director Demo",
   "extensions": {
     "colorMeta": {
       "ground": {
         "role": "neutral",
-        "displayName": "雾灰 Ground",
-        "canonical": "oklch(96.2% 0.003 286.3)",
+        "displayName": "灰米 Ground",
+        "canonical": "oklch(92.9% 0.010 58.2)",
         "tonalRamp": [
-          "#0b0b0c",
-          "#252526",
-          "#424243",
-          "#616162",
-          "#828284",
-          "#a5a5a6",
-          "#c9c9ca",
-          "#eeeeef"
+          "#0d0b09",
+          "#272422",
+          "#45413e",
+          "#65605c",
+          "#87817c",
+          "#a9a4a0",
+          "#cdc8c4",
+          "#f2edeb"
         ]
       },
       "surface": {
         "role": "neutral",
         "displayName": "纸白 Surface",
+        "canonical": "oklch(98.6% 0.003 67.8)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262524",
+          "#434241",
+          "#62615f",
+          "#848280",
+          "#a6a5a3",
+          "#cac9c7",
+          "#efeeed"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "卡片白 Card",
+        "canonical": "oklch(98.9% 0.003 67.8)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262524",
+          "#434241",
+          "#62615f",
+          "#848280",
+          "#a6a5a3",
+          "#cac9c7",
+          "#efeeed"
+        ]
+      },
+      "sunken": {
+        "role": "neutral",
+        "displayName": "凹陷 Sunken",
+        "canonical": "oklch(95.8% 0.008 61.5)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#272523",
+          "#44413f",
+          "#64605d",
+          "#86817e",
+          "#a8a4a1",
+          "#ccc8c5",
+          "#f1eeeb"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "细线 Line",
+        "canonical": "oklch(89.4% 0.014 60.6)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#282421",
+          "#46413d",
+          "#67605a",
+          "#89817a",
+          "#aba39e",
+          "#cec8c3",
+          "#f3ede9"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "强细线 Line Strong",
+        "canonical": "oklch(82.4% 0.020 65.1)",
+        "tonalRamp": [
+          "#0e0a07",
+          "#29241f",
+          "#48403a",
+          "#695f57",
+          "#8b8076",
+          "#ada39a",
+          "#d0c7bf",
+          "#f4ede6"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "墨 Ink",
+        "canonical": "oklch(29.5% 0.029 22.4)",
+        "tonalRamp": [
+          "#110909",
+          "#2d2221",
+          "#4d3e3d",
+          "#6f5c5b",
+          "#937c7a",
+          "#b49f9e",
+          "#d7c4c3",
+          "#faeae9"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "淡墨 Ink Soft",
+        "canonical": "oklch(47.3% 0.028 27.7)",
+        "tonalRamp": [
+          "#100908",
+          "#2d2220",
+          "#4d3e3c",
+          "#6f5c59",
+          "#937c79",
+          "#b4a09d",
+          "#d6c4c2",
+          "#faebe8"
+        ]
+      },
+      "honey": {
+        "role": "secondary",
+        "displayName": "珍珠 Honey",
+        "canonical": "oklch(90.1% 0.014 53.3)",
+        "tonalRamp": [
+          "#0d0a09",
+          "#282421",
+          "#47413d",
+          "#675f5b",
+          "#89807b",
+          "#aba39e",
+          "#cfc7c3",
+          "#f3ede9"
+        ]
+      },
+      "director-bg": {
+        "role": "neutral",
+        "displayName": "备注底 Director",
+        "canonical": "oklch(96.1% 0.008 61.5)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#272523",
+          "#44413f",
+          "#64605d",
+          "#86817e",
+          "#a8a4a1",
+          "#ccc8c5",
+          "#f1eeeb"
+        ]
+      },
+      "amber": {
+        "role": "primary",
+        "displayName": "檀木 Sandalwood",
+        "canonical": "oklch(45.4% 0.073 21.5)",
+        "tonalRamp": [
+          "#170505",
+          "#381c1b",
+          "#5c3635",
+          "#825251",
+          "#aa716f",
+          "#ca9694",
+          "#eabcba",
+          "#ffe4e2"
+        ]
+      },
+      "amber-hover": {
+        "role": "primary",
+        "displayName": "檀木·悬停 Sandalwood Hover",
+        "canonical": "oklch(39.1% 0.063 21.7)",
+        "tonalRamp": [
+          "#160606",
+          "#361d1d",
+          "#583837",
+          "#7e5553",
+          "#a57472",
+          "#c59896",
+          "#e6bebc",
+          "#ffe5e3"
+        ]
+      },
+      "amber-ink": {
+        "role": "primary",
+        "displayName": "檀木墨 Amber Ink",
+        "canonical": "oklch(45.4% 0.073 21.5)",
+        "tonalRamp": [
+          "#170505",
+          "#381c1b",
+          "#5c3635",
+          "#825251",
+          "#aa716f",
+          "#ca9694",
+          "#eabcba",
+          "#ffe4e2"
+        ]
+      },
+      "on-amber": {
+        "role": "primary",
+        "displayName": "檀木上文字 On Sandalwood",
         "canonical": "oklch(100.0% 0.000 89.9)",
         "tonalRamp": [
           "#0b0b0b",
@@ -34,442 +214,294 @@
           "#eeeeee"
         ]
       },
-      "sunken": {
-        "role": "neutral",
-        "displayName": "凹陷 Sunken",
-        "canonical": "oklch(97.4% 0.003 286.4)",
-        "tonalRamp": [
-          "#0b0b0c",
-          "#252526",
-          "#424243",
-          "#616162",
-          "#828284",
-          "#a5a5a6",
-          "#c9c9ca",
-          "#eeeeef"
-        ]
-      },
-      "line": {
-        "role": "neutral",
-        "displayName": "细线 Line",
-        "canonical": "oklch(91.5% 0.006 308.4)",
-        "tonalRamp": [
-          "#0b0b0c",
-          "#252526",
-          "#434144",
-          "#626063",
-          "#838185",
-          "#a6a4a7",
-          "#cac8cb",
-          "#efeef0"
-        ]
-      },
-      "line-strong": {
-        "role": "neutral",
-        "displayName": "强细线 Line Strong",
-        "canonical": "oklch(86.2% 0.011 303.1)",
-        "tonalRamp": [
-          "#0c0b0d",
-          "#262428",
-          "#434146",
-          "#626066",
-          "#838188",
-          "#a6a4aa",
-          "#cac8ce",
-          "#efedf2"
-        ]
-      },
-      "ink": {
-        "role": "neutral",
-        "displayName": "墨 Ink",
-        "canonical": "oklch(26.3% 0.023 84.3)",
-        "tonalRamp": [
-          "#0d0b06",
-          "#28251d",
-          "#464138",
-          "#676155",
-          "#898273",
-          "#aba498",
-          "#cec8bd",
-          "#f3eee5"
-        ]
-      },
-      "ink-soft": {
-        "role": "neutral",
-        "displayName": "淡墨 Ink Soft",
-        "canonical": "oklch(50.3% 0.025 83.2)",
-        "tonalRamp": [
-          "#0e0b06",
-          "#29241d",
-          "#474137",
-          "#676053",
-          "#8a8172",
-          "#aca496",
-          "#cfc8bc",
-          "#f3eee4"
-        ]
-      },
-      "honey": {
-        "role": "secondary",
-        "displayName": "蜂蜜黄 Honey",
-        "canonical": "oklch(93.2% 0.090 90.9)",
-        "tonalRamp": [
-          "#120a00",
-          "#2f2400",
-          "#4f4011",
-          "#725f27",
-          "#96803f",
-          "#b7a46c",
-          "#d9c899",
-          "#fceec7"
-        ]
-      },
-      "honey-soft": {
-        "role": "secondary",
-        "displayName": "淡蜂蜜 Honey Soft",
-        "canonical": "oklch(96.4% 0.049 91.8)",
-        "tonalRamp": [
-          "#0f0b02",
-          "#2a2514",
-          "#49422c",
-          "#6a6145",
-          "#8d8261",
-          "#aea588",
-          "#d1c9b0",
-          "#f5eed9"
-        ]
-      },
-      "director-bg": {
-        "role": "neutral",
-        "displayName": "导演灰 Director",
-        "canonical": "oklch(92.7% 0.007 295.4)",
-        "tonalRamp": [
-          "#0b0b0c",
-          "#252527",
-          "#424144",
-          "#616164",
-          "#828286",
-          "#a5a4a8",
-          "#c9c8cc",
-          "#eeeef1"
-        ]
-      },
-      "amber": {
-        "role": "primary",
-        "displayName": "琥珀 Amber",
-        "canonical": "oklch(73.3% 0.158 68.6)",
-        "tonalRamp": [
-          "#1e0200",
-          "#411700",
-          "#683200",
-          "#924e00",
-          "#bd6c00",
-          "#dc9337",
-          "#fabb74",
-          "#ffe4aa"
-        ]
-      },
-      "amber-hover": {
-        "role": "primary",
-        "displayName": "琥珀·悬停 Amber Hover",
-        "canonical": "oklch(69.0% 0.152 66.2)",
-        "tonalRamp": [
-          "#1d0200",
-          "#411700",
-          "#683100",
-          "#924e00",
-          "#bd6c00",
-          "#dc9341",
-          "#fabb7a",
-          "#ffe3ae"
-        ]
-      },
-      "amber-ink": {
-        "role": "primary",
-        "displayName": "琥珀墨 Amber Ink",
-        "canonical": "oklch(49.9% 0.114 63.3)",
-        "tonalRamp": [
-          "#1a0500",
-          "#3c1c00",
-          "#613603",
-          "#885319",
-          "#b17231",
-          "#d09862",
-          "#f0be91",
-          "#ffe6c0"
-        ]
-      },
-      "on-amber": {
-        "role": "primary",
-        "displayName": "琥珀上文字 On Amber",
-        "canonical": "oklch(23.5% 0.049 80.0)",
-        "tonalRamp": [
-          "#100a02",
-          "#2d2414",
-          "#4c402c",
-          "#6e5f46",
-          "#928062",
-          "#b3a388",
-          "#d5c7b0",
-          "#f9edd9"
-        ]
-      },
       "ok": {
         "role": "status",
-        "displayName": "成功 OK",
-        "canonical": "oklch(58.0% 0.124 153.9)",
+        "displayName": "就绪 OK",
+        "canonical": "oklch(56.4% 0.025 149.4)",
         "tonalRamp": [
-          "#001102",
-          "#002f13",
-          "#07502a",
-          "#207344",
-          "#3a975f",
-          "#6cb986",
-          "#9bdbaf",
-          "#c9fed8"
+          "#080d09",
+          "#202721",
+          "#3b453d",
+          "#59655b",
+          "#79877b",
+          "#9ca99e",
+          "#c1cdc3",
+          "#e8f1e9"
         ]
       },
       "error": {
         "role": "status",
         "displayName": "错误 Error",
-        "canonical": "oklch(50.1% 0.178 28.7)",
+        "canonical": "oklch(48.3% 0.152 27.4)",
         "tonalRamp": [
-          "#250000",
-          "#4d0001",
-          "#791812",
-          "#a83128",
-          "#d84d40",
-          "#f67b6c",
-          "#ffa899",
-          "#ffd4c6"
+          "#220000",
+          "#480a09",
+          "#72231e",
+          "#9f3c35",
+          "#cd584e",
+          "#ec8377",
+          "#ffada2",
+          "#ffd8ce"
         ]
       },
       "error-bg": {
         "role": "status",
         "displayName": "错误底 Error Bg",
-        "canonical": "oklch(95.6% 0.019 25.6)",
+        "canonical": "oklch(92.8% 0.026 26.5)",
         "tonalRamp": [
-          "#0f0a09",
-          "#2a2322",
-          "#493f3e",
-          "#6a5e5c",
-          "#8d7e7d",
-          "#afa1a0",
-          "#d2c6c5",
-          "#f6eceb"
+          "#100908",
+          "#2c2221",
+          "#4c3e3d",
+          "#6e5d5a",
+          "#917d7a",
+          "#b3a09e",
+          "#d5c5c3",
+          "#f9ebe9"
         ]
       },
       "tag-emotion": {
         "role": "tertiary",
-        "displayName": "焦糖·情绪 Emotion",
-        "canonical": "oklch(46.2% 0.119 52.1)",
+        "displayName": "玫瑰·情绪 Emotion",
+        "canonical": "oklch(50.1% 0.085 24.4)",
         "tonalRamp": [
-          "#1c0300",
-          "#3f1800",
-          "#65320c",
-          "#8e4e22",
-          "#b96c39",
-          "#d89368",
-          "#f7ba95",
-          "#ffe2c4"
+          "#190404",
+          "#3b1a18",
+          "#5f3431",
+          "#87504c",
+          "#b06e69",
+          "#cf938e",
+          "#efbab5",
+          "#ffe2de"
         ]
       },
       "tag-emotion-bg": {
         "role": "tertiary",
-        "displayName": "焦糖底 Emotion Bg",
-        "canonical": "oklch(92.8% 0.049 73.1)",
+        "displayName": "玫瑰底 Emotion Bg",
+        "canonical": "oklch(91.6% 0.022 27.8)",
         "tonalRamp": [
-          "#110902",
-          "#2e2314",
-          "#4e3f2c",
-          "#705e46",
-          "#957e62",
-          "#b6a188",
-          "#d8c6b0",
-          "#fbecda"
+          "#0f0909",
+          "#2b2321",
+          "#4b3f3d",
+          "#6c5d5b",
+          "#8f7e7b",
+          "#b1a19e",
+          "#d4c5c3",
+          "#f7ebea"
         ]
       },
       "tag-para": {
         "role": "tertiary",
-        "displayName": "石板蓝·停顿呼吸 Pause & Breath",
-        "canonical": "oklch(42.1% 0.057 248.4)",
+        "displayName": "砂岩·停顿呼吸 Pause & Breath",
+        "canonical": "oklch(47.4% 0.031 85.6)",
         "tonalRamp": [
-          "#030c16",
-          "#172635",
-          "#304457",
-          "#4b647c",
-          "#6886a3",
-          "#8ea8c3",
-          "#b5cce3",
-          "#def1ff"
+          "#0e0b05",
+          "#29241a",
+          "#484134",
+          "#686050",
+          "#8b816d",
+          "#ada492",
+          "#d0c8b9",
+          "#f4eee1"
         ]
       },
       "tag-para-bg": {
         "role": "tertiary",
-        "displayName": "石板蓝底 Pause Bg",
-        "canonical": "oklch(92.0% 0.017 248.0)",
+        "displayName": "砂岩底 Pause Bg",
+        "canonical": "oklch(91.9% 0.018 89.4)",
         "tonalRamp": [
-          "#090c0f",
-          "#21262a",
-          "#3d4349",
-          "#5b626a",
-          "#7b838c",
-          "#9ea6ae",
-          "#c3cad1",
-          "#e9eff5"
+          "#0d0b07",
+          "#27251f",
+          "#45423a",
+          "#656157",
+          "#878276",
+          "#a9a59a",
+          "#ccc9c0",
+          "#f1eee7"
         ]
       },
       "tag-voice": {
         "role": "tertiary",
-        "displayName": "梅紫·音色语调 Voice & Tone",
-        "canonical": "oklch(44.1% 0.148 308.3)",
+        "displayName": "陶土·音色语调 Voice & Tone",
+        "canonical": "oklch(49.1% 0.062 48.5)",
         "tonalRamp": [
-          "#130121",
-          "#311546",
-          "#522e6e",
-          "#764999",
-          "#9b67c5",
-          "#bc8ee2",
-          "#ddb6ff",
-          "#ffdfff"
+          "#150702",
+          "#341f14",
+          "#563b2c",
+          "#7b5846",
+          "#a27862",
+          "#c29c88",
+          "#e3c1b0",
+          "#ffe8d9"
         ]
       },
       "tag-voice-bg": {
         "role": "tertiary",
-        "displayName": "梅紫底 Voice Bg",
-        "canonical": "oklch(91.6% 0.034 312.4)",
+        "displayName": "陶土底 Voice Bg",
+        "canonical": "oklch(91.9% 0.021 56.1)",
         "tonalRamp": [
-          "#0d0910",
-          "#29222c",
-          "#473e4c",
-          "#675d6e",
-          "#897d91",
-          "#aba0b3",
-          "#cfc5d5",
-          "#f3ebf9"
+          "#0f0a07",
+          "#2a241f",
+          "#49403a",
+          "#6a5f57",
+          "#8d7f76",
+          "#aea29a",
+          "#d1c7c0",
+          "#f5ede7"
         ]
       },
       "tag-action": {
         "role": "tertiary",
-        "displayName": "玫红·动作 Action",
-        "canonical": "oklch(49.6% 0.150 1.6)",
+        "displayName": "灰青·动作 Action",
+        "canonical": "oklch(48.0% 0.027 209.9)",
         "tonalRamp": [
-          "#200009",
-          "#450a22",
-          "#6e223e",
-          "#9a3b5c",
-          "#c7567c",
-          "#e6819f",
-          "#ffabc4",
-          "#ffd6ea"
+          "#050d0e",
+          "#1c2729",
+          "#364548",
+          "#526569",
+          "#70878b",
+          "#95a9ad",
+          "#bbcdd0",
+          "#e3f2f4"
         ]
       },
       "tag-action-bg": {
         "role": "tertiary",
-        "displayName": "玫红底 Action Bg",
-        "canonical": "oklch(92.3% 0.033 354.2)",
+        "displayName": "灰青底 Action Bg",
+        "canonical": "oklch(92.0% 0.008 197.0)",
         "tonalRamp": [
-          "#11080c",
-          "#2d2126",
-          "#4d3d43",
-          "#6f5b62",
-          "#937a84",
-          "#b59ea6",
-          "#d7c3ca",
-          "#fae9ef"
+          "#090c0c",
+          "#232626",
+          "#3f4343",
+          "#5d6262",
+          "#7d8484",
+          "#a1a6a6",
+          "#c5caca",
+          "#ebefef"
         ]
       },
       "tag-phoneme": {
         "role": "tertiary",
-        "displayName": "灰紫·发音校正 Phoneme",
-        "canonical": "oklch(40.0% 0.022 302.9)",
+        "displayName": "灰褐·发音校正 Phoneme",
+        "canonical": "oklch(47.3% 0.028 27.7)",
         "tonalRamp": [
-          "#0c0a0f",
-          "#26242b",
-          "#444049",
-          "#635f6b",
-          "#857f8e",
-          "#a7a2af",
-          "#cbc7d2",
-          "#f0ecf6"
+          "#100908",
+          "#2d2220",
+          "#4d3e3c",
+          "#6f5c59",
+          "#937c79",
+          "#b4a09d",
+          "#d6c4c2",
+          "#faebe8"
         ]
       },
       "tag-phoneme-bg": {
         "role": "tertiary",
-        "displayName": "灰紫底 Phoneme Bg",
-        "canonical": "oklch(94.2% 0.005 297.7)",
+        "displayName": "灰褐底 Phoneme Bg",
+        "canonical": "oklch(93.2% 0.010 58.2)",
         "tonalRamp": [
-          "#0b0b0c",
-          "#252526",
-          "#424144",
-          "#616164",
-          "#828285",
-          "#a5a4a8",
-          "#c9c8cb",
-          "#efeef0"
+          "#0d0b09",
+          "#272422",
+          "#45413e",
+          "#65605c",
+          "#87817c",
+          "#a9a4a0",
+          "#cdc8c4",
+          "#f2edeb"
         ]
       },
-      "wave-bar": {
+      "track": {
         "role": "neutral",
-        "displayName": "波形灰 Wave Bar",
-        "canonical": "oklch(87.4% 0.013 86.8)",
+        "displayName": "轨道 Track",
+        "canonical": "oklch(86.1% 0.016 58.6)",
         "tonalRamp": [
-          "#0c0b08",
-          "#272521",
-          "#44423c",
-          "#64615a",
-          "#86827a",
-          "#a8a59d",
-          "#ccc9c2",
-          "#f1eee9"
+          "#0e0a08",
+          "#292420",
+          "#47413c",
+          "#685f59",
+          "#8a8079",
+          "#aca39d",
+          "#cfc7c2",
+          "#f4ede8"
+        ]
+      },
+      "cable": {
+        "role": "neutral",
+        "displayName": "耳机线 Cable",
+        "canonical": "oklch(72.5% 0.028 54.4)",
+        "tonalRamp": [
+          "#100a06",
+          "#2c231d",
+          "#4b3f38",
+          "#6d5e54",
+          "#907e73",
+          "#b2a197",
+          "#d4c6bd",
+          "#f8ece4"
+        ]
+      },
+      "bud": {
+        "role": "neutral",
+        "displayName": "耳机 Bud",
+        "canonical": "oklch(96.3% 0.006 59.7)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#262523",
+          "#444140",
+          "#63615e",
+          "#85817f",
+          "#a7a4a2",
+          "#cbc8c6",
+          "#f0eeec"
         ]
       }
     },
     "darkTheme": {
       "trigger": "@media (prefers-color-scheme: dark)",
       "colors": {
-        "ground": "#161519",
-        "surface": "#211f25",
-        "sunken": "#1a191d",
-        "line": "#322f37",
-        "line-strong": "#46424d",
-        "ink": "#f1ece2",
-        "ink-soft": "#b3ab9c",
-        "honey": "#3b2c16",
-        "honey-soft": "#2f2618",
-        "director-bg": "#2a2830",
-        "amber": "#f2a33a",
-        "amber-hover": "#f6b257",
-        "amber-ink": "#f5b65c",
-        "on-amber": "#2a1b00",
-        "ok": "#5cc78a",
+        "ground": "#1d1817",
+        "surface": "#2a2321",
+        "card": "#2e2725",
+        "sunken": "#241e1c",
+        "line": "#3b3230",
+        "line-strong": "#52453f",
+        "ink": "#f0e6e1",
+        "ink-soft": "#b9a8a2",
+        "honey": "#4a3a36",
+        "director-bg": "#2a2321",
+        "amber": "#d39a94",
+        "amber-hover": "#e2aea8",
+        "amber-ink": "#e3aaa3",
+        "on-amber": "#2a1716",
+        "ok": "#9fb4a2",
         "error": "#ff9b8f",
         "error-bg": "#3a1d1a",
-        "tag-emotion": "#ffd9ae",
-        "tag-emotion-bg": "#6a4318",
-        "tag-para": "#cfe2f5",
-        "tag-para-bg": "#2b4560",
-        "tag-voice": "#ebd6fa",
-        "tag-voice-bg": "#4d3366",
-        "tag-action": "#ffc4d8",
-        "tag-action-bg": "#5e2540",
-        "tag-phoneme": "#e4e0ea",
-        "tag-phoneme-bg": "#45414c",
-        "wave-bar": "#4a4650"
+        "tag-emotion": "#f6d3ce",
+        "tag-emotion-bg": "#5c3532",
+        "tag-para": "#e8dfca",
+        "tag-para-bg": "#4a4334",
+        "tag-voice": "#f1d3c1",
+        "tag-voice-bg": "#57392b",
+        "tag-action": "#d3e3e5",
+        "tag-action-bg": "#2f474a",
+        "tag-phoneme": "#ebe0dc",
+        "tag-phoneme-bg": "#4a3e3b",
+        "track": "#4a3f3b",
+        "cable": "#75655e",
+        "bud": "#ece6e2"
       }
     },
     "typographyMeta": {
       "headline": {
         "displayName": "Headline",
-        "purpose": "品牌名。"
+        "purpose": "品牌名，刻意做小，舞台才是主角。"
       },
       "title": {
         "displayName": "Title",
-        "purpose": "区块标题、引擎名、主按钮。"
+        "purpose": "引擎名。"
       },
       "message": {
         "displayName": "Message",
-        "purpose": "气泡文本；行高 2.05 给行内标签胶囊留空间。"
+        "purpose": "输出卡文本；行高 1.95 给行内标签胶囊留空间。"
       },
       "body": {
         "displayName": "Body",
@@ -491,13 +523,23 @@
     "shadows": [
       {
         "name": "lift-low",
-        "value": "0 1px 2px rgba(42, 36, 24, 0.06), 0 1px 1px rgba(42, 36, 24, 0.04)",
-        "purpose": "原文气泡、设置胶囊静止态、历史条目。"
+        "value": "0 1px 2px rgba(80, 50, 45, 0.07), 0 1px 1px rgba(80, 50, 45, 0.05)",
+        "purpose": "设置胶囊悬停、历史条目、开关选中块。"
       },
       {
         "name": "lift-mid",
-        "value": "0 4px 14px rgba(42, 36, 24, 0.07), 0 1px 3px rgba(42, 36, 24, 0.05)",
-        "purpose": "写作卡、设置面板、语音条、设置胶囊悬停。"
+        "value": "0 6px 18px rgba(80, 50, 45, 0.09), 0 1px 3px rgba(80, 50, 45, 0.06)",
+        "purpose": "设置面板、notes。"
+      },
+      {
+        "name": "float",
+        "value": "0 22px 46px rgba(80, 50, 45, 0.16), 0 2px 6px rgba(80, 50, 45, 0.08)",
+        "purpose": "输入气泡，从模糊手机上浮起。"
+      },
+      {
+        "name": "card",
+        "value": "0 28px 56px rgba(80, 50, 45, 0.17), 0 6px 14px rgba(80, 50, 45, 0.07), 0 0 0 1px rgba(122, 69, 68, 0.05)",
+        "purpose": "输出卡。"
       }
     ],
     "motion": [
@@ -507,157 +549,163 @@
         "purpose": "所有状态过渡的默认缓动。"
       },
       {
+        "name": "earphones-switch",
+        "value": "critically damped spring (k=320) -> hold 220ms -> 560ms ease-in-out diagonal hook; trailing bud starts 140ms later",
+        "purpose": "耳机换到另一张卡：朝哪边走哪边先动，停在挂点外上方，再沿斜线挂住，不回弹。"
+      },
+      {
+        "name": "card-recede",
+        "value": "opacity 0.5, scale 0.985, 0.45s ease",
+        "purpose": "没被选中的输出卡退后。"
+      },
+      {
         "name": "tag-collapse",
         "value": "max-width/padding/margin 0.32s ease-out, opacity 0.22s ease-out",
-        "purpose": "原文/标注切换时标签胶囊原地收起展开，全页唯一编排过的动效。"
+        "purpose": "原文/标注切换时标签胶囊原地收起展开。"
       },
       {
-        "name": "listening-recede",
-        "value": "opacity/filter/color 0.35s ease-out",
-        "purpose": "一栏播放时另一栏退后。"
-      },
-      {
-        "name": "bar-breathe",
-        "value": "opacity 0.45 to 1, 1.1s ease-in-out infinite",
-        "purpose": "生成中的波形占位。"
+        "name": "scan",
+        "value": "1.2s ease-in-out infinite",
+        "purpose": "生成中进度条上扫过的光。"
       }
     ],
     "breakpoints": [
       {
-        "name": "stacked",
-        "value": "1100px",
-        "purpose": "工作区变单列，输入框压到 132px。"
+        "name": "stage",
+        "value": ">=1180px",
+        "purpose": "1400×800 固定画布，窄于 1400px 时等比缩小。"
       },
       {
-        "name": "tablet-row",
-        "value": "761px-1100px",
-        "purpose": "示例胶囊和主按钮并排。"
+        "name": "flow",
+        "value": "761px-1179px",
+        "purpose": "去掉手机和耳机，气泡在上，两张卡并排。"
       },
       {
         "name": "mobile",
-        "value": "760px",
-        "purpose": "引擎上下堆叠、顶栏换行、图例变网格。"
+        "value": "<=760px",
+        "purpose": "两张卡上下堆叠。"
       }
     ]
   },
   "components": [
     {
-      "name": "主按钮 Primary Button",
-      "kind": "button",
-      "refersTo": "button-primary",
-      "description": "整宽琥珀主操作，每屏只有一个。",
-      "html": "<button class=\"ds-btn-primary\">开始标注</button>",
-      "css": ".ds-btn-primary{width:320px;border:0;border-radius:14px;background:#e8930c;color:#2a1b00;padding:14px 18px;font:700 1rem/1.4 Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;letter-spacing:.01em;cursor:pointer;transition:background .18s cubic-bezier(.16,1,.3,1),transform .12s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:#d98508}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid #e8930c;outline-offset:2px}"
+      "name": "输入气泡 Input Bubble",
+      "kind": "input",
+      "refersTo": "input-bubble",
+      "description": "原文输入框就是一只聊天气泡，右下角是发送（开始标注）。",
+      "html": "<div class=\"ds-stage\"><div class=\"ds-bubble\"><p>又感冒了？跟你说了多穿点，不听。</p><div class=\"ds-foot\"><span>Claude · claude-sonnet-5</span><button class=\"ds-send\" aria-label=\"开始标注\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\"><path d=\"M12 19V5M6 11l6-6 6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button></div></div></div>",
+      "css": ".ds-stage{background:radial-gradient(400px 260px at 100% 0%,rgba(240,233,222,.95),transparent 60%),radial-gradient(400px 300px at 0% 20%,rgba(184,171,147,.55),transparent 62%),radial-gradient(400px 260px at 100% 100%,rgba(169,128,106,.5),transparent 62%),#ede6e1;padding:28px;width:460px;font-family:Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-bubble{background:#fcfaf8;border-radius:26px 26px 26px 8px;padding:18px 20px 14px 22px;box-shadow:0 22px 46px rgba(80,50,45,.16),0 2px 6px rgba(80,50,45,.08)}.ds-bubble p{margin:0 0 18px;font-size:.98rem;line-height:1.8;color:#3a2726}.ds-foot{display:flex;align-items:center;justify-content:space-between}.ds-foot span{font-size:.8rem;color:#6b5653}.ds-send{width:40px;height:40px;border:0;border-radius:50%;display:grid;place-items:center;background:#7a4544;color:#fff;cursor:pointer;transition:background .18s cubic-bezier(.16,1,.3,1),transform .18s cubic-bezier(.16,1,.3,1)}.ds-send:hover{background:#633736;transform:translateY(-1px)}.ds-send:focus-visible{outline:2px solid #7a4544;outline-offset:2px}"
     },
     {
-      "name": "示例胶囊 Preset Chip",
-      "kind": "chip",
-      "refersTo": "chip-preset",
-      "description": "雾灰全圆胶囊，选中变蜂蜜黄。",
-      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\">日常闲聊</button><button class=\"ds-chip\" aria-pressed=\"true\">口非心是</button><button class=\"ds-chip\">知识解释</button></div>",
-      "css": ".ds-chips{display:flex;gap:8px}.ds-chip{border:0;border-radius:999px;background:#f2f2f4;color:#2a2418;padding:6px 13px;font:500 .86rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;cursor:pointer;transition:background .18s cubic-bezier(.16,1,.3,1)}.ds-chip:hover{background:#e4e2e6}.ds-chip[aria-pressed=true]{background:#ffe7a3;font-weight:600}.ds-chip:focus-visible{outline:2px solid #e8930c;outline-offset:2px}"
+      "name": "示例菜单 Preset Menu",
+      "kind": "nav",
+      "refersTo": "preset-menu",
+      "description": "气泡下的毛玻璃菜单，选中项变檀木红。",
+      "html": "<div class=\"ds-stage2\"><div class=\"ds-menu\"><button>日常闲聊</button><button aria-pressed=\"true\">口非心是</button><button>知识解释</button></div></div>",
+      "css": ".ds-stage2{background:radial-gradient(400px 260px at 100% 0%,rgba(240,233,222,.95),transparent 60%),radial-gradient(400px 300px at 0% 20%,rgba(184,171,147,.55),transparent 62%),radial-gradient(400px 260px at 100% 100%,rgba(169,128,106,.5),transparent 62%),#ede6e1;padding:24px;width:300px;font-family:Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-menu{width:232px;border-radius:18px;overflow:hidden;background:rgba(252,250,248,.74);backdrop-filter:blur(14px);box-shadow:0 14px 34px rgba(80,50,45,.12)}.ds-menu button{display:block;width:100%;border:0;background:transparent;text-align:left;padding:12px 18px;font:400 .94rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#3a2726;cursor:pointer;transition:background .18s}.ds-menu button+button{border-top:1px solid #e3dad3}.ds-menu button:hover{background:rgba(122,69,68,.07)}.ds-menu button[aria-pressed=true]{color:#7a4544;font-weight:600}"
     },
     {
       "name": "标签胶囊 Tag Pills",
       "kind": "chip",
       "refersTo": "tag-emotion",
-      "description": "四种分类墨色的行内胶囊，嵌在白底气泡文本里，按中线对齐。",
+      "description": "四种分类墨色的行内胶囊，嵌在白底文本里，按中线对齐。",
       "html": "<p class=\"ds-line\"><span class=\"ds-tag ds-emo\">warm</span>哦对了，<span class=\"ds-tag ds-para\">pause</span>我顺路买了，<span class=\"ds-tag ds-voice\">under breath</span>不谢。<span class=\"ds-tag ds-act\">gently nudging</span>快去睡吧。</p>",
-      "css": ".ds-line{margin:0;width:460px;background:#fff;box-shadow:0 1px 2px rgba(42,36,24,.06),0 1px 1px rgba(42,36,24,.04);border-radius:22px 22px 22px 6px;padding:18px 20px;font:400 1.02rem/2.05 Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#2a2418}.ds-tag{display:inline-block;vertical-align:middle;position:relative;top:-.08em;margin:0 4px;padding:3px 9px;border-radius:999px;font:600 .74rem/1.25 Figtree,system-ui,sans-serif;letter-spacing:.01em;white-space:nowrap;cursor:help}.ds-emo{color:#8a4100;background:#fce3c4}.ds-para{color:#34506b;background:#dce6f0}.ds-voice{color:#6a3590;background:#ebddf4}.ds-act{color:#a2335c;background:#f9dde7}"
+      "css": ".ds-line{margin:0;width:420px;background:#fdfbf9;box-shadow:0 28px 56px rgba(80,50,45,.17),0 6px 14px rgba(80,50,45,.07),0 0 0 1px rgba(122,69,68,.05);border-radius:32px;padding:22px 24px;font:400 .98rem/1.95 Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#3a2726}.ds-tag{display:inline-block;vertical-align:middle;position:relative;top:-.08em;margin:0 3px;padding:2px 8px;border-radius:999px;font:600 .74rem/1.3 Figtree,system-ui,sans-serif;letter-spacing:.01em;white-space:nowrap;cursor:help}.ds-emo{color:#8e4f4b;background:#f2dedb}.ds-para{color:#645b48;background:#e9e4d7}.ds-voice{color:#7e5641;background:#f0e1d7}.ds-act{color:#4c6266;background:#dfe6e6}"
     },
     {
-      "name": "语音条 Voice Note",
+      "name": "播放器 Player Controls",
       "kind": "custom",
-      "refersTo": "voice-note",
-      "description": "签名组件：播放键 + 真实波形 + 单个时间 + 下载（真实页面里还有重新生成图标）。",
-      "html": "<div class=\"ds-voice\"><button class=\"ds-play\" aria-label=\"暂停\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\"><rect x=\"3.5\" y=\"2.5\" width=\"3.2\" height=\"11\" rx=\"1.1\" fill=\"currentColor\"/><rect x=\"9.3\" y=\"2.5\" width=\"3.2\" height=\"11\" rx=\"1.1\" fill=\"currentColor\"/></svg></button><div class=\"ds-wave\"><i class=\"p\" style=\"height:10px\"></i><i class=\"p\" style=\"height:22px\"></i><i class=\"p\" style=\"height:14px\"></i><i class=\"p\" style=\"height:28px\"></i><i class=\"p\" style=\"height:18px\"></i><i style=\"height:8px\"></i><i style=\"height:24px\"></i><i style=\"height:16px\"></i><i style=\"height:26px\"></i><i style=\"height:12px\"></i><i style=\"height:20px\"></i><i style=\"height:6px\"></i><i style=\"height:18px\"></i><i style=\"height:14px\"></i></div><span class=\"ds-time\">0:02</span><button class=\"ds-icon\" aria-label=\"下载\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><path d=\"M8 2.5v7.6M4.9 7.1 8 10.2l3.1-3.1M3 13.2h10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button></div>",
-      "css": ".ds-voice{display:flex;align-items:center;gap:10px;height:54px;width:340px;background:#fff;border-radius:999px;padding:0 8px;box-shadow:0 4px 14px rgba(42,36,24,.07),0 1px 3px rgba(42,36,24,.05);font-family:Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-play{width:38px;height:38px;border:0;border-radius:50%;display:grid;place-items:center;background:#e8930c;color:#2a1b00;cursor:pointer;transition:background .18s cubic-bezier(.16,1,.3,1)}.ds-play:hover{background:#d98508}.ds-play:focus-visible{outline:2px solid #e8930c;outline-offset:2px}.ds-wave{flex:1;display:flex;align-items:center;gap:3px;height:32px}.ds-wave i{flex:1;max-width:4px;border-radius:2px;background:#d9d5cc}.ds-wave i.p{background:#e8930c}.ds-time{font-size:.84rem;color:#6b6354;font-variant-numeric:tabular-nums}.ds-icon{width:34px;height:34px;border:0;border-radius:50%;display:grid;place-items:center;background:transparent;color:#6b6354;cursor:pointer;transition:background .18s,color .18s}.ds-icon:hover{background:#f2f2f4;color:#2a2418}"
+      "refersTo": "player-card",
+      "description": "输出卡底部：细进度条 + 已播/剩余时间 + 重新生成 / 播放 / 下载。",
+      "html": "<div class=\"ds-player\"><div class=\"ds-scrub\"><i style=\"width:34%\"></i><b style=\"left:34%\"></b></div><div class=\"ds-times\"><span>0:02</span><span>-0:04</span></div><div class=\"ds-ctl\"><button aria-label=\"重新生成\"><svg viewBox=\"0 0 16 16\" width=\"21\" height=\"21\"><path d=\"M13 8a5 5 0 1 1-1.47-3.54M13 2.6v3.1H9.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button><button class=\"ds-play\" aria-label=\"暂停\"><svg viewBox=\"0 0 24 24\" width=\"34\" height=\"34\"><rect x=\"5.5\" y=\"4\" width=\"4.5\" height=\"16\" rx=\"1.4\" fill=\"currentColor\"/><rect x=\"14\" y=\"4\" width=\"4.5\" height=\"16\" rx=\"1.4\" fill=\"currentColor\"/></svg></button><button aria-label=\"下载\"><svg viewBox=\"0 0 16 16\" width=\"21\" height=\"21\"><path d=\"M8 2.5v7.6M4.9 7.1 8 10.2l3.1-3.1M3 13.2h10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button></div></div>",
+      "css": ".ds-player{width:300px;background:#fdfbf9;border-radius:32px;padding:22px 24px 14px;box-shadow:0 28px 56px rgba(80,50,45,.17),0 6px 14px rgba(80,50,45,.07),0 0 0 1px rgba(122,69,68,.05);font-family:Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-scrub{position:relative;height:4px;border-radius:2px;background:#dacfc7}.ds-scrub i{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:#7a4544}.ds-scrub b{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#f6f2ef;box-shadow:0 1px 4px rgba(58,39,38,.3)}.ds-times{display:flex;justify-content:space-between;margin-top:8px;font-size:.76rem;color:#6b5653;font-variant-numeric:tabular-nums}.ds-ctl{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:0 8px}.ds-ctl button{width:44px;height:44px;border:0;border-radius:50%;display:grid;place-items:center;background:transparent;color:#6b5653;cursor:pointer;transition:background .18s,color .18s}.ds-ctl button:hover{background:rgba(58,39,38,.06);color:#3a2726}.ds-ctl .ds-play{width:60px;height:60px;color:#7a4544}"
+    },
+    {
+      "name": "标注 / 原文开关 Mode Switch",
+      "kind": "custom",
+      "refersTo": "mode-switch",
+      "description": "一个复选框画成两段，勾上 = 标注。",
+      "html": "<label class=\"ds-mode\"><input type=\"checkbox\" checked><span class=\"on\">标注</span><span class=\"off\">原文</span></label>",
+      "css": ".ds-mode{position:relative;display:inline-flex;flex-direction:row;align-items:center;gap:0;padding:3px;border-radius:999px;background:rgba(58,39,38,.07);font:400 .82rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#6b5653;cursor:pointer}.ds-mode input{position:absolute;inset:0;opacity:0;margin:0;z-index:1;cursor:pointer}.ds-mode span{padding:4px 11px;border-radius:999px;transition:background .2s cubic-bezier(.16,1,.3,1)}.ds-mode input:checked~.on,.ds-mode input:not(:checked)~.off{background:#fcfaf8;color:#3a2726;font-weight:600;box-shadow:0 1px 2px rgba(80,50,45,.07),0 1px 1px rgba(80,50,45,.05)}"
     },
     {
       "name": "输入框 Field",
       "kind": "input",
       "refersTo": "field",
-      "description": "凹陷底 + 细线描边，聚焦变琥珀并加光晕。",
+      "description": "凹陷底 + 细线描边，聚焦变檀木红并加光晕。",
       "html": "<label class=\"ds-field\"><span>Voice ID</span><input placeholder=\"在 fish.audio 网站上找到音色 ID\"></label>",
-      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;width:280px;font:600 .85rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#2a2418}.ds-field input{font:400 .92rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#2a2418;background:#f6f6f8;border:1px solid #e4e2e6;border-radius:10px;padding:9px 12px;transition:border-color .18s,box-shadow .18s}.ds-field input::placeholder{color:#6b6354}.ds-field input:focus{outline:none;border-color:#e8930c;box-shadow:0 0 0 3px rgba(232,147,12,.22)}"
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px;width:280px;font:600 .85rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#3a2726}.ds-field input{font:400 .92rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#3a2726;background:#f5f0ec;border:1px solid #e3dad3;border-radius:10px;padding:9px 12px;transition:border-color .18s,box-shadow .18s}.ds-field input::placeholder{color:#6b5653}.ds-field input:focus{outline:none;border-color:#7a4544;box-shadow:0 0 0 3px rgba(122,69,68,.22)}"
     },
     {
       "name": "设置胶囊 Settings Pill",
       "kind": "nav",
       "refersTo": "settings-pill",
-      "description": "顶栏设置入口，圆点琥珀表示还差 key，绿色表示已就绪。",
-      "html": "<button class=\"ds-pill\"><i></i>设置 · 还差 1 项<svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\"><path d=\"M4 6l4 4 4-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
-      "css": ".ds-pill{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;background:#fff;color:#2a2418;padding:9px 14px 9px 16px;font:600 .92rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;box-shadow:0 1px 2px rgba(42,36,24,.06),0 1px 1px rgba(42,36,24,.04);cursor:pointer;transition:box-shadow .18s cubic-bezier(.16,1,.3,1)}.ds-pill:hover{box-shadow:0 4px 14px rgba(42,36,24,.07),0 1px 3px rgba(42,36,24,.05)}.ds-pill i{width:8px;height:8px;border-radius:50%;background:#e8930c}.ds-pill svg{color:#6b6354}.ds-pill:focus-visible{outline:2px solid #e8930c;outline-offset:2px}"
+      "description": "顶栏设置入口，圆点玫瑰色表示还差 key，灰绿表示已就绪。",
+      "html": "<button class=\"ds-pill\"><i></i>设置 · 还差 1 项<svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\"><path d=\"M4 7h10M18 7h2M4 17h4M12 17h8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><circle cx=\"16\" cy=\"7\" r=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/><circle cx=\"10\" cy=\"17\" r=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"/></svg></button>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #e3dad3;border-radius:999px;background:rgba(252,250,248,.72);color:#3a2726;padding:8px 14px;font:600 .88rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;cursor:pointer;transition:background .18s cubic-bezier(.16,1,.3,1),box-shadow .18s cubic-bezier(.16,1,.3,1)}.ds-pill:hover{background:#fcfaf8;box-shadow:0 1px 2px rgba(80,50,45,.07),0 1px 1px rgba(80,50,45,.05)}.ds-pill i{width:8px;height:8px;border-radius:50%;background:#a86d69}.ds-pill svg{color:#6b5653}.ds-pill:focus-visible{outline:2px solid #7a4544;outline-offset:2px}"
     },
     {
-      "name": "开关 Toggle",
-      "kind": "custom",
-      "refersTo": "toggle",
-      "description": "引擎栏「标注 / 原文」开关。",
-      "html": "<label class=\"ds-toggle\">标注<span class=\"ds-sw\"><input type=\"checkbox\" checked><b></b></span></label>",
-      "css": ".ds-toggle{display:inline-flex;flex-direction:row;align-items:center;gap:8px;font:400 .82rem Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif;color:#6b6354;cursor:pointer}.ds-sw{position:relative;width:36px;height:21px}.ds-sw input{position:absolute;opacity:0;inset:0;margin:0;z-index:1;cursor:pointer}.ds-sw b{position:absolute;inset:0;border-radius:999px;background:#d3d0d8;transition:background .2s cubic-bezier(.16,1,.3,1)}.ds-sw b::before{content:'';position:absolute;left:2px;top:2px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .22s cubic-bezier(.16,1,.3,1)}.ds-sw input:checked+b{background:#e8930c}.ds-sw input:checked+b::before{transform:translateX(15px)}.ds-sw input:focus-visible+b{outline:2px solid #e8930c;outline-offset:2px}"
-    },
-    {
-      "name": "导演备注 Director Message",
+      "name": "备注 Director Note",
       "kind": "card",
-      "refersTo": "director-message",
-      "description": "TTS Director 作为发件人发来的标注策略说明。",
-      "html": "<div class=\"ds-dir\"><span class=\"ds-av\"><svg viewBox=\"0 0 32 32\" width=\"22\" height=\"22\"><path d=\"M6 5h20a4 4 0 0 1 4 4v11a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4z\" fill=\"#e8930c\"/><path d=\"M12 10.5h-2.5v8H12M20 10.5h2.5v8H20\" stroke=\"#2a1b00\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><div class=\"ds-bub\"><p class=\"ds-name\">TTS Director<span>导演备注 · 为什么这样标</span></p><p class=\"ds-txt\">表面嫌弃、实际关心，表里距离大，需要标签把潜台词带出来。</p></div></div>",
-      "css": ".ds-dir{display:flex;gap:10px;align-items:flex-start;width:520px;font-family:Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-av{width:34px;height:34px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 1px 2px rgba(42,36,24,.06),0 1px 1px rgba(42,36,24,.04)}.ds-bub{flex:1;background:#e7e6eb;border-radius:6px 22px 22px 22px;padding:14px 20px 16px}.ds-name{margin:0 0 4px;font-size:.9rem;font-weight:700;color:#2a2418;display:flex;gap:10px;align-items:baseline}.ds-name span{font-size:.82rem;font-weight:500;color:#6b6354}.ds-txt{margin:0;font-size:1rem;line-height:1.95;color:#2a2418}"
+      "refersTo": "director-note",
+      "description": "舞台下方的标注策略说明卡。",
+      "html": "<div class=\"ds-note\"><p class=\"ds-name\">notes</p><p class=\"ds-txt\">表面嫌弃、实际关心，表里距离大，需要标签把潜台词带出来。</p></div>",
+      "css": ".ds-note{width:520px;background:#f6f1ed;border-radius:24px;padding:18px 24px 20px;box-shadow:0 6px 18px rgba(80,50,45,.09),0 1px 3px rgba(80,50,45,.06);font-family:Figtree, \"Noto Sans SC\", \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif}.ds-name{margin:0 0 4px;font-size:.9rem;font-weight:700;color:#3a2726}.ds-txt{margin:0;font-size:.98rem;line-height:1.95;color:#3a2726}"
     }
   ],
   "narrative": {
-    "northStar": "语音消息（The Voice Note）",
-    "overview": "每次标注都像有人发来一条消息：标注过的文本是一只对话气泡，生成的语音是挂在气泡下面的一条语音条。整个界面借用即时通讯的语法（圆角气泡、语音条、系统消息），而不是音频工作站或开发者控制台的语法，所以它是暖的；但它只借语法、不借皮肤，底色是中性浅灰、卡片是纯白，所以它是干净的。\n\n温度来自内容和少数几个有意义的颜色，而不是装饰：琥珀只出现在主操作和正在播放的声音上，四种标签墨色只出现在标签本身，蜂蜜黄只用于小面积的选中/待生成状态。气泡本身始终是白底，保证长文本好读。界面里没有渐变、没有玻璃、没有纹理，阴影只用来让卡片和语音条从浅灰底上轻轻浮起。\n\n明确拒绝的两种品类默认：深色底 + 霓虹波形的 TTS playground（太冷），以及米色纸张 + 衬线体的复古风（这个项目改版前的样子）。",
+    "northStar": "耳机（The Earphones）",
+    "overview": "左边是一部被虚化的手机，聊天页面全是模糊的色块，只有一只聊天气泡是清晰的——它就是原文输入框。右边是两张像手机播放页的音频卡，分别是 Fish Audio 和 ElevenLabs 的输出。一副有线耳机挂在被选中的那张卡两侧，耳机线经过分线器连回手机：鼠标移到哪张卡，耳机就挂到哪张卡上，像是把耳机换到另一边去听。这个比喻把\"同一段话，听两个版本\"直接画了出来。\n\n配色是 Aurora 灰调：砂岩、珍珠白、陶土腮红和一点玫瑰在背景里大片晕染，卡片和气泡保持实色。唯一的操作色是檀木红（Sandalwood），只给发送、生成、播放和进度。标签胶囊按类别用四种低饱和墨色。温度来自背景晕染和耳机这个具体的物件，而不是装饰性纹理。\n\n明确拒绝的品类默认：深色底 + 霓虹波形的 TTS playground（太冷）、米色纸张 + 衬线体的复古风（改版前的样子）、以及通用 AI 模板的渐变紫。",
     "keyCharacteristics": [
-      "中性浅灰底 + 白色卡片与白色气泡，单一暖色（琥珀）承担操作；标注与否只靠标签胶囊和改写下划线表达。",
-      "标签是全圆胶囊，按类别固定四种墨色，全站一致。",
-      "对话气泡带一个 6px 的\"尾巴\"圆角，暗示是谁说出的话。",
-      "签名组件是按真实音频解码出波形的语音条。",
+      "舞台式构图：1400×800 的固定画布，模糊手机 + 清晰气泡在左，两张音频卡在右，耳机和耳机线把两边连起来。",
+      "背景是四角大面积径向晕染（Aurora 灰调），卡片、气泡、菜单都是实色或半透明实色。",
+      "檀木红是唯一的操作色；标签是全圆胶囊，按类别固定四种墨色。",
+      "输出卡借 iPhone 播放页的结构：顶部引擎名，中间文本，下面细进度条、时间和三个按钮。",
+      "签名动效是耳机换边：朝哪边走哪边先动，停在挂点外上方，再沿斜线慢慢\"挂住\"，不回弹。",
       "Figtree + Noto Sans SC，一套无衬线，靠字重和字号拉层级。"
     ],
     "rules": [
       {
         "name": "The White Reading Surface Rule",
-        "body": "气泡永远是白底（深色模式下是卡片色），不管有没有标注。标注了什么只靠标签胶囊和改写下划线表达——给整段文字铺彩色底会降低可读性（用户实测后否掉了蜂蜜黄气泡）。",
+        "body": "输出卡的文本区永远是实色白底（深色模式下是卡片色），不管有没有标注。标注了什么只靠标签胶囊和改写下划线表达——给整段文字铺彩色底会降低可读性（用户实测后否掉了蜂蜜黄气泡）。",
         "section": "colors"
       },
       {
         "name": "The One Ink Per Category Rule",
-        "body": "每个标签类别只有一种墨色，正文、图例、提示里处处相同。新增标签按 `s2-pro-tags.md` 的类别归入这四种之一，不要为单个标签新造颜色。",
+        "body": "每个标签类别只有一种墨色，全站一致。新增标签按 `s2-pro-tags.md` 的类别归入这四种之一，不要为单个标签新造颜色。",
         "section": "colors"
       },
       {
-        "name": "The Amber Is Sound and Action Rule",
-        "body": "琥珀只给主操作和\"正在发出的声音\"（播放键、已播放的波形）。同一屏上琥珀面积很小，它的稀缺就是它的作用。",
+        "name": "The Sandalwood Is Sound and Action Rule",
+        "body": "檀木红只给\"发出去\"和\"放出来\"：发送、生成、播放、进度。同一屏上它的面积很小，稀缺就是它的作用。",
         "section": "colors"
       },
       {
         "name": "The One Family Rule",
-        "body": "整个界面只用 Figtree + Noto Sans SC。不要引入衬线体（那是改版前的复古风），也不要用等宽字体给标签扮\"技术感\"。",
+        "body": "整个界面只用 Figtree + Noto Sans SC。不要引入衬线体，也不要用等宽字体给标签扮\"技术感\"。",
         "section": "typography"
       },
       {
-        "name": "The Listening Focus Rule",
-        "body": "一栏在播放时，另一栏\"退后\"：标题行和语音条降到 45% 不透明度，气泡去饱和，正文换成淡墨。不要整栏降不透明度——那会把正文对比度压到 4.5:1 以下。",
+        "name": "The Earphones Follow Focus Rule",
+        "body": "被选中的卡（鼠标悬停、键盘聚焦或正在播放）挂着耳机，另一张退后：不透明度 0.5、缩到 0.985、阴影变浅。耳机和耳机线在卡片下面一层（z-index 低于卡片），移动时从卡片背后穿过，永远不遮挡文本。窄屏没有悬停，不做退后。",
         "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** 两栏气泡都用白底，标注与否只靠标签胶囊和改写下划线区分。",
+      "**Do** 让输出卡的文本区保持实色白底，标注与否只靠标签胶囊和改写下划线区分。",
       "**Do** 新标签按 `s2-pro-tags.md` 的类别归入四种墨色之一，并同步更新 `app.js` 的 `TAG_INFO`。",
-      "**Do** 用浮起-低 / 浮起-中两档阴影区分层级，阴影带偏移和模糊。",
-      "**Do** 所有图标用自绘线性 SVG（1.5–1.7px 描边、`currentColor`），播放/暂停用实心几何形。",
+      "**Do** 把耳机和耳机线放在卡片下面一层，移动时不遮挡任何文字。",
+      "**Do** 所有图标用自绘线性 SVG（1.6–1.8px 描边、`currentColor`），播放/暂停用实心几何形。",
       "**Do** 时间、时长、计数一律用 `tabular-nums`。",
-      "**Do** 次级文字用淡墨 (#6b6354)，保证在白底上 ≥4.5:1。"
+      "**Do** 新加颜色先写成 `style.css` 顶部的 token，并同时给深色模式一个值。"
     ],
     "donts": [
-      "**Don't** 回到米色纸张 + 衬线体的复古风（这是改版前被用户否掉的样子）。",
-      "**Don't** 做成深色底霓虹波形的 playground，或任何\"开发者控制台\"的冷感。",
-      "**Don't** 用渐变紫、玻璃卡片、模糊背景这类通用 AI 模板手法。",
+      "**Don't** 回到米色纸张 + 衬线体的复古风，或做成深色底霓虹波形的 playground。",
+      "**Don't** 用渐变紫这类通用 AI 模板手法；背景晕染只用 Aurora 灰调里的颜色。",
+      "**Don't** 让耳机动效回弹或反复晃动——用户要的是干脆的\"挂住\"。",
       "**Don't** 用 emoji 或图标字体代替图标。",
       "**Don't** 给标签胶囊用 `vertical-align: <数值>` 去凑对齐——`overflow:hidden` 的 inline-block 以底边为基线，要用 `middle`。",
-      "**Don't** 用整栏降不透明度来表示\"退后\"，正文对比度必须保持可读。"
+      "**Don't** 在窄屏保留手机、耳机和\"退后\"效果——没有悬停，也放不下。"
     ]
   }
 }
