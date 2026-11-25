@@ -593,7 +593,9 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
   box-shadow: var(--shadow-md);
 }
 .director-name { margin: 0 0 4px; font-size: 0.9rem; font-weight: 700; }
-.director-text { margin: 0; max-width: 90ch; font-size: 0.98rem; line-height: 1.95; color: var(--ink); }
+.director-text { margin: 0; padding-left: 1.2em; max-width: 90ch; font-size: 0.98rem; line-height: 1.85; color: var(--ink); }
+.director-text li + li { margin-top: 4px; }
+.director-text li::marker { color: var(--amber); }
 
 .history-section { margin-top: 32px; }
 .history-section h3 { margin: 0 0 12px; font-size: 0.95rem; font-weight: 700; }

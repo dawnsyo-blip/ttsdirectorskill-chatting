@@ -488,6 +488,47 @@ el("inputText").addEventListener("input", () => {
   presetButtons.forEach((b) => b.setAttribute("aria-pressed", "false"));
 });
 
+// ---- Notes：把标注策略说明拆成一条条要点 ----
+// 模型通常写成一段话，用句号/分号隔开；也可能自己写成多行或带 "- " 前缀。
+// 引号和括号里的标点不断句（比如「行吧。」里的句号）。
+
+const NOTE_OPEN = "「『“‘（(《【";
+const NOTE_CLOSE = "」』”’）)》】";
+
+function splitStrategy(text) {
+  const items = [];
+  for (const line of text.split(/\n+/)) {
+    let depth = 0;
+    let asciiQuote = false;
+    let buf = "";
+    for (const ch of line) {
+      buf += ch;
+      if (ch === '"') asciiQuote = !asciiQuote;
+      else if (NOTE_OPEN.includes(ch)) depth++;
+      else if (NOTE_CLOSE.includes(ch)) depth = Math.max(0, depth - 1);
+      else if (depth === 0 && !asciiQuote && "。；;！？!?".includes(ch)) {
+        items.push(buf);
+        buf = "";
+      }
+    }
+    items.push(buf);
+  }
+  return items
+    .map((s) => s.trim().replace(/^[-*•·]\s*|^\d+[.、)]\s*/, "").replace(/[；;。]$/, "").trim())
+    .filter((s) => s && !/^[。！？!?]+$/.test(s));
+}
+
+function renderStrategyNote(text) {
+  const list = el("strategyNoteText");
+  const frag = document.createDocumentFragment();
+  for (const item of splitStrategy(text)) {
+    const li = document.createElement("li");
+    li.textContent = item;
+    frag.append(li);
+  }
+  list.replaceChildren(frag);
+}
+
 // ---- 标注 ----
 
 function setAnnotateStatus(message, isError = false) {
@@ -612,7 +653,7 @@ el("annotateBtn").addEventListener("click", async () => {
     renderColumn("eleven");
 
     if (strategyText) {
-      el("strategyNoteText").textContent = strategyText;
+      renderStrategyNote(strategyText);
       el("strategyNote").hidden = false;
     }
   } catch (err) {
