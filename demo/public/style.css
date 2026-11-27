@@ -34,6 +34,7 @@
   --t-phoneme: #6b5653;  --t-phoneme-bg: #eee7e2;
 
   --track: #dacfc7;
+  --focus-ring: #c5aeaa;
   --cable: #b5a296;
   --scrollbar: #cfc3b8;
 
@@ -99,6 +100,7 @@
     --t-phoneme: #ebe0dc;  --t-phoneme-bg: #4a3e3b;
 
     --track: #4a3f3b;
+    --focus-ring: #5d4643;
     --cable: #75655e;
     --scrollbar: #52453f;
 
@@ -295,21 +297,30 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
 
 .float { position: absolute; left: 0; top: 92px; width: 400px; display: flex; flex-direction: column; gap: 14px; }
 
+/* 气泡 + 尾巴的聚焦光环：不用 box-shadow/描边拼接（两种画法在交接处抗锯齿不一致，会看出色差），
+   而是分两层实色填充——底层是放大 2px 的光环色（气泡 ::before + 尾巴的描边加填充），
+   上层是纸白（气泡 ::after + 尾巴填充）。同色实色互相覆盖没有接缝，只剩最外圈一条边。 */
 .bubble {
   position: relative;
-  background: var(--surface);
-  border-radius: 26px 26px 26px 8px;
+  isolation: isolate;
+  border-radius: 26px 26px 26px 0; /* 左下角由尾巴接上 */
   padding: 18px 20px 14px 22px;
   box-shadow: var(--shadow-float);
 }
-.bubble-tail { position: absolute; left: -9px; bottom: 0; width: 22px; height: 20px; color: var(--surface); }
+.bubble::before,
+.bubble::after { content: ""; position: absolute; pointer-events: none; }
+.bubble::before { inset: -2px; border-radius: 28px 28px 28px 0; background: var(--focus-ring); z-index: -2; opacity: 0; }
+.bubble::after { inset: 0; border-radius: inherit; background: var(--surface); z-index: -1; }
+.bubble-tail { position: absolute; left: -9px; bottom: 0; width: 22px; height: 20px; color: var(--surface); overflow: visible; z-index: -1; pointer-events: none; }
+.bubble-tail.tail-ring { color: var(--focus-ring); z-index: -2; opacity: 0; }
+.bubble:focus-within::before,
+.bubble:focus-within .tail-ring { opacity: 1; }
 .bubble textarea {
   display: block; width: 100%; height: 258px; resize: none;
   border: 0; background: transparent; outline: none; padding: 0;
   font: 0.98rem/1.8 var(--font); color: var(--ink);
 }
 .bubble textarea::placeholder { color: var(--ink-2); opacity: 0.8; }
-.bubble:focus-within { box-shadow: var(--shadow-float), 0 0 0 2px color-mix(in srgb, var(--amber) 35%, transparent); }
 
 .bubble-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; }
 
@@ -584,7 +595,7 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
 
 /* ---------- 舞台下方：notes + 最近生成 ---------- */
 
-.below { max-width: 1328px; margin: 0 auto; padding: 0 36px; }
+.below { position: relative; z-index: 3; max-width: 1328px; margin: 0 auto; padding: 0 36px; } /* 盖在耳机线上面 */
 
 .director-note {
   background: var(--director-bg);

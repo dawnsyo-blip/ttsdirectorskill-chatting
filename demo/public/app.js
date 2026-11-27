@@ -1055,6 +1055,19 @@ const BUD_SVG = (id) => `<svg viewBox="0 0 60 150">
 </svg>`;
 
 const BUD_W = 41, EXIT_Y = 91.6, HOOK = 9;
+// 主线从插头和分线器各自垂直往下，在舞台下方兜一个深 U 形，最低点藏在下面 Notes 卡片的中间（Notes 盖在线上面）。
+// Notes 没显示时用固定深度。三次贝塞尔两端控制点同样往下 D 时，最低点约在 D 的 3/4 处。
+const CABLE_SAG = 480;
+
+function cableSag(startY) {
+  const note = el("strategyNote");
+  if (note.hidden) return CABLE_SAG;
+  const stageRect = stage.getBoundingClientRect();
+  const scale = stageRect.width / 1400 || 1;
+  const r = note.getBoundingClientRect();
+  const target = (r.top + r.height / 2 - stageRect.top) / scale;
+  return Math.max(120, (target - startY) / 0.75);
+}
 const buds = [
   { el: el("budL"), dir: 1, ex: 17.8, x: 0, y: 0, vx: 0, vy: 0, tx: 0, ty: 0, fx: 0, fy: 0, wob: 0, phase: null },
   { el: el("budR"), dir: -1, ex: 23.2, x: 0, y: 0, vx: 0, vy: 0, tx: 0, ty: 0, fx: 0, fy: 0, wob: 1.7, phase: null },
@@ -1109,11 +1122,12 @@ function drawCables() {
   const card = cards.fish;
   const slack = Math.min(40, (Math.abs(buds[0].vx) + Math.abs(buds[1].vx)) * 0.02);
   const jy = card.offsetTop + card.offsetHeight + 92 + slack * 0.6;
+  const sag = cableSag((jy + 20 + py + 28) / 2);
   cables.innerHTML = `
     <g fill="none" stroke="var(--cable)" stroke-width="2.2" stroke-linecap="round">
       <path d="M${l.x} ${l.y} C${l.x} ${l.y + 120 + slack}, ${jx - 34} ${jy - 76}, ${jx} ${jy}"/>
       <path d="M${r.x} ${r.y} C${r.x} ${r.y + 120 + slack}, ${jx + 34} ${jy - 76}, ${jx} ${jy}"/>
-      <path d="M${jx} ${jy + 20} C${jx} ${jy + 150 + slack}, ${px} ${py + 190}, ${px} ${py + 28}"/>
+      <path d="M${jx} ${jy + 20} C${jx} ${jy + 20 + sag}, ${px} ${py + 28 + sag}, ${px} ${py + 28}"/>
     </g>
     <rect x="${jx - 5}" y="${jy - 3}" width="10" height="24" rx="5" fill="var(--bud)" stroke="var(--bud-edge)" stroke-width="1.2"/>
     <rect x="${px - 8}" y="${py + 1}" width="16" height="28" rx="4" fill="var(--bud)" stroke="var(--bud-edge)" stroke-width="1.2"/>
