@@ -18,7 +18,9 @@ npm start
 
 ## 使用
 
-1. 点顶栏右上角的"设置"（第一次打开、还没填任何 key 时会自动展开）：
+页面一打开会先显示一份标注好的「口非心是」示例（只有文字，没有预生成的语音），不填 key 也能先看看 skill 的标注效果。想自己试：
+
+1. 点顶栏右上角的"设置"：
    - **标注引擎**：选 Claude，或者选"OpenAI 兼容接口"——后者可以填任何兼容 OpenAI `/chat/completions` 格式的服务（OpenAI 官方、DeepSeek、Moonshot、自建网关、本地跑的模型……），填 Base URL、API Key、模型名即可，不锁定某一家。
    - **Fish Audio**：API Key + Voice ID（reference_id，在 fish.audio 网站上找喜欢的音色复制 ID）+ 模型（`s2.1-pro-free` / `s2.1-pro` / `s2-pro` / `s1`，不填默认免费的 `s2.1-pro-free`）。
    - **ElevenLabs**：API Key + Voice ID（在 ElevenLabs 网站 Voices 页面复制）+ 模型（`eleven_v3` / `eleven_multilingual_v2` / `eleven_flash_v2_5` / `eleven_turbo_v2_5`，不填默认 `eleven_v3`）。

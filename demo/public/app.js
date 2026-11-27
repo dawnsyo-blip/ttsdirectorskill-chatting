@@ -32,6 +32,15 @@ const PRESETS = {
   explain: "可以试试。冷藏和冷冻针对的问题其实不一样——冷藏主要是减缓细菌繁殖，但没法完全停住，熟食放冷藏也就三四天；冷冻是把水分变成冰晶，让细菌基本停止活动，能放更久，只是口感会打点折扣。这两天就吃，冷藏够了；想留久一点，就放冷冻。",
 };
 
+// 打开页面时默认展示的一份标注结果（「口非心是」示例），让没填 key 的访客也能先看到 skill 的效果。
+// 内容由 Claude 按仓库根目录的 skill 规则标注；改了 skill 规则后记得重新标一遍再替换这里。
+// 只放文字，不放预生成的语音（音色授权问题）。
+const DEFAULT_SAMPLE = {
+  preset: "mismatch",
+  annotated: "[worried] 又感冒了？跟你说了多穿点，不听。[with a soft, fond sigh] 好吧~ 粥给你煮上了，[gently nudging] 趁热喝。[warmly teasing] 别用那种委屈巴拉的眼神看我，我就是刚好想煮粥而已，跟你没关系~ 哦对了，你上次念叨想看的那本书，我顺路买了，放你桌上了，[under breath] 不谢。",
+  strategy: "情感错位型：表面嫌弃、实际关心，表里距离大，在嘴硬的位置用标签带出真实情绪。开头用 worried 而不是抱怨的语气，让「不听」读成担心；「行吧」改成「好吧~」并配 with a soft, fond sigh，无奈里带宠溺；「趁热喝」是温柔的命令，用 gently nudging 而不是加重语气；「跟你没关系」是嘴硬，用 warmly teasing 并加「~」，不用 deadpan，免得读成真冷淡；「哦对了」本身就是话题切换，不另加停顿标签；结尾「不谢」用 under breath 压低，留一点不好意思。",
+};
+
 // ---- 图标（自绘 SVG，currentColor 上色） ----
 
 const ICONS = {
@@ -1169,17 +1178,32 @@ function fitStage() {
 }
 window.addEventListener("resize", fitStage);
 
+// ---- 默认示例：打开页面就有一份标注好的结果 ----
+
+function showDefaultSample() {
+  const original = PRESETS[DEFAULT_SAMPLE.preset];
+  el("inputText").value = original;
+  presetButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.preset === DEFAULT_SAMPLE.preset)));
+  lastOriginalText = original;
+  lastAnnotatedText = DEFAULT_SAMPLE.annotated;
+  for (const engine of Object.keys(columns)) {
+    columns[engine].text.value = columns[engine].toggle.checked ? lastAnnotatedText : lastOriginalText;
+    renderColumn(engine);
+  }
+  renderStrategyNote(DEFAULT_SAMPLE.strategy);
+  el("strategyNote").hidden = false;
+}
+
 // ---- 初始化 ----
 // loadSettings() 直接给 checked/value 赋值，不会触发 change 事件，所以这里要手动把依赖这些状态的 UI 同步一遍。
 
 loadSettings();
 updateProviderFieldsVisibility();
 updateSettingsStatus();
-renderColumn("fish");
-renderColumn("eleven");
+showDefaultSample();
 renderHistory("fish");
 renderHistory("eleven");
 fitStage();
 select("fish", true);
 requestAnimationFrame(budFrame);
-if (readiness().count === 0) setSettingsOpen(true);
+// 不再在首次访问时自动展开设置：默认示例要先被看到，设置胶囊上会显示「先填 API key」
